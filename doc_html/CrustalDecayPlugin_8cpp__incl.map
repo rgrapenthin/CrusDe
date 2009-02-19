@@ -1,0 +1,8 @@
+base referer
+rect $CrustalDecayPlugin_8h.html 221,231 371,255
+rect $SimulationCore_8h.html 420,401 545,425
+rect $Plugin_8h.html 448,205 517,229
+rect $constants_8h.html 740,501 831,525
+rect $config_8h.html 751,205 820,229
+rect $crusde__api_8h.html 593,401 692,425
+rect $exceptions_8h.html 595,353 691,377

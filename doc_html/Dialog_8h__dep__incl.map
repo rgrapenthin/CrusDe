@@ -1,0 +1,4 @@
+base referer
+rect $Dialog_8cpp.html 168,7 253,31
+rect $ExperimentManager_8cpp.html 127,55 295,79
+rect $PluginManager_8cpp.html 143,103 279,127

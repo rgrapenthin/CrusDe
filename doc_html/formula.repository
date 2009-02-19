@@ -1,0 +1,24 @@
+\form#0:\[ h(t) = \frac{h_m}{2} \left[ 1 + cos( \frac{2\,\pi}{p} (t - d_m) ) \right] \]
+\form#1:\[ G_{z}(r) = \frac{g}{\pi} \frac{(1-\nu ^2)}{E} \frac{1}{r} \]
+\form#2:\[ G_{r}(r) = -\frac{g}{2\pi} \frac{(1+\nu)(1-2\nu)}{E} \frac{1}{r} \]
+\form#3:$G_{z}(r)$
+\form#4:$G_{r}(r)$
+\form#5:$r$
+\form#6:\[ U_{z,const} = \frac{g}{\pi} \frac{(1-\nu ^2)}{E} \]
+\form#7:\[ U_{r, const} = -\frac{g}{2\pi} \frac{(1+\nu)(1-2\nu)}{E} \]
+\form#8:\[ G_{z}^{H}(r) = G_{z,elastic}(r) + \frac{(1-\nu^2)g}{E\pi} \int^{\infty}_0{(\frac{B}{D} -1) J_0(\epsilon r)d\epsilon}\\ \]
+\form#9:\[ G_{r}^{H}(r) = G_{r,elastic}(r) + \frac{g}{2\pi E (1-2\nu)} \int^{\infty}_0{\left[(1-\nu^2)(2\epsilon \frac{A}{D} + 4\nu)\right] J_1(\epsilon r)d\epsilon } \]
+\form#10:$J_0$
+\form#11:$J_1$
+\form#12:$G_{z}^{H}(r)$
+\form#13:$G_{r}^{H}(r)$
+\form#14:$A, B,$
+\form#15:$D$
+\form#16:\[ A = \epsilon^2 H^2 - \nu (\cosh(2 \epsilon H) - 1) - \frac{2(1-\nu^2)}{E} g \rho_f (\nu \frac{\sinh(2 \epsilon H)}{\epsilon} + H)\\ \]
+\form#17:\[ B = \frac{1}{2} \epsilon \sinh(2 \epsilon H) + \epsilon^2 H^2 + \frac{1-\nu^2}{E} g \rho_f (\cosh(2 \epsilon H) - 1) \]
+\form#18:\[ D = -\epsilon^3 H^2 + \frac{1}{2} \epsilon (\cosh(2 \epsilon H) - 1) + \frac{1-\nu^2}{E} g \rho_f (\sinh(2 \epsilon H) + 2 \epsilon H) \]
+\form#19:$H \to \infty$
+\form#20:$\frac{A}{D} \to -\frac{2\nu}{\epsilon}$
+\form#21:$\frac{A}{D} \to 1$
+\form#22:$\[0 .. 0.003\]$
+\form#23:\[ G_{r}^{H}(r) = G_{r,elastic}(r) - \frac{g}{2\pi E (1-2\nu)} \int^{\infty}_0{\left[(1-\nu^2)(2\epsilon \frac{A}{D} + 4\nu)\right] J_1(\epsilon r)d\epsilon } \]

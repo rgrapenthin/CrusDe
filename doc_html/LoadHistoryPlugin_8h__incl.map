@@ -1,0 +1,6 @@
+base referer
+rect $Plugin_8h.html 197,180 267,204
+rect $constants_8h.html 463,327 553,351
+rect $config_8h.html 473,204 543,228
+rect $crusde__api_8h.html 316,204 415,228
+rect $exceptions_8h.html 317,105 413,129

@@ -1,0 +1,7 @@
+base referer
+rect $SimulationCore_8h.html 153,7 279,31
+rect $Plugin_8cpp.html 355,56 440,80
+rect $Plugin_8h.html 181,106 251,130
+rect $PluginManager_8h.html 516,182 639,206
+rect $DatabaseManager_8h.html 327,206 468,230
+rect $XMLHandler_8h.html 163,255 269,279

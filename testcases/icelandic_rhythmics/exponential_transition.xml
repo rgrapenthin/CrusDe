@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This model expresses equation 17 from Pinel et al, GJI, 2007 which   -->
+<!-- describes the transition from the instantaneous to the final relaxed -->
+<!-- response of the crust (elastic thick plate over inviscid fluid) to   -->
+<!-- a surface load. The surface load in this case is the winter snow load-->
+<!-- on Icelandic glaciers. Not very realistic since the snow melts in    -->
+<!-- the summer, but if it wouldn't the result describes how the crust    -->
+<!-- would resond. -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+<experiment name="icelandic rhythmics">
+  <file   name="result" value="./exponential_transition.nc" /> 
+                                       <!--result file-->
+<!-- MODEL SPACE CONFIG -->  
+  <region name="west" value="146427" />
+  <region name="east" value="804368" />
+  <region name="south" value="296989" />
+  <region name="north" value="739536" />
+  <parameter name="gridsize"  value="5000"/> 		<!-- length of cell borders {m} -->
+  
+<!-- MODEL TIME CONFIG -->
+ <parameter name="timestep_size"  value="1"/> 		<!-- each step is a year -->
+ <parameter name="timesteps"  value="200"/> 		<!-- 200 timesteps -->
+
+<!-- KERNEL DEFINITION - we want to do something with time, hence 3d convolution! -->
+ <kernel> 
+ 	<plugin name="fast 3d convolution" /> 
+ </kernel>
+
+<!-- EARTH MODEL (Pinel et al, GJI 2007, Equation 17)-->
+ <greens_function>
+  <!-- define job A: (U^(inf) - U^(H)) -->
+  <job name="negative visco-elastic">
+  	<plugin name="inverse thick plate (pinel)"/>
+  </job>
+  
+  <!-- define job B (U^(H)), result is A+B -->
+  <job name="final relaxed">
+  	<plugin  name="final relaxed (pinel)"/>
+  </job>
+
+  <parameter name="g"  value="9.81"/>     <!--acc. due to gravity {m/s^2}-->
+  <parameter name="nu" value="0.25" />    <!--Poisson ratio-->
+  <parameter name="E"  value="40"/>       <!--Young modulus [GPa}-->
+  <parameter name="rho_f"  value="3100"/> <!--density ductile material [kg/m^3}-->
+  <parameter name="H"  value="5000"/>     <!--elastic thickness [m} -->
+  
+ </greens_function>
+
+<!-- LOAD MODEL -->
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="1000"/>
+   <parameter name="file"     value="./load/load_all_glaciers.dat"/>
+  </load>
+  
+  <!-- exponential decay only for first term of Equation 17, hence refer to job that's defined in Green's function definition-->
+  <crustal_decay job="negative visco-elastic">
+   <plugin    name="exponential" />
+   <parameter name="tR" value="100"/>	<!-- 100 years -->
+  </crustal_decay>
+ 
+ </load_function>
+
+  <postprocessor> 
+   <plugin name="xy2r" /> 
+  </postprocessor>
+
+<!-- postprocessor, result handler -->
+  <output> <plugin name="netcdf writer"/> </output>
+
+</experiment>

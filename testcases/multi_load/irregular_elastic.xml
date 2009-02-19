@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This model is equivalent to multi_laod/disk_elastic.xml. Here 5 loads  -->
+<!-- of arbitrary shape (in this very case point loads) are used instead of -->
+<!-- disks.                                                                 -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+<experiment name="multi irregular elastic ">
+ <file   name="result" value="./irreg_elastic.nc" /> 
+                                       <!--result file-->
+	  
+ <region name="west"   value="0"/><!--region of interest-->
+ <region name="east"   value="10000"/><!--Lambert coordinates-->
+ <region name="south"  value="0"/>     
+ <region name="north"  value="10000"/>
+
+ <parameter name="timesteps" value="100"/>
+                             <!-- 12 day eruption-->
+ <parameter name="gridsize"  value="100"/> 
+                             <!--side length of cells-->
+
+<!-- EARTH MODEL -->
+ <greens_function>
+  <plugin    name="elastic halfspace (pinel)"/>
+  <parameter name="g"  value="9.81"/>  <!--acc. due to gravity-->
+  <parameter name="nu" value="0.25" /> <!--Poisson ratio-->
+  <parameter name="E"  value="40"/>    <!--Young modulus-->
+ </greens_function>
+
+<!-- LOAD MODEL -->
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="2900"/>
+   <parameter name="file"     value="./roon1.xyz"/>
+  </load>
+
+   <load_history>
+   <plugin    name="interval" />
+   <parameter name="start" value="10"/>
+   <parameter name="end" value="60" />
+   <parameter name="period_length" value="125"/>
+   <parameter name="peak" value="35" />
+  </load_history>
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="2900"/>
+   <parameter name="file"     value="./roon2.xyz"/>
+  </load>
+  <load_history>
+   <plugin    name="sinusoidal" />
+   <parameter name="period_length" value="75"/>
+   <parameter name="peak" value="25" />
+  </load_history>
+
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="2900"/>
+   <parameter name="file"     value="./roon3.xyz"/>
+  </load>
+  <load_history>
+   <plugin    name="sinusoidal" />
+   <parameter name="period_length" value="25"/>
+   <parameter name="peak" value="2" />
+  </load_history>
+
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="2900"/>
+   <parameter name="file"     value="./roon4.xyz"/>
+  </load>
+  <load_history>
+   <plugin    name="sinusoidal" />
+   <parameter name="period_length" value="300"/>
+   <parameter name="peak" value="78" />
+  </load_history>
+
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="2666"/>
+   <parameter name="file"     value="./roon.xyz"/>
+  </load>
+  <load_history>
+   <plugin    name="sinusoidal" />
+   <parameter name="period_length" value="50"/>
+   <parameter name="peak" value="134" />
+  </load_history>
+
+ </load_function>
+
+ <postprocessor> 
+   <plugin name="xy2r" /> 
+<!--   <plugin name="hori2vert-ratio" /> -->
+ </postprocessor>
+
+<!-- postprocessor, result handler & convolution operator -->
+ <output> <plugin name="netcdf writer"/> </output>
+ <kernel> <plugin name="fast 3d convolution" /> </kernel>
+
+</experiment>

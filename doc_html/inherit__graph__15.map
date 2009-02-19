@@ -1,0 +1,7 @@
+base referer
+rect $classXMLCore.html 7,55 87,79
+rect $classXMLHandler.html 136,55 232,79
+rect $classDatabaseManager.html 282,31 412,55
+rect $classInputHandler.html 298,79 396,103
+rect $classExperimentManager.html 462,7 603,31
+rect $classPluginManager.html 476,55 588,79

@@ -1,0 +1,50 @@
+<!ELEMENT file 		EMPTY>
+<!ELEMENT region	EMPTY>
+<!ELEMENT parameter	EMPTY>
+<!ELEMENT plugin	EMPTY>
+
+
+<!ELEMENT greens_function (	plugin, parameter*)>
+<!ELEMENT load_function   ( plugin, parameter*)>
+<!ELEMENT load_history    (	plugin, parameter*)>
+<!ELEMENT load   		  (	load_function, load_history?)>
+<!ELEMENT postprocessor   (	plugin*, parameter*)>
+<!ELEMENT output 	  (	plugin, parameter*)>
+<!ELEMENT kernel 	  (	plugin, parameter*)>
+
+<!ELEMENT experiment 	  (	file*, 
+				region*, 
+				parameter*, 
+				greens_function, 
+				load_function, 
+				load_history, 
+				postprocessor?, 
+				output,
+				kernel	)
+>
+				
+<!ELEMENT experiments	(experiment*)>
+
+
+<!ATTLIST plugin	name CDATA #REQUIRED>
+<!ATTLIST file 		name (result | load | observe) #REQUIRED
+			value CDATA #REQUIRED
+>
+<!ATTLIST region	name (west | east | north | south) #REQUIRED
+			value CDATA #REQUIRED
+>
+<!ATTLIST parameter	name CDATA #REQUIRED
+			value CDATA #REQUIRED
+			function CDATA #IMPLIED
+			inc CDATA #IMPLIED
+			max CDATA #IMPLIED
+			min CDATA #IMPLIED
+>
+<!ATTLIST experiment  	date CDATA #REQUIRED
+			gmtime CDATA #REQUIRED
+			id NMTOKEN #REQUIRED
+			localtime CDATA #REQUIRED
+			name CDATA #REQUIRED
+			user CDATA #REQUIRED
+>
+<!ATTLIST experiments 	id NMTOKEN #REQUIRED>

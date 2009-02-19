@@ -1,0 +1,15 @@
+<!ELEMENT name 		(#PCDATA)>
+<!ELEMENT category	(#PCDATA)>
+<!ELEMENT version	(#PCDATA)>
+<!ELEMENT authors	(#PCDATA)>
+<!ELEMENT filename	(#PCDATA)>
+<!ELEMENT description	(#PCDATA)>
+<!ELEMENT added		(#PCDATA)>
+<!ELEMENT parameter	(#PCDATA)>
+<!ELEMENT dependency	(#PCDATA)>
+
+<!ELEMENT plugin 	(name, category, version, authors, filename, description, added, parameter*, dependency*)>
+<!ELEMENT CrusDe_Plugins	(plugin*)>
+
+<!ATTLIST plugin id NMTOKEN #REQUIRED>
+<!ATTLIST CrusDe_Plugins id NMTOKEN #REQUIRED>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This model is the equivalent that was used in Grapenthin et al., GRL, 2007  -->
+<!-- to describe the elastic response of the crust to annual changes in the snow -->
+<!-- load of the icelandic ice caps. We used a simple sinusoidal functions as a  -->
+<!-- load history. The result shows the elastic response of the crust to the load-->
+<!-- changes over a full year. The load maximum is in mid-May (day 140). Some    -->
+<!-- results are given in Figure 3, Grapenthin et al., GRL, 2007.                -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+<experiment name="icelandic rhythmics">
+ <file   name="result" value="./elastic_timeseries.nc" /> 
+                                       <!--result file-->
+<!-- MODEL SPACE CONFIG -->  
+  <region name="west" value="146427" />
+  <region name="east" value="804368" />
+  <region name="south" value="296989" />
+  <region name="north" value="739536" />
+  <parameter name="gridsize"  value="5000"/> 		<!-- grid cell border length [m] -->
+ 
+ 
+<!-- MODEL TIME CONFIG -->  
+  <parameter name="timestep_size"  value="1"/> 		<!-- each step is a day -->
+  <parameter name="timesteps"  value="365"/> 		<!-- 365 steps == 1 year -->
+
+<!-- KERNEL DEFINITION - we want to do something with time, hence 3d convolution! -->
+  <kernel> 
+  	<plugin name="fast 3d convolution" /> 
+  </kernel>
+  
+<!-- EARTH MODEL (equations 1 and 2 in Pinel et al., 2007, GJI)-->
+ <greens_function>
+  <plugin    name="elastic halfspace (pinel)"/>
+  <parameter name="g"  value="9.81"/>  <!--acc. due to gravity-->
+  <parameter name="nu" value="0.25" /> <!--Poisson ratio-->
+  <parameter name="E"  value="40"/>    <!--Young modulus-->
+ </greens_function>
+
+<!-- LOAD MODEL - each value of the load history will be multiplied with the convolution -->
+<!-- result of the Green's function and the load function.                               -->
+ <load_function>
+  <!-- load is of arbitrary shape and defined in a file in x y z format in Lambert coords-->
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="1000"/>
+   <parameter name="file"     value="./load/load_all_glaciers.dat"/>
+  </load>
+  
+  <!-- load history: use a simple cosine, define its period and set the point of the maximum amplitude -->
+  <load_history>
+   <plugin    name="sinusoidal" />
+   <parameter name="period_length" value="365"/>	<!-- 365 days -->
+   <parameter name="peak" value="140" />		<!-- max. mid-may -->
+  </load_history>
+ </load_function>
+
+<!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+  <postprocessor> 
+   <!-- we want the horizontal displacement for cylindrical coordinates -->
+   <plugin name="xy2r" /> 
+  </postprocessor>
+
+<!-- RESULT HANDLER - write data in netCDF format -->
+  <output> <plugin name="netcdf writer"/> </output>
+</experiment>

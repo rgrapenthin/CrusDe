@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This model shows how the final relaxed response of the crust due to 5  -->
+<!-- disks of different shape.                                              -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+<experiment name="multi disk, thickplate">
+ <file   name="result" value="./disk_thickplate.nc" /> 
+                                       <!--result file-->
+	  
+<!-- MODEL SPACE CONFIG -->  
+ <region name="west"   value="0"/>
+ <region name="east"   value="10000"/>     <!--Lambert coordinates-->
+ <region name="south"  value="0"/>      
+ <region name="north"  value="10000"/>
+ <parameter name="gridsize"  value="100"/> <!--side length of cells-->
+
+<!-- KERNEL DEFINITION - we want multiple loads, hence 3d conv!    -->
+  <kernel> 
+  	<plugin name="fast 3d convolution" /> 
+  </kernel>
+
+<!-- EARTH MODEL (equations 8 and 9 in Pinel et al., 2007, GJI)-->
+ <greens_function>
+  <plugin    name="thick plate (pinel)"/>
+  <parameter name="g"  value="9.81"/>  <!--acc. due to gravity-->
+  <parameter name="nu" value="0.25" /> <!--Poisson ratio-->
+  <parameter name="E"  value="40"/>    <!--Young modulus-->
+  <parameter name="H"  value="10"/>    <!--Young modulus-->
+  <parameter name="rho_f"  value="3200"/>    <!--density of the ductile material-->
+ </greens_function>
+
+<!-- LOAD MODEL 5 disks somewhat distributed in the playground ... -->
+ <load_function>
+  <load>
+   <plugin    name="disk load" />            
+   <parameter name="height"   value="9.82"/>
+   <parameter name="radius"   value="2000"/>
+   <parameter name="center_x" value="2500"/>
+   <parameter name="center_y" value="2500"/>
+   <parameter name="rho"      value="2900"/>
+  </load>
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="disk load" /> 
+   <parameter name="height"   value="9.82"/>
+   <parameter name="radius"   value="1000"/>
+   <parameter name="center_x" value="7500"/>
+   <parameter name="center_y" value="2500"/>
+   <parameter name="rho"      value="2900"/>
+  </load>
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="disk load" />
+   <parameter name="height"   value="9.82"/>
+   <parameter name="radius"   value="1500"/>
+   <parameter name="center_x" value="2500"/>
+   <parameter name="center_y" value="7500"/>
+   <parameter name="rho"      value="2900"/>
+  </load>
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="disk load" />
+   <parameter name="height"   value="9.82"/>
+   <parameter name="radius"   value="2500"/>
+   <parameter name="center_x" value="5000"/>
+   <parameter name="center_y" value="5000"/>
+   <parameter name="rho"      value="2900"/>
+  </load>
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="disk load" />
+   <parameter name="height"   value="9.82"/>
+   <parameter name="radius"   value="2000"/>
+   <parameter name="center_x" value="7500"/>
+   <parameter name="center_y" value="7500"/>
+   <parameter name="rho"      value="2900"/>
+  </load>
+ </load_function>
+<!-- end load model -->
+
+<!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+ <postprocessor> 
+   <plugin name="xy2r" /> 
+ </postprocessor>
+
+<!-- RESULT HANDLER - write in netCDF format -->
+ <output> <plugin name="netcdf writer"/> </output>
+</experiment>

@@ -1,0 +1,4 @@
+base referer
+rect $classConversion.html 7,133 116,208
+rect $classFileNotFound.html 140,133 263,208
+rect $classLibHandleError.html 287,133 420,208

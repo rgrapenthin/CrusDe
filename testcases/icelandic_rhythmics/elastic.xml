@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This model expresses equation 3 from Pinel et al, GJI, 2007 which      -->
+<!-- describes the instaneous response of the crust (flat elastic halfspace)-->
+<!-- to a surface load. This model gives both vertical and horizontal       -->
+<!-- displacement. The results are published in Figure 1 of Grapenthin et   -->
+<!-- al. GRL, 2007. -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+<experiment name="icelandic rhythmics ">
+ <file   name="result" value="./elastic.nc" /> <!--result file-->
+
+<!-- MODEL SPACE CONFIG -->  
+  <region name="west" value="146427" />
+  <region name="east" value="804368" />
+  <region name="south" value="296989" />
+  <region name="north" value="739536" />
+  <parameter name="gridsize"  value="1000"/>         <!--side length of cells {m} -->
+
+<!-- KERNEL DEFINITION - a simple 2 dimensional convolution will do here -->
+  <kernel> 
+  	<plugin name="fast 2d convolution" /> 
+  </kernel>
+
+<!-- EARTH MODEL (equations 1 and 2 in Pinel et al., 2007, GJI)-->
+ <greens_function>
+  <plugin    name="elastic halfspace (pinel)"/>
+  <parameter name="g"  value="9.81"/>  <!--acc. due to gravity-->
+  <parameter name="nu" value="0.25" /> <!--Poisson ratio-->
+  <parameter name="E"  value="40"/>    <!--Young modulus-->
+ </greens_function>
+
+<!-- LOAD MODEL - all the loads are defined in one file -->
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="1000"/>
+   <parameter name="file"     value="./load/load_all_glaciers.dat"/>
+  </load>
+ </load_function>
+
+ <!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+  <postprocessor> 
+   <!-- we want the horizontal displacement for cylindrical coordinates ... -->
+   <plugin name="xy2r" /> 
+   <!-- ... and the ratio of horizontal to vertical displacements (therefore-->
+   <!-- xy2r must be calculated first! -->   
+   <plugin name="hori2vert-ratio" /> 
+  </postprocessor>
+
+<!-- RESULT HANDLER - write in netCDF format -->
+  <output> <plugin name="netcdf writer"/> </output>
+
+</experiment>

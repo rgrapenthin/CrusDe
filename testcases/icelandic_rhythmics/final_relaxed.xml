@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This model expresses equation 13 from Pinel et al, GJI, 2007 which  -->
+<!-- describes the final relaxed response of the crust (thick plate over --> 
+<!-- inviscid fluid) to the maximum snow load on the Icelandic ice caps. -->
+<!-- The model formulation gives both the vertical and the horizontal    -->
+<!-- displacement. The results are physically irrelevant and therfore not-->
+<!-- not published in any Figure. -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+<experiment name="icelandic rhythmics thickplate">
+
+<!-- MODEL SPACE CONFIG (Lambert coordinates) -->  
+  <region name="west" value="146427" />
+  <region name="east" value="804368" />
+  <region name="south" value="296989" />
+  <region name="north" value="739536" />
+  <parameter name="gridsize" value="1000" />	<!-- side length of grid cells [m] -->
+
+<!-- KERNEL DEFINITION - simple 2d convolution is sufficient -->
+  <kernel> 
+  	<plugin name="fast 2d convolution" /> 
+  </kernel>
+ 
+<!-- EARTH MODEL (equations 8 and 9 in Pinel et al., 2007, GJI)-->
+  <greens_function>
+    <plugin name="final relaxed (pinel)"/>
+    <parameter name="g" value="9.81" />		<!-- acc. to gravity [m/s^2               -->
+    <parameter name="nu" value="0.25" />	<!-- Poisson's ratio                      -->
+    <parameter name="rho_f" value="3100" />     <!-- density of ductile material [kg/m^3] -->
+    <parameter name="H" value="10000" />        <!-- effective elastic thickness [m]      -->
+    <parameter 	name="E" value="40" />          <!-- Youngs modulus [GPa]                 -->
+ </greens_function>
+
+<!-- LOAD MODEL - all the loads are defined in one file -->
+  <load_function>
+    <load>
+      <plugin name="irregular load" />
+      <parameter name="rho" value="1000" />		<!-- the density of water, since we use water equivalent load-->
+      <parameter name="file" value="./load/load_all_glaciers.dat"/>
+    </load>
+  </load_function>
+
+ <!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+  <postprocessor>
+    <plugin name="xy2r" />
+  </postprocessor>
+
+<!-- RESULT HANDLER - write data in netCDF format -->
+  <output>
+    <plugin name="netcdf writer" />
+  </output>
+</experiment>

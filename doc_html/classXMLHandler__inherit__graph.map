@@ -1,0 +1,4 @@
+base referer
+rect $classDatabaseManager.html 7,1187 167,1424
+rect $classInputHandler.html 191,989 409,1621
+rect $classXMLCore.html 140,7 247,97

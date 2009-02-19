@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<experiment name="disk">
+
+<!-- ############################################################################################# -->
+<!-- This is the representation of equation 17 from Pinel (2007) Geophys. J. Int. 169, pp. 325-338 -->
+<!-- ############################################################################################# -->
+<!-- The displacement of the ground due to two disks is calculated. One disk has a large           -->
+<!-- radius, but is not high; the other has a smaller radius but is three times higher than the    -->
+<!-- first disk.                                                                                   -->
+<!-- ############################################################################################# -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+  <file name="result" value="./disk_displacement_rate.nc" />
+
+<!-- MODEL SPACE CONFIG -->
+  <region name="west" value="0" />
+  <region name="east" value= "400000" />
+  <region name="south" value="0" />
+  <region name="north" value="400000" />
+
+  <parameter name="gridsize" value="5000" />
+
+<!-- MODEL TIME CONFIG -->
+  <parameter name="timestep_size" value="1"/>  <!-- each step is a year [yr] -->
+  <parameter name="timesteps" value="300"/>    <!-- X steps, size step_size -->
+
+<!-- KERNEL DEFINITION -->
+  <kernel>
+    <plugin name="fast 3d convolution" />
+ </kernel>
+
+<!-- PLUGIN CONFIG --> 
+
+  <greens_function>
+	<job name="thickplate">
+     <plugin name="inverse thick plate (pinel)"/> <!-- Green's function A-->
+    </job>
+
+	<job name="final relaxed">
+      <plugin name="final relaxed (pinel)"/>   <!-- GF B result is A+B -->
+    </job> 
+
+    <!-- list ALL requested parameters -->
+    <parameter name="g" value="9.81" />		   <!-- acc. 	gravity [m s^-2] -->
+    <parameter name="nu" value="0.25" />	   <!-- poisson's ratio -->
+    <parameter name="E" value="40"/>		   <!-- young's modulus [GPa] -->
+    <parameter name="H" value="5000"/>		   <!-- plate thickness [m] -->
+    <parameter name="rho_f" value="3100"/>	   <!-- liquid density [kg m^-3] -->
+  </greens_function>
+
+  <load_function>
+    <load>
+       <plugin name="disk load" />
+       <parameter name="height" value="20"/>
+       <parameter name="radius" value="50000" />
+       <parameter name="center_x" value="200000" />
+       <parameter name="center_y" value="200000" />
+       <parameter name="rho" value="1000" />
+    </load>
+
+    <crustal_decay job="thickplate">
+     <plugin    name="exponential" />
+     <parameter name="tR" value="300" />
+    </crustal_decay>
+
+  </load_function>
+
+  <load_function>
+    <load>
+       <plugin name="disk load" />
+       <parameter name="height" value="60"/>
+       <parameter name="radius" value="25000" />
+       <parameter name="center_x" value="100000" />
+       <parameter name="center_y" value="100000" />
+       <parameter name="rho" value="1000" />
+    </load>
+
+    <crustal_decay job="thickplate">
+     <plugin    name="exponential" />
+     <parameter name="tR" value="300" />
+    </crustal_decay>
+
+  </load_function>
+
+<!-- OTHER STUFF -->
+  <postprocessor>
+    <plugin name="xy2r" />
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer" />
+  </output>
+
+</experiment>

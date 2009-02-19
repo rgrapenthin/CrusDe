@@ -1,0 +1,4 @@
+base referer
+rect $classExperimentManager.html 7,1157 177,1408
+rect $classPluginManager.html 201,1135 343,1431
+rect $classXMLHandler.html 79,7 284,801

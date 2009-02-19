@@ -1,0 +1,15 @@
+Changelog v 0.1 - 0.2
+
+1) All code related to model building from commandline deleted
+
+	This affects:	- InputHandler.*pp
+
+2) The tag <load_function> is replaced by <load> and now used to wrap a load and a load history
+
+3) 	- class LoadFunction is introduced to allow for multiple loads with independent histories
+	- setHistoryFunction in load plug-ins mandatory
+
+
+Notes:
+	If more than one of the single tags is given in model files, the first one will be taken
+	

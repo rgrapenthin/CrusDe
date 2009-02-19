@@ -1,0 +1,6 @@
+base referer
+rect $Dialog_8h.html 206,55 278,79
+rect $Qt__TreeModel_8cpp.html 176,103 307,127
+rect $Dialog_8cpp.html 398,7 483,31
+rect $ExperimentManager_8cpp.html 356,55 524,79
+rect $PluginManager_8cpp.html 372,103 508,127

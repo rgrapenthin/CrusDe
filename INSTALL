@@ -1,0 +1,130 @@
+How to install CrusDe
+=====================
+
+NOTE: The current version needs a little more attention than the convenient
+'configure-make-make install' cycle. This will change as soon as possible. In 
+the meantime I ask you to hang in there and go through the procedures 
+described below. I appreciate your patience!
+
+1) solve dependencies and install the following packages:
+    * FFTW3
+    * gsl 
+    * netCDF
+    * Qt -  after installation go to /usr/local/Trolltech and add a 
+            symbolic link 'Qt' that points to the directory where the 
+            installed version of Qt lives
+    * xerces-c
+
+    links at http://www.gps.alaska.edu/ronni/projects/crusde/download.html
+
+    Preferably all these packages should end up in their default directories 
+    or /usr/local respectively.
+
+    If you compiled the shared versions set the LD_LIBRARY_PATH variable in 
+    your profile file and add the paths to the respective PACKAGE/lib 
+    directory.
+
+2) move and decompress CrusDe (if you read this, you probably already 
+   decompressed :) ... move the directory then
+    $> cp crusde-VERSION.tar.gz /usr/local
+    $> cd /usr/local
+    $> tar xfz crusde-VERSION.tar.gz
+
+    If you don't want to install to /usr/local you can move the directory to any
+    other place. Whereever it ends up, set this path in your profile file (bash):
+
+	export CRUSDE_HOME=/usr/local/CrusDe
+
+    
+3) edit Makefile
+    $> cd $CRUSDE_HOME/src
+    $> vi Makefile
+
+    Now several things might have to be changed:
+         - Binary directory if you don't have write permission to /usr/local/bin, 
+           change
+		BIN := <path to where the crusde binary should go>
+         - If Qt ended up somewhere different from /usr/local/Trolltech/Qt, 
+           change
+                export QT_DIR := <path to where Qt is installed>
+         - If any of the other libraries is installed somewhere else than 
+           /usr/local/{lib | include}, add the respective paths to 
+                INCLUDE_DIRS and LIB_DIRS 
+           using -I<path> or -L<path> respectively. Those variables already 
+           point to /usr/local/xerces-c. Modify this path, if xerces lives in 
+           a different directory.
+         
+4) compile source
+     $> cd $CRUSDE_HOME/src
+     $> make all
+
+5) install the plug-ins
+     This step might be a little painful, but also helps to familiarize with
+     the plug-in manager; there's always a good side to everything, right?!
+
+     $> crusde -p
+     
+     A little window will open, the so called 'CrusDe Plugin Manager', do the
+     following:
+         - click 'Add'
+         - go to 'src/plugin-src/green'
+         - click on 'pinel_hs_elastic.so', click on 'Open'
+         - Read text and press 'Ok'
+     
+     The plugin 'elastic halfspace (pinel)' should be installed in the category
+     'green' after some tests were run. 
+
+     Repeat this for all subdirectories in $CRUSDE_HOME/src/plugin_src. Some 
+     plugins depend on others and hence a certain order must be followed. Here
+     is a recommendation:
+         - crustal_decay: free choice (exponential, exponential_rate)
+         - data_handler:  free choice (netcdf, table)
+         - green:         pinel_hs_elastic.so, pinel_hs_thickplate.so, 
+                          pinel_hs_final_relaxed.so,pinel_inverse_thickplate.so
+         - load:          free choice (disk, irregular)
+         - load_history:  free choice
+         - operator:      fast_conv.so, fast_conv_time_space.so (conv.so is 
+                          useless at the moment)
+         - postprocess:   free choice
+
+     A known problem is that plug-ins that depend on other plug-ins will cause 
+     the plugin manager to crash after the tests are performed. 
+                     That is NOT a problem!
+     Just restart the plugin manager and you'll see the plug-in was installed. 
+     This is an issue that will be tackled soon.
+     
+     You should be ready to run the testcases in $CRUSDE_HOME/testcases after that. 
+
+6) I recommend to copy the testcases directory somewhere into your user space 
+   so that other users have access to clean testcases. You can then go ahead
+   and play with them:
+
+    $> crusde <path to experiment definition>/experiment.xml
+
+
+
+Copying, etc. (shamelessly copied from ncview's INSTALL file)
+=============================================================
+
+CrusDe is freely redistributable, but is not public domain.
+It is copyright (C) 2007 through 2008 Ronni Grapenthin.
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License, version 2, for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+------------------------
+Ronni Grapenthin
+Geophysical Institute
+University of Alaska Fairbanks
+903 Koyukuk Drive, P.O. Box 757320
+Fairbanks, Alaska 99775-7320
+ronni@gi.alaska.edu

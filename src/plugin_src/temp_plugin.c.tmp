@@ -1,0 +1,127 @@
+/***************************************************************************
+ * File:        ./plugin_src/temp_plugin.c.tmp
+ * Author:      Ronni Grapenthin, NORVULK & HU-BERLIN
+ * Created:     17.03.2007
+ * Licence:     GPL
+ ****************************************************************************/
+
+/*! 
+ *  @defgroup Plugin (Template for) Plugins
+ */
+
+/*@{*/
+/** \file temp_plugin.c.tmp
+ *
+ *  This is a template documenting the plug-in functionality of GFLC and suggested to use when 
+ *  implementing new plugins. This file can be compiled to an object file as it is (well, you might want to
+ *  rename it before doing that: <tt>gcc -c -I../ temp_plugin.c</tt>). This should help you 
+ *  understand that any compiler errors are yours ;).
+ *
+ *  The sequence in which the functions are called from the main program is as follows:
+ *  -# register_parameter()
+ *  -# init()
+ *  -# run() or get_value_at(), depends on plug-in type
+ *  -# clear()
+ */
+/*@}*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include "crusde_api.h"		/* This include is vital, since crusde_api.h defines the interface to the main application*/
+
+double first_parameter;		//!< brief description of first parameter (must be double!)	[physical unit]
+double second_parameter;	//!< brief description of 2nd parameter	 (must be double!)	[physical unit]
+
+double *internal_value;		//!< brief description about what's stored here
+int x_pos, y_pos_ z_pos;	//!< positions of the respective values in the output array 
+
+extern const char* get_name() 	 { return "THIS PLUGIN'S NAME"; }
+extern const char* get_version() { return "THIS PLUGIN'S VERSION"; }
+extern const char* get_authors() { return "YOUR NAME(S)"; }
+extern const char* get_description() { return "A DETAILED DESCRIPTION OF THE FUNCTIONALITY"; }
+extern PluginCategory get_category() { return (	LOAD_PLUGIN || KERNEL_PLUGIN || 
+							GREEN_PLUGIN || DATAOUT_PLUGIN ||
+							POSTPROCESS_PLUGIN || LOADHISTORY_PLUGIN );}
+
+
+//! Register parameters this Plugin claims from the input.
+/*! This function is called right after loading of the Plug-in.
+ *  It calls register_green_param() defined in crusde_api.h to register 
+ *  references to parameters this Green's function will need to operate properly.
+ *  For command line use the order of registration in this function defines the 
+ *  identification of parameters in the command line string (i.e. './green -GfirstRegistered/secondRegistered/...').
+ *  In case an XML is used to configure the experiment, the reference to this parameter will be identified by 
+ *  the string passed as second argument to register_green_param().
+ *
+ *  @see crusde_register_param_double()
+ */
+extern void register_parameter()
+{
+	crusde_register_param_double(&first_parameter, "name of first_parameter in XML config file", get_category());
+	crusde_register_param_double(&second_parameter, "name of first_parameter in XML config file", get_category());
+}
+
+//! Allocate an output field of size (lat*lon) with the framework.
+/**
+ * It calls crusde_register_output_field() as many times as indices are to be registered. The assigned index in 
+ * the output field is saved to an address that must be provided as a parameter to 
+ * crusde_register_output_field() Furthermore, it must be said what type of field (X_FIELD|Y_FIELD|Z_FIELD|ADD_FIELD)
+ * is to be registered using crusde_register_output_field().
+ */
+extern void register_output_fields() 
+{ 
+	crusde_register_output_field(&x_pos, X_FIELD);	
+	crusde_register_output_field(&y_pos, Y_FIELD);	
+	crusde_register_output_field(&z_pos, Z_FIELD);	
+}
+
+//! Initialize members that depend on registered values. 
+/*! This function <b>must not</b> be called before register_parameter() unless none of the necessary values depends on 
+ *  parameters provided by the user, which are only set after they have been registered. This function is called
+ *  some time <b>after</b> register_parameter().
+ *
+ *  @see register_parameter()
+ */
+extern void init()
+{
+	/* do some dynamic memory allocation if necessary (here: a 2D  double array of size 2x100)*/
+	internal_value = (double*) malloc(sizeof(double)*2*100);
+
+	/* do something with something*/
+	internal_value[0] = first_parameter / second_parameter;
+}
+
+//! Start the processing of this plugin.
+/*! This function is only called for Kernel Plug-ins. It can be omitted for any other Plug-in type.
+ */
+extern void run()
+{
+	do_something_smart();
+}
+
+//! Clean-up before this plug-in gets unloaded. 
+/*! This is the place to undo any dynamic ressource binding that has been done by this plug-in during init() or anywhere else during 
+ *  its lifetime. Freeing the ressources is vital to the performance of the simulator. 
+ */
+extern void clear()
+{
+	free(internal_value);
+}
+
+//! Returns the value at Point(x,y) at a specific time t.
+/*! This function is vital for Green and Load Plugins.
+ 
+ * @param x The x-Coordinate of the wanted value.
+ * @param y The y-Coordinate of the wanted value.
+ * @param t The time-Coordinate of the wanted value (set to GFLC_NO_TIME in non-temporal modeling environment).
+ * 
+ * @return The value found at Point[t][y][x]
+ */
+extern double get_value_at(int x, int y, int t)
+{
+	if(t == NO_TIME)
+		return internal_value[2*y+x];
+		
+	return 0.0;
+}

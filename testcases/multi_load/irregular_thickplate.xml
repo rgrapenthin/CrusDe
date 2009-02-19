@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This model is equivalent to multi_laod/disk_thickplate.xml. Here 5 loads  -->
+<!-- of arbitrary shape (in this very case point loads) are used instead of -->
+<!-- disks.                                                                 -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+<experiment name="irregular multi thickplate">
+ <file   name="result" value="./irreg_thickplate.nc" /> 
+                                       <!--result file-->
+	  
+ <region name="west"   value="0"/><!--region of interest-->
+ <region name="east"   value="10000"/><!--Lambert coordinates-->
+ <region name="south"  value="0"/>     
+ <region name="north"  value="10000"/>
+
+ <parameter name="gridsize"  value="100"/> 
+                             <!--side length of cells-->
+
+<!-- EARTH MODEL -->
+ <greens_function>
+    <plugin name="thick plate (pinel)"/>
+    <parameter name="g" value="9.81" />		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25" />	<!-- poisson's ratio -->
+    <parameter name="rho_f" value="3100" />	<!-- density of the upper mantle [kg m^-3] -->
+    <parameter name="H" value="5000" />		<!-- plate thickness [m] -->
+    <parameter 	name="E" value="40"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+<!-- LOAD MODEL -->
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="2900"/>
+   <parameter name="file"     value="./roon1.xyz"/>
+  </load>
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="2900"/>
+   <parameter name="file"     value="./roon2.xyz"/>
+  </load>
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="2900"/>
+   <parameter name="file"     value="./roon3.xyz"/>
+  </load>
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="2900"/>
+   <parameter name="file"     value="./roon4.xyz"/>
+  </load>
+ </load_function>
+
+ <load_function>
+  <load>
+   <plugin    name="irregular load" />            
+   <parameter name="rho"      value="2666"/>
+   <parameter name="file"     value="./roon.xyz"/>
+  </load>
+ </load_function>
+
+
+ <postprocessor> 
+   <plugin name="xy2r" /> 
+ </postprocessor>
+
+<!-- postprocessor, result handler & convolution operator -->
+ <output> <plugin name="netcdf writer"/> </output>
+ <kernel> <plugin name="fast 3d convolution" /> </kernel>
+
+</experiment>

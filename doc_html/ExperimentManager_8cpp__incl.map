@@ -1,0 +1,4 @@
+base referer
+rect $ExperimentManager_8h.html 224,153 376,177
+rect $Dialog_8h.html 264,351 336,375
+rect $SimulationCore_8h.html 238,201 363,225

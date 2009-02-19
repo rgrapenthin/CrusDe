@@ -1,0 +1,5 @@
+
+- remove all string constants from code and put them into separate header
+- implement option to have all values (all arrays etc) written to a log file
+- use look up table that's already started in pinel_thickplate.c
+- 
