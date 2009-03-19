@@ -144,7 +144,7 @@ extern void init()
 
    
    /*write header*/
-   fprintf(out_file, "# file '%s' created by GFLC table writer\n", filename);
+   fprintf(out_file, "# file '%s' created by CrusDe's table writer\n", filename);
    fprintf(out_file, "#\n");
    fprintf(out_file, "#    date: %s\n", date_str);
    fprintf(out_file, "#    time: %s (GMT)\n", gmt_str);

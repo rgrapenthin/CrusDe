@@ -25,6 +25,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 #include "crusde_api.h"
@@ -137,7 +138,7 @@ load_list * loads[100];
 int my_id = 0;
 
 extern const char* get_name() 	     { return "irregular load"; }
-extern const char* get_version()     { return "0.1"; }
+extern const char* get_version()     { return "0.2"; }
 extern const char* get_authors()     { return "ronni grapenthin"; }
 extern const char* get_description() { 
 	return "Read load from a file that must be in the following format:<br/><br/> \
@@ -205,7 +206,7 @@ extern void init()
 			++n;
 		}
 		perror(*p_file[my_id]);
-		exit(1);
+		crusde_exit(1);
 	}
 
 	/*other problems with file?*/
@@ -213,7 +214,7 @@ extern void init()
 	{
 printf("FILE PROBLEM ... <%s>\n", *p_file[my_id]);
 		perror(*p_file[my_id]);
-		exit(1);
+		crusde_exit(1);
 	}
 
 	/*determine array dimensions and increment from load file*/
@@ -260,14 +261,59 @@ printf("FILE PROBLEM ... <%s>\n", *p_file[my_id]);
 
 	/*reset filepointer*/
 	rewind(fi);
-	
+	//get the line
+        int result       = 0;
+	int line_no      = 0;
+	int comment_line = 0;
+	char *comment = "#";
+
 	/*read values, copy to local array*/
-	while(fscanf(fi, "%f%f%f", &xg,&yg,&zg) != EOF)
-    {	
-		add_elem(loads[my_id],  (int) ( ( xg - x_min) / gridsize ), 
-                                (int) ( ( yg - y_min) / gridsize ),
-                                 zg);
-	}/*while ! EOF*/
+	while( true )
+        {
+
+            char st[1024];
+	    fgets( st, sizeof(st), fi );
+	    if( feof(fi) )
+            {
+                printf("IRREGULAR_LOAD.C: read %d data sets, %d comments, %d lines total.\n", line_no-comment_line, comment_line, line_no);
+                break;
+            }
+
+	    ++line_no;
+
+	    //a blank line
+	    if( strlen(st) == 1 ){          ++comment_line; continue; }
+	    //a comment line
+	    if( !strncmp(st, comment, 1) ){ ++comment_line; continue; }
+
+            
+            //now go to work
+            result = sscanf(st, "%f%f%f", &xg,&yg,&zg );
+            if(result == 3)             //three matches, as expected
+            {		           //go ahead and add the element
+               add_elem( loads[my_id], 
+                         (int) ( ( xg - x_min) / gridsize ), 
+                         (int) ( ( yg - y_min) / gridsize ),
+                         zg
+                       );
+            }
+            else
+            {
+               printf("IRREGULAR_LOAD.C: Formatting problem in file <%s>, line %d \n", *p_file[my_id], line_no);
+               crusde_exit(1);
+            }
+	}
+
+/*	while(fscanf(fi, "%f%f%f", &xg,&yg,&zg) != EOF)
+        {	
+            add_elem( loads[my_id], 
+                      (int) ( ( xg - x_min) / gridsize ), 
+                      (int) ( ( yg - y_min) / gridsize ),
+                      zg
+                     );
+	}
+*//*while ! EOF*/
+
 }
 
 
