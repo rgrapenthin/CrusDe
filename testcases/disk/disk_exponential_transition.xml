@@ -20,7 +20,7 @@
   <region name="south" value="0" />
   <region name="north" value="400000" />
 
-  <parameter name="gridsize" value="5000" />
+  <parameter name="gridsize" value="10000" />
 
 <!-- MODEL TIME CONFIG -->
   <parameter name="timestep_size" value="1"/>  <!-- each step is a year [yr] -->
