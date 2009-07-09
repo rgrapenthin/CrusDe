@@ -63,7 +63,9 @@ typedef enum{
 
 double* 	crusde_register_param_double(const char* param_name, PluginCategory);
 							/*register double parameter with CrusDe*/
-char**      crusde_register_param_string(const char* param_name, PluginCategory);
+//int* 	        crusde_register_param_int(const char* param_name, PluginCategory);
+							/*register integer parameter with CrusDe*/
+char**          crusde_register_param_string(const char* param_name, PluginCategory);
 							/*register string parameter with CrusDe*/
 void		crusde_register_output_field(int* position, FieldName);
 							/*register output field with CrusDe*/

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ############################################################################################# -->
+<!-- This is the representation of equation 3 from Pinel (2007) Geophys. J. Int. 169, pp. 325-338  -->
+<!-- ############################################################################################# -->
+<!-- The instantanous response of the ground due to a disk is calculated. The two horizonal        -->
+<!-- responses are found in 'channel 0' and 'channel 1', vertical response is written to 'channel 2', -->
+<!-- the radial response is given in channel 3, and the horizontal to vertical ratio is given in   -->
+<!-- 'channel 4' of the netCDF file to which the results are written.                              -->
+<!-- ############################################################################################# -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+<experiment name="disk">
+
+  <file name="result" value="./disk_elastic_high.nc" />
+
+  <region name="west" value="0" />
+  <region name="east" value="10000" />
+  <region name="south" value="0" />
+  <region name="north" value="10000" />
+
+  <parameter name="gridsize" value="100" />
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution" />
+ </kernel>
+
+ <greens_function>
+    <plugin name="alma"/>
+    <parameter name="deg_min"  value="2" />	<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="deg_step" value="1" />	<!-- poisson's ratio -->
+    <parameter name="deg_max"  value="4"/>	<!-- young's modulus [GPa] -->
+    <parameter name="file"     value="" />	<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="kv"       value="3" />	<!-- poisson's ratio -->
+    <parameter name="lth"      value="120000"/>	<!-- young's modulus [GPa] -->
+    <parameter name="mode"     value="1" />	<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="ng"       value="8" />	<!-- poisson's ratio -->
+    <parameter name="nla"      value="1"/>	<!-- young's modulus [GPa] -->
+    <parameter name="p"        value="2" />	<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="rheol"    value="8" />	<!-- poisson's ratio -->
+    <parameter name="sd"       value="64"/>	<!-- young's modulus [GPa] -->
+    <parameter name="time_min" value="8" />	<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="time_max" value="8"/>	<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load" />
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="2000" />
+       <parameter name="center_x" value="5010" />
+       <parameter name="center_y" value="5010" />
+       <parameter name="rho" value="1000" />
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r" />
+    <plugin name="hori2vert-ratio" />
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment>
