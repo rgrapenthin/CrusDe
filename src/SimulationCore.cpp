@@ -51,8 +51,8 @@ SimulationCore* SimulationCore::pSimulationCore=0;
 
 SimulationCore::SimulationCore(int argc, char** argv) throw (SeriousException) :
 	com_port(NULL), exp_man(NULL), plugin_man(NULL), pl_kernel(NULL), 
-	pl_out(NULL), greens_function(NULL), 
-    load_function(NULL),
+        pl_out(NULL), greens_function(NULL), 
+        load_function(NULL),
 	load_function_component(0),
 	x_west(0), x_east(0), y_south(0), y_north(0), 
 	gridsize(0), modelstep(0), modeltime(0), num_timesteps(1), num_timeincrement(1),
@@ -64,7 +64,8 @@ SimulationCore::SimulationCore(int argc, char** argv) throw (SeriousException) :
 	pl_list_postprocess(),
 	root_dir("/"),
 	operator_space_x(0), operator_space_y(0), operator_space_set(false),
-	num_load_components(0)
+	num_load_components(0),
+	quiet(false)
 {
 	if(getenv("CRUSDE_HOME") == NULL)
 	    	throw (SeriousException ( string("Error: Environment variable CRUSDE_HOME is not defined!") ) );
@@ -206,19 +207,19 @@ void SimulationCore::init() //throw INIT_EXCEPTION
 
 	//until length does not change, have requested Plug-ins request all their plug-ins
 	unsigned int requested_size(0);
-cout << ">>>>>>>>>>> ITERATING THROUGH requested_plugin_list .... "<<endl;
+crusde_info(">>>>>>>>>>> ITERATING THROUGH requested_plugin_list .... ");
 	do{
 		requested_size = requested_plugin_list.size();
 
 		pl_iter = requested_plugin_list.begin();
 		while(pl_iter != requested_plugin_list.end()){
-cout << ">>>>>>>>>>> "<<(*pl_iter)->getName()<<endl;
+crusde_info(">>>>>>>>>>> %s", (*pl_iter)->getName().c_str());
 
 			(*pl_iter)->requestPlugins();
 			++pl_iter;
 		}
 
-cout << ">>>>>>>>>>> requested_size="<<requested_size<<",requested_plugin_list.size()="<<requested_plugin_list.size()<<endl;
+crusde_info(">>>>>>>>>>> requested_size=%d, requested_plugin_list.size()=%d", requested_size, requested_plugin_list.size() );
 
 	}while(requested_size < requested_plugin_list.size());
 
@@ -332,7 +333,7 @@ void SimulationCore::terminate() //throw KILL_EXCEPTION
 void SimulationCore::exec() //throw EXEC_EXCEPTION
 {
 
-cout << "\n-------------------------: "<<endl;
+     crusde_info("-------------------------: ");
 
 /* PSEUDOCODE ...
    list *jobs = com_port->getJobs();
@@ -345,51 +346,48 @@ cout << "\n-------------------------: "<<endl;
       setCurrentJob(job
    }
 */
-	greens_function->setFirstJob();
+     greens_function->setFirstJob();
 
-    do{
-cout << "Working on job: "<< greens_function->job() <<endl;
+     do{
+          crusde_info("Working on job: %s", greens_function->job().c_str());
 
-	    modelstep=0;
-		modeltime=0;
+          modelstep=0;
+          modeltime=0;
 
-		while(modelstep < num_timesteps)
-		{
-cout << "STEP: "<< modelstep<< ", TIME: "<<modeltime<<endl;
-		
-cout << "operator starts ... "<<endl;
-			//convolve load with response function 
-			pl_kernel->run();
+          while(modelstep < num_timesteps)
+          {
+               crusde_info("STEP: %d, TIME: %d", modelstep, modeltime);
+               crusde_info("operator starts ... ");
+               //convolve load with response function 
+               pl_kernel->run();
 
-			//run postprocessors ... only on last job. 
-			if(greens_function->isLastJob())
-			{
+               //run postprocessors ... only on last job. 
+               if(greens_function->isLastJob())
+               {
+                    crusde_info("postprocessors start ... "); 
+                    pl_iter = pl_list_postprocess.begin();
+                    while(pl_iter != pl_list_postprocess.end())
+                    {
+                         (*pl_iter)->run();
+                         ++pl_iter;
+                    }
 
-cout << "postprocessors start ... "<<endl;
-				pl_iter = pl_list_postprocess.begin();
-				while(pl_iter != pl_list_postprocess.end()){
-					(*pl_iter)->run();
-					++pl_iter;
-				}
+                    crusde_info("result handler starts ... ");
+                    //run the output function
+                    pl_out->run();
 
-cout << "result handler starts ... "<<endl;
-				//run the output function
-				pl_out->run();
+               }
 
-			}
+               crusde_info("-------------------------");
+               //another timestep??
+               modeltime += num_timeincrement;
+               ++modelstep;
+          }
+     } while(greens_function->nextJob() == true);
 
-cout << "-------------------------"<<endl;
-			//another timestep??
-	        modeltime += num_timeincrement;
-			++modelstep;
-		}
-	} while(greens_function->nextJob() == true);
-
-cout << "starting the exp man ... "<<endl;
-	
-	//if we're getting this far the experiment was a success ... memorize it!
-	exp_man->addEntry(outFile(), com_port->getExperiment());	
-
+     crusde_info("Starting the experiment manager ... ");
+     //if we're getting this far the experiment was a success ... memorize it!
+     exp_man->addEntry(outFile(), com_port->getExperiment());	
 }
 
 /**
@@ -423,7 +421,7 @@ list<string> SimulationCore::getRegisteredParameters(PluginCategory category)
 	else if(category == CRUSTALDECAY_PLUGIN){
 		p_map = SimulationCore::s_params.crustaldecay[getLoadFunctionComponent()];
 	} else {
-		cerr<<"in SimulationCore::getRegisteredParameters: unknown category: "<<category<<endl;
+		crusde_warning("In SimulationCore::getRegisteredParameters: unknown category: %d", category); 
 	}
 
   	multimap<string , ParamWrapper* >::iterator iter = p_map.begin();
@@ -492,33 +490,34 @@ void SimulationCore::deleteRequests()
  */
 green_exec_function SimulationCore::addGreenPlugin(string plugin) throw (FileNotFound, runtime_error)
 {
-cout << "\nADDING GREEN PLUGIN TO requested_plugin_list"<<endl;
+     crusde_info("ADDING GREEN PLUGIN TO requested_plugin_list");
 		
-	try{
-		GreenPlugin *pl = new GreenPlugin(plugin);
-		string path(com_port->getGreenPlugin(plugin));
+     try{
+          GreenPlugin *pl = new GreenPlugin(plugin);
+          string path(com_port->getGreenPlugin(plugin));
  	
-		string error_string("Could not find plugin ");
+          string error_string("Could not find plugin ");
 	
-		if(path.empty())
-		{
-			error_string.append("'").append(plugin).append("'\n");
-			error_string.append("Not installed?\nMisspelled?\nCheck Database!\n");
-			throw ( FileNotFound(error_string) );
-		}
+          if(path.empty())
+          {
+               error_string.append("'").append(plugin).append("'\n");
+               error_string.append("Not installed?\nMisspelled?\nCheck Database!\n");
+               throw ( FileNotFound(error_string) );
+          }
 		
-		pl->load( path );
-		pl->registerParameter();
-		pl->registerOutputFields();
-		
-		requested_plugin_list.push_back(pl);
-		
-		return pl->getArrayFunction();
+          pl->load( path );
+          pl->registerParameter();
+          pl->registerOutputFields();
 
-	}
-	catch( ... ){
-		throw;
-	}
+          requested_plugin_list.push_back(pl);
+		
+          return pl->getArrayFunction();
+
+     }
+     catch( ... )
+     {
+          throw;
+     }
 }
 
 /*
@@ -727,7 +726,7 @@ void SimulationCore::registerOutputField(int *output_index, FieldName field)
 		map<int*,int>::iterator iter = add_field_map.find(output_index);
   		if( iter != add_field_map.end() ) 
 		{
-	    		cerr << "Warning: Seems like address '" << iter->first << "' has already requested memory. Is there one plugin trying to do its job twice? We will NOT give additional memory to that address."<< endl;
+	    		crusde_warning("Seems like address '%d' has already requested memory. Is there one plugin trying to do its job twice? We will NOT give additional memory to that address.", iter->first);
 			return;
  		}
 		else
@@ -931,6 +930,29 @@ void SimulationCore::runPluginManager()
 	exit(0);
 }
 
+void SimulationCore::installPlugin(string plugin)
+{
+	plugin_man->init();
+	try{
+		plugin_man->addEntry(plugin);
+	}
+	catch (PluginExistsException e)
+	{
+		crusde_warning("%s.", e.what());
+	}
+	catch (DatabaseError e)
+	{
+		crusde_warning("%s.", e.what());
+	}
+	catch (runtime_error e)
+	{
+		crusde_error("%s.", e.what());
+	}
+
+	delete pSimulationCore;
+	exit(0);
+}
+
 void SimulationCore::abort(string msg)
 {
 	cerr<<msg<<"\nAborting..."<<endl;
@@ -963,7 +985,7 @@ void SimulationCore::registerParam(ParamWrapper *param, const char* name, Plugin
 	else if(category == POSTPROCESS_PLUGIN){
 		SimulationCore::s_params.postprocessor.insert( pair< string, ParamWrapper* > (string(name), param) );
 	} else {
-		cerr<<"in SimulationCore::registerParam: unknown category: "<<category<<endl;
+		crusde_error("In SimulationCore::registerParam: unknown category: %d", category); 
 	}
 }
 
@@ -997,19 +1019,18 @@ unsigned int SimulationCore::getNumberOfLoadComponents()
 	return num_load_components+1;
 }
 
-
-/*------------------------------------------------------------------------------*/
-/* DEBUG- OR USERINFO                                                           */
-/*------------------------------------------------------------------------------*/
-extern void Debug( char* format, ... )
+/** 
+ * sets a flag for quiet, i.e. no output to commandline, runs
+ */
+void SimulationCore::setQuiet(bool flag)
 {
-#ifndef NDEBUG
-	va_list args;
-	va_start( args, format );
-	fprintf( stderr, "[debug] " );
-	vfprintf( stderr, format, args );
-	fprintf( stderr, "\n" );
-	va_end( args );
-	fflush( stderr );
-#endif /* not defined(NDEBUG) */
+	quiet = flag;
+}
+
+/** 
+ * returns a flag for quiet, i.e. no output to commandline, runs
+ */
+bool SimulationCore::isQuiet()
+{
+	return quiet;
 }

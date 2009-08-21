@@ -42,7 +42,7 @@ ExperimentManager::ExperimentManager(const char *db) :
 	DatabaseManager(db), 
 	actual_experiment(NULL)
 {
-  	Debug("%s, line: %d, ExperimentManager built for %s ", __FILE__, __LINE__, db);
+  	crusde_debug("%s, line: %d, ExperimentManager built for %s ", __FILE__, __LINE__, db);
 }
 
 /**
@@ -75,7 +75,7 @@ void ExperimentManager::addEntry(string result_file, DOMNode *exp_root)
 	}
 	catch(DOMException e){
 		StrXML error(e.getMessage());
-		cerr << "exception: "<<error.cppStr()<<endl;
+		crusde_warning("DOMException: %s", error.cStr());
 		SimulationCore::instance()->terminate();
 	}
 	
@@ -106,7 +106,7 @@ bool ExperimentManager::deleteEntry(int id)
 		}
 		catch(DOMException e){
 			StrXML error(e.getMessage());
-			cerr << "exception: "<<error.cppStr()<<endl;
+			crusde_warning("DOMException: %s", error.cStr());
 		}
 		
 		writeXML();
@@ -266,7 +266,7 @@ string ExperimentManager::childrenToString(DOMNode *n, const XMLCh* tag)
 
 void ExperimentManager::addMetaData(string filename)
 {
-//  Debug("%s, line: %d, ExperimentManager::addMetaData ", __FILE__, __LINE__);
+//  crusde_debug("%s, line: %d, ExperimentManager::addMetaData ", __FILE__, __LINE__);
 		//take actual time
 //		struct timeval now;
 //		struct timezone here;

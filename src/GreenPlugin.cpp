@@ -36,7 +36,7 @@ GreenPlugin::GreenPlugin(const string _name):
 
 GreenPlugin::~GreenPlugin()
 {
-  Debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
+  crusde_debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
 }
 
 /*								*/
@@ -44,7 +44,7 @@ GreenPlugin::~GreenPlugin()
 /*								*/
 void GreenPlugin::load( const string new_path ) throw (FileNotFound, LibHandleError)
 {
-  Debug("%s, line: %d, GreenPlugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
+  crusde_debug("%s, line: %d, GreenPlugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
   Plugin::load(new_path);
     
   //assign function pointer ... green functions

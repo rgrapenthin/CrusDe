@@ -31,6 +31,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <stdio.h>
 #include "crusde_api.h"
 #include "SimulationCore.h"
 #include "DataOutPlugin.h"
@@ -44,24 +45,102 @@ using namespace std;
 //void print_params(multimap<string, ParamWrapper> m);
 //void print_params_map(map<unsigned int, multimap<string, ParamWrapper> >m);
 
-
 /* PARAMETER REGISTRATION */
+//functions for parameter registration; all type specific functions do:
+//creates param wrapper, registers it with the simulation core and returns it to the
+//calling function so they can allocate memory for the right type.
 
+//error, warning and debugging functions
+extern "C" void crusde_error(const char* format, ...){
+	va_list args;
+	va_start( args, format );
+	fprintf( stderr, "[ Crusde ERROR ] : " );
+	vfprintf( stderr, format, args );
+	fprintf( stderr, "\n" );
+	va_end( args );
+	fflush( stderr );
+
+	//abort program
+	crusde_exit(-1);
+}
+
+extern "C" void crusde_warning(const char* format, ...){
+	va_list args;
+	va_start( args, format );
+	fprintf( stderr, "[ Crusde WARNING ] : " );
+	vfprintf( stderr, format, args );
+	fprintf( stderr, "\n" );
+	va_end( args );
+	fflush( stderr );
+}
+
+extern "C" void crusde_info(const char* format, ...){
+	if(!SimulationCore::instance()->isQuiet()){
+		va_list args;
+		va_start( args, format );
+		fprintf( stdout, "[ Crusde ] : " );
+		vfprintf( stdout, format, args );
+		fprintf( stdout, "\n" );
+		va_end( args );
+		fflush( stdout );
+	}
+}
+
+extern "C" void crusde_debug(const char* format, ...){
+#ifdef DEBUG
+	//cannot check for quietness, since one should be able to call it even in SimulationCore constructor.
+	va_list args;
+	va_start( args, format );
+	fprintf( stderr, "[ Crusde debug ] : " );
+	vfprintf( stderr, format, args );
+	fprintf( stderr, "\n" );
+	va_end( args );
+	fflush( stderr );
+#endif /* defined(DEBUG) */
+}
+
+
+//REGISTER DOUBLE
+//use this function if parameter is not optional
 extern "C" double* crusde_register_param_double(const char* name, PluginCategory category)
 {
-printf("crusde_register_param_double called for: %s\n", name);
+	crusde_debug("crusde_register_param_double called for: %s", name);
 	ParamWrapper *p = new ParamWrapper();
+	p->setOptional(false);
 	SimulationCore::instance()->registerParam(p, name, category);
 	double* add = p->newDouble();
 	return add;
 }
 
+//if you want parameter to be optional
+extern "C" double* crusde_register_optional_param_double(const char* name, PluginCategory category, double default_value)
+{
+crusde_debug("crusde_register_optional_param_double called for:%s", name);
+	ParamWrapper *p = new ParamWrapper();
+	p->setOptional(true);
+	SimulationCore::instance()->registerParam(p, name, category);
+	double* add = p->newDouble(default_value);
+	return add;
+}
+
+//REGISTER STRING
 extern "C" char** crusde_register_param_string(const char* name, PluginCategory category)
 {
-printf("crusde_register_param_string called for: %s\n", name);
+crusde_debug("crusde_register_param_string called for:%s", name);
 	ParamWrapper *p = new ParamWrapper();
+	p->setOptional(false);
 	SimulationCore::instance()->registerParam(p, name, category);
-	char** add = p->newString();
+	char** add =  p->newString();
+	return add;
+}
+
+extern "C" char** crusde_register_optional_param_string(const char* name, PluginCategory category, char* default_value)
+{
+crusde_debug("crusde_register_optional_param_string called for: %s\n", name);
+	ParamWrapper *p = new ParamWrapper();
+	p->setOptional(true);
+	SimulationCore::instance()->registerParam(p, name, category);
+	char** add =  p->newString(default_value);
 	return add;
 }
 
@@ -225,7 +304,9 @@ extern "C" const char* crusde_get_out_file()
 
 extern "C" void crusde_exit(int exitcode)
 {
-    SimulationCore::instance()->terminate();
+    if(SimulationCore::instance() != NULL)
+	    SimulationCore::instance()->terminate();
+
     exit(exitcode);
 }
 /*

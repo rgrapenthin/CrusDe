@@ -39,7 +39,7 @@
 /* Handle errors by printing an error message and exiting with a
  * non-zero status. */
 #define ERRCODE 2
-#define ERR(e) {printf("Error (%s, %d): %s\n",  __FILE__, __LINE__, nc_strerror(e)); crusde_exit(ERRCODE);}
+#define ERR(e) {crusde_error("%s, %d: %s",  __FILE__, __LINE__, nc_strerror(e)); }
 
 int status;
 int nc_id = -1;
@@ -115,7 +115,7 @@ extern void run()
 {
 assert(data_out != NULL);
 
-printf("writing to file: %s ... data_varid: %d, nc_id: %d, NDIR: %d (%d), NLAT: %d, NLON: %d \n", filename, data_varid, nc_id, crusde_get_dimensions(), NDIR, NLAT, NLON);
+crusde_info("writing to file: %s ... data_varid: %d, nc_id: %d, NDIR: %d (%d), NLAT: %d, NLON: %d", filename, data_varid, nc_id, crusde_get_dimensions(), NDIR, NLAT, NLON);
 /* FOR SOME REASON THIS GIVES A SEGFAULT ON X86_64-suse-linux
    size_t start[NDIMS] = {crusde_model_step(), 0, 0, 0};
    size_t count[NDIMS] = {1, 1, NLAT, NLON};
@@ -174,7 +174,7 @@ extern void clear()
    
    if(!data_written)
    {
-   	/*delete empty file */
+   	/*delete empty/corupt file */
    	remove(filename);
    }
 
@@ -211,13 +211,13 @@ extern void init()
    /* DO ALL THE DEFINITIONS */
    
    /* GLOBAL ATTRIBUTES */
-/*   status = nc_put_att_text(nc_id, NC_GLOBAL, "Conventions", strlen("COARDS"), "COARDS");
+   status = nc_put_att_text(nc_id, NC_GLOBAL, "Conventions", strlen("COARDS"), "COARDS");
    if (status != NC_NOERR) ERR(status);
    status = nc_put_att_text(nc_id, NC_GLOBAL, "title", strlen("netcdf writer"), "netcdf writer");
    if (status != NC_NOERR) ERR(status);
    status = nc_put_att_text(nc_id, NC_GLOBAL, "history", strlen(netcdf_history), netcdf_history);
    if (status != NC_NOERR) ERR(status);
-*/ 
+ 
 /* Define the dimensions and their attributes*/
    /* LATITUDE **********************************/
    status = nc_def_dim(nc_id, netcdf_latitude, NLAT, &lat_dimid);

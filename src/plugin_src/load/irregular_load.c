@@ -202,7 +202,7 @@ extern void init()
 	{
 		int n=0;
 		while(n < 100){
-			printf("(%d) FILE PROBLEM ...: <%s>, addr: %X\n", n, *p_file[n], (unsigned int) p_file[n]);
+			crusde_warning("(%d) FILE PROBLEM ...: <%s>, addr: %X", n, *p_file[n], (unsigned int) p_file[n]);
 			++n;
 		}
 		perror(*p_file[my_id]);
@@ -212,7 +212,7 @@ extern void init()
 	/*other problems with file?*/
 	if(ferror(fi) != 0)
 	{
-printf("FILE PROBLEM ... <%s>\n", *p_file[my_id]);
+		crusde_warning("FILE PROBLEM ... <%s>", *p_file[my_id]);
 		perror(*p_file[my_id]);
 		crusde_exit(1);
 	}
@@ -275,7 +275,7 @@ printf("FILE PROBLEM ... <%s>\n", *p_file[my_id]);
 	    fgets( st, sizeof(st), fi );
 	    if( feof(fi) )
             {
-                printf("IRREGULAR_LOAD.C: read %d data sets, %d comments, %d lines total.\n", line_no-comment_line, comment_line, line_no);
+                crusde_info("IRREGULAR_LOAD.C: read %d data sets, %d comments, %d lines total.", line_no-comment_line, comment_line, line_no);
                 break;
             }
 
@@ -299,8 +299,7 @@ printf("FILE PROBLEM ... <%s>\n", *p_file[my_id]);
             }
             else
             {
-               printf("IRREGULAR_LOAD.C: Formatting problem in file <%s>, line %d \n", *p_file[my_id], line_no);
-               crusde_exit(1);
+               crusde_error("IRREGULAR_LOAD.C: Formatting problem in file <%s>, line %d ", *p_file[my_id], line_no);
             }
 	}
 

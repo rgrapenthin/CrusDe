@@ -45,7 +45,7 @@ PluginManager::PluginManager(const char *db) :
 	DatabaseManager(db),
 	plugin("dummy")
 {
-	Debug("%s, line: %d, PluginManager built for %s ", __FILE__, __LINE__, db);
+	crusde_debug("%s, line: %d, PluginManager built for %s ", __FILE__, __LINE__, db);
 }
 
 /**
@@ -55,7 +55,7 @@ PluginManager::PluginManager(const char *db) :
  */
 string PluginManager::getFilename(string category, string name) throw (DatabaseError)
 {	
-//Debug("%s, line: %d, PluginManager::getFilename for %s in %s in DB: %s", __FILE__, __LINE__, name.c_str(), category.c_str(), xmlFile.c_str());
+//crusde_debug("%s, line: %d, PluginManager::getFilename for %s in %s in DB: %s", __FILE__, __LINE__, name.c_str(), category.c_str(), xmlFile.c_str());
 	assert(is_initialized);
 	DOMNode *plugin (isInDB(name, category));
 
@@ -83,7 +83,7 @@ void PluginManager::addEntry(string absolutepath, DOMNode *parent) throw (Plugin
 		if( isInDB(plugin.getName(), plugin.getCategory()) != NULL)
 		{
 			string error("Plugin '");
-			error.append(plugin.getName()).append("' already exisits in category '");
+			error.append(plugin.getName()).append("' already exits in category '");
 			error.append(plugin.getCategory()).append("'.");
 			throw (PluginExistsException(error));
 		}
@@ -161,8 +161,7 @@ bool PluginManager::deleteEntry(int id) throw (DatabaseError, PluginError)
 		}
 		catch(DOMException e){
 			StrXML error(e.getMessage());
-			cerr << "exception: "<<error.cppStr()<<endl;
-			exit(2);
+			crusde_error("DOMException: %s", error.cStr());
 		}
 		
 		//in case we made it this far ... remove file
@@ -530,15 +529,15 @@ void PluginManager::addToDB(string filename, string dst)
 	}
 	catch (const OutOfMemoryException&)
 	{
-		XERCES_STD_QUALIFIER cerr << "OutOfMemoryException" << XERCES_STD_QUALIFIER endl;
+		crusde_warning("OutOfMemoryException");
 	}
 	catch (const DOMException& e)
 	{
-		XERCES_STD_QUALIFIER cerr << "DOMException code is:  " << e.code << XERCES_STD_QUALIFIER endl;
+		crusde_warning("DOMException code is: %d", e.code);
 	}
 	catch (...)
 	{
-		XERCES_STD_QUALIFIER cerr << "An error occurred creating the document" << XERCES_STD_QUALIFIER endl;
+		crusde_warning("An error occurred creating the document");
 	}
 	
 	

@@ -90,7 +90,7 @@ void GreensFunction::load(map<string, string > job_map)
 	map<string, string>::iterator jobs_iter = job_map.begin();
 
 	if( job_map.size() == 1 && !(jobs_iter->first).empty() )
-		cerr<<"WARNING: Only one job definition given. I'll do it anyway - but you better double check!"<<endl;
+		crusde_warning("Only one job definition given. I'll do it anyway - but you better double check!");
 
 	while(jobs_iter != job_map.end()){
 		GreenPlugin *pl_green = new GreenPlugin( (jobs_iter->second).c_str() );

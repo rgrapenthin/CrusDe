@@ -38,7 +38,7 @@ CrustalDecayPlugin::CrustalDecayPlugin(const string _name):
 
 CrustalDecayPlugin::~CrustalDecayPlugin()
 {
-  Debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
+  crusde_debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
 }
 
 void CrustalDecayPlugin::setJobName(const string name)
@@ -56,7 +56,7 @@ const string CrustalDecayPlugin::getJobName()
 /*								*/
 void CrustalDecayPlugin::load(string new_path) throw (FileNotFound, LibHandleError)
 {
-  Debug("%s, line: %d, CrustalDecayPlugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
+  crusde_debug("%s, line: %d, CrustalDecayPlugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
   
   if(!new_path.empty())
   {

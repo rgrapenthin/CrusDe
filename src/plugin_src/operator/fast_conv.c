@@ -300,7 +300,7 @@ extern void run()
 	}
    }
 
-printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>plan ...\n");
+crusde_info("%s : planning FFT ...", get_name());
 
    /* transform green's function results and load values to frequency domain */
    fftw_execute(load_plan);

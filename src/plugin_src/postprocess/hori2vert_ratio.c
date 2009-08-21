@@ -54,9 +54,9 @@ extern void clear(){};
 /*! registers one ADD_FIELD type field with the framework */
 extern void register_output_fields() 
 { 
-printf("hori2vert_ratio registers output field...");	
+crusde_info("%s registers output field...", get_name());	
 	crusde_register_output_field(&my_position, ADD_FIELD);	
-printf(" ... got %d\n", my_position);	
+crusde_info(" ... got %d", my_position);	
 }
 
 /*!initializes local variables*/
@@ -86,6 +86,6 @@ extern void run()
 	{
 		result[my_position][i] = fabs(sqrt( result[x][i]*result[x][i] + result[y][i]*result[y][i] ) / result[z][i]);
 	}
-printf("wrote hori2vert ratio to position: %d\n", my_position);
+crusde_info("%s: wrote hori2vert ratio to position: %d", get_name(), my_position);
    }
 }

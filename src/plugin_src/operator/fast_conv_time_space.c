@@ -268,48 +268,48 @@ extern void run()
 	//CASE 1
 		if( !got_decay && !got_history)
 		{
-			printf("%s: CASE 1\n", __FILE__);
+			crusde_debug("%s: CASE 1\n", __FILE__);
 			t = -1;	
 			while(++t < size_T)
 			{
 				//we use conv_out, because it is used below anyway, that shortens the code
 				conv_out[t]   = 1;
-			printf("%s: conv_out[%lu] = %f \n", __FILE__, t, conv_out[t]);
+				crusde_debug("%s: conv_out[%lu] = %f \n", __FILE__, t, conv_out[t]);
 			}
 		}
 
 	//CASE 2
 		if( got_decay && !got_history)
 		{
-			printf("%s: CASE 2\n", __FILE__);
+			crusde_debug("%s: CASE 2\n", __FILE__);
 			t = -1;	
 			while(++t < size_T)
 			{
 				//we use conv_out, because it is used below anyway, that shortens the code
 				conv_out[t]   = crusde_get_crustal_decay_at(t);
 
-			printf("%s: conv_out[%lu] = %f \n", __FILE__, t, conv_out[t]);
+			crusde_debug("%s: conv_out[%lu] = %f \n", __FILE__, t, conv_out[t]);
 			}
 		}
 
 	//CASE 3
 		if( !got_decay && got_history)
 		{
-			printf("%s: CASE 3\n", __FILE__);
+			crusde_debug("%s: CASE 3\n", __FILE__);
 			t = -1;				
 			while(++t < size_T)
 			{
 				//we use conv_out, because it is used below anyway, that shortens the code
 				conv_out[t]   = crusde_get_load_history_at(t);
 			
-			printf("%s: conv_out[%lu] = %f \n", __FILE__, t, conv_out[t]);
+				crusde_debug("%s: conv_out[%lu] = %f \n", __FILE__, t, conv_out[t]);
 			}			
 		}
 		
 	//CASE 4
 		if( got_decay && got_history)
 		{
-			printf("%s: CASE 4\n", __FILE__);
+			crusde_debug("%s: CASE 4\n", __FILE__);
 
 			t = -1;				
 			while(++t < N_T)
@@ -347,7 +347,7 @@ extern void run()
 
 		while(++t < size_T)
 		{
-//	printf("%s: conv_out[%d] = %f\n", __FILE__, t, conv_out[t]);
+//	crusde_debug("%s: conv_out[%d] = %f\n", __FILE__, t, conv_out[t]);
                     int d = -1;
                     while(++d < displacement_dimensions) 
                     {
@@ -360,7 +360,7 @@ extern void run()
                              //since we live in an ideal world we can use the principle of superposition right here.
                              result[d][t+size_T*(x+size_X*y)] += (conv_out[t] * spatial_result[d][x+size_X*y]);
 
-//printf("t=%d, d=%d, x=%d, y=%d, size_X=%d, size_Y=%d, RESULT: %f\n", t, d, x, y, size_X, size_Y, result[d][t+size_T*(y+size_Y*x)]);
+//crusde_debug("t=%d, d=%d, x=%d, y=%d, size_X=%d, size_Y=%d, RESULT: %f\n", t, d, x, y, size_X, size_Y, result[d][t+size_T*(y+size_Y*x)]);
                           }
                        }
                     }

@@ -46,6 +46,7 @@ class ParamWrapper
 		string 	*string_param;
 		double  *double_param;
 
+		bool  optional;
 		char* cStr;
 
 	public:
@@ -59,11 +60,14 @@ class ParamWrapper
 		void setValue(string);
 		void setValue(double);
 
-		char** newString();
-		double* newDouble();
+		char** newString(char* = NULL);
+		double* newDouble(double = 0.0);
 
 		char** stringValue();
 		double* doubleValue();
+
+		bool isOptional();
+		void setOptional(bool);
 
 };
 

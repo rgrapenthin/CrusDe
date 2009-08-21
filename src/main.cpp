@@ -47,6 +47,8 @@ short const UZ = 2;				//< z-direction
 /*error codes*/
 int const NOERROR = 0;			//< no error occured (0)
 
+char* const VERSION="0.2.0";
+char* const SVN_REVISION="r3";
 
 int main( int argc, char** argv )
 {
@@ -55,7 +57,7 @@ int main( int argc, char** argv )
     	time(&start);		
 
 	SimulationCore *core = SimulationCore::instance(argc, argv);
-
+cout << "THERE" <<endl;
 	try
 	{	
 		core->init();	
@@ -86,13 +88,11 @@ int main( int argc, char** argv )
 */		
 	catch ( ... )
 	{
-		cerr << "Unexpected exception during GFLC run." <<endl;
-		cerr << "Aborting." <<endl;
-		exit(-1);
+		crusde_error("Unexpected exception during CrusDe run.\nAborting.");
 	}
 	
 	time(&finish);
-	cerr << "\n\n conv time= " << (float)difftime(finish,start) << " s" <<endl;
+	crusde_info("run time= %f s", (float)difftime(finish,start) );
 		
 	return 0;
 }

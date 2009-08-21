@@ -52,4 +52,4 @@ extern void register_output_fields(){}
 /*! empty*/
 extern void init(){}
 /*! empty*/
-extern void run(){printf("LSA RMSE ... RUNNING!\n");}
+extern void run(){crusde_info("LSA RMSE ... RUNNING!\n");}

@@ -38,7 +38,7 @@ LoadPlugin::LoadPlugin(const string _name):
 
 LoadPlugin::~LoadPlugin()
 {
-  Debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
+  crusde_debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
 }
 
 /*								*/
@@ -46,7 +46,7 @@ LoadPlugin::~LoadPlugin()
 /*								*/
 void LoadPlugin::load(string new_path) throw (FileNotFound, LibHandleError)
 {
-  Debug("%s, line: %d, LoadPlugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
+  crusde_debug("%s, line: %d, LoadPlugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
   Plugin::load(new_path);
     
   //assign function pointer ... load functions

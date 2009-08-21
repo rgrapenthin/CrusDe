@@ -128,8 +128,7 @@ extern void init()
   
    if(out_file==NULL )
    {
-	printf("Error (%s, %d): Could not open file: %s\n",  __FILE__, __LINE__, filename); 
-	crusde_exit(2);   
+	crusde_error("(%s, %d): Could not open file: %s\n",  __FILE__, __LINE__, filename); 
    }
    
    //header info
@@ -182,7 +181,7 @@ extern void register_parameter() {}
  extern void set_model_data(double** data, int dim_x, int dim_y)
 {  
 
-printf("%s, line: %d, netcdf::set_model_data\n", __FILE__, __LINE__);
+crusde_infor("%s, line: %d, netcdf::set_model_data\n", __FILE__, __LINE__);
 fflush(stdout);
 	
 	//shallow or deep copy???

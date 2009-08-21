@@ -38,7 +38,7 @@ LoadHistoryPlugin::LoadHistoryPlugin(const string _name):
 
 LoadHistoryPlugin::~LoadHistoryPlugin()
 {
-  Debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
+  crusde_debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
 }
 
 void LoadHistoryPlugin::setJobName(const string _name)
@@ -56,7 +56,7 @@ const string LoadHistoryPlugin::getJobName()
 /*								*/
 void LoadHistoryPlugin::load(string new_path) throw (FileNotFound, LibHandleError)
 {
-  Debug("%s, line: %d, LoadHistoryPlugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
+  crusde_debug("%s, line: %d, LoadHistoryPlugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
   
   if(!new_path.empty())
   {

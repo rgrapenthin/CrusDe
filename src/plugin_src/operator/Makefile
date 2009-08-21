@@ -26,7 +26,7 @@ INCLUDE_DIRS	:= -I/usr/local/fftw/api -I/usr/include -I. -I../..
 	
 .o.so:
 	gcc $(INCLUDE_DIRS) -o $(*F).so $< $(LINKER_OPT)
-	cp  ./*.so ../../../plugins/operator
+	cp  ./*.so $(CRUSDE_HOME)/plugins/operator
 
 include defs.h
 

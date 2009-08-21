@@ -23,7 +23,7 @@ SO_OBJS 	:= $(notdir $(OBJS:%.o=%.so))
 	
 .o.so:
 	gcc -o $(*F).so $< $(LIB_DIRS) $(LINKER_OPT) $(INCLUDE_DIRS) 
-	cp  ./*.so ../../../plugins/crustal_decay
+	cp  ./*.so $(CRUSDE_HOME)/plugins/crustal_decay
 
 include defs.h
 

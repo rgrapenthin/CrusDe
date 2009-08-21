@@ -1,3 +1,39 @@
+2009-08-21
+----------
+	added 'crusde -p install <plugin.so>' which is used in install_plugins.sh
+		This is the new way to fill $CRUSDE_HOME/plugins/plugins.xml with the plugins that come 
+		with the standard distribution. 
+		
+		install_plugins.sh is a tcsh script which contains lists of the standard plugins in the 
+		order necessary to meet all dependencies. For each plugin
+	
+			crusde -p install <plugin.so>
+
+		is called which uses the the same functionality the existing GUI based PluginManager uses to test 
+		the plugins and add them to the database, only that the GUI is not started. 
+
+		- SimulationCore has installPlugin(string) added 
+		- InputHandler has the respective checking added -- does not work with multiple options, yet!!
+
+2009-07-11
+----------
+	added possibility to allow for optional parameters:
+		- crusde-API expanded by crusde_register_optional_param* functions which ask for a default value for this parameter
+		- ParamWrapper carries flag 'optional' which is set by the registration functions
+		- InputHandler checks for this flag when going through the list of non-initialized (in XML file) params.
+	added info.h
+		- contains the existing usage() function, called in InputHandler.
+		- contains new version() function, that gives ... tadaaa ... version information. (add retrieval of SVN revision number!)
+
+	added output functions to API for plugins that are also used internally, all work like printf:
+		- crusde_info(message, ...): writes message to stdout
+		- crusde_warning(message, ...): writes warning message to stderr
+		- crusde_error(message, ...): writes error message to stderr and terminates CrusDe
+		- crusde_debug(message, ...): writes debug message to stderr if compiled with -DDEBUG
+
+	added 'quiet' commandline option: -q/-Q
+		- shuts info messages off, errors and warnings are still displayed, as well as debugging messages.
+
 Changelog v 0.1 - 0.2
 
 1) All code related to model building from commandline deleted

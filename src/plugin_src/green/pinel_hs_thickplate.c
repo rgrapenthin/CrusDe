@@ -348,10 +348,10 @@ extern void init()
 	/*now the lookup-tables can be initialized */
 //	eps_index = 0;	//eps_index must be resetted before each integration because it is incremenet inside the integral functions*/
 //	gsl_integration_qag (&init_v_LUT, lower_integral_bound, upper_integral_bound, 0, 5e-7, SIZE_W, GSL_INTEG_GAUSS61, w, &res, &error);
-//printf("thick plate plug-in: vertical init done ... \n");	
+//crusde_info("%s: vertical init done ... ", get_name());	
 //	eps_index = 0;	//eps_index must be resetted before each integration because it is incremenet inside the integral functions*/
 //	gsl_integration_qag (&init_h_LUT, lower_integral_bound, upper_integral_bound, 0, 5e-7, SIZE_W, GSL_INTEG_GAUSS61, w, &res, &error);
-//printf("thick plate plug-in: horizontal init done ... \n");	
+//crusde_info("%s: horizontal init done ... ", get_name());	
 
 	/*good night and good luck ... */	   
 }

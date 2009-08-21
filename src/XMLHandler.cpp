@@ -89,7 +89,7 @@ XMLCore::XMLCore()
 	catch( XMLException& e )
 	{
 		char* message = XMLString::transcode( e.getMessage() );
-		cerr << "XML toolkit initialization error: " << message << endl;
+		crusde_warning("XML toolkit initialization error: %s", message);
 		XMLString::release( &message );
 		// throw exception here to return ERROR_XERCES_INIT
 	}
@@ -105,11 +105,11 @@ XMLCore::~XMLCore()
 	catch( xercesc::XMLException& e )
 	{
 		char* message = xercesc::XMLString::transcode( e.getMessage() );
-		cerr << "XERCES demolition error: " << message << endl;
+		crusde_warning("XERCES demolition error: %s", message);
 		XMLString::release( &message );
 	}
 
-	Debug("%s, line: %d, XMLCore destroyed.", __FILE__, __LINE__);
+	crusde_debug("%s, line: %d, XMLCore destroyed.", __FILE__, __LINE__);
 }
 
 //-------------------------------------------------
@@ -164,7 +164,7 @@ XMLHandler::XMLHandler(const char *filename):
 	parser.setLoadExternalDTD( true );
 	parser.setExitOnFirstFatalError(true);
 	
-	Debug("%s, line: %d, XMLHandler built for: %s ", __FILE__, __LINE__, xmlFile.c_str());
+	crusde_debug("%s, line: %d, XMLHandler built for: %s ", __FILE__, __LINE__, xmlFile.c_str());
 }
 
 XMLHandler::~XMLHandler()
@@ -177,19 +177,19 @@ XMLHandler::~XMLHandler()
 	catch( xercesc::XMLException& e )
 	{
 		char* message = xercesc::XMLString::transcode( e.getMessage() );
-		cerr << "XERCES demolition error: " << message << endl;
+		crusde_warning("XERCES demolition error: %s", message);
 		XMLString::release( &message );
 	}
    
 	
-	Debug("%s, line: %d, XMLHandler destroyed.", __FILE__, __LINE__);
+	crusde_debug("%s, line: %d, XMLHandler destroyed.", __FILE__, __LINE__);
 }
 
 
 void XMLHandler::readXML()
 	throw( std::runtime_error )
 {
-	Debug("%s, line: %d, starting XML processing: %s", __FILE__, __LINE__, xmlFile.c_str());
+	crusde_debug("%s, line: %d, starting XML processing: %s", __FILE__, __LINE__, xmlFile.c_str());
 
 	// Test to see if the file is ok.
 	struct stat fileStatus;
@@ -210,74 +210,69 @@ void XMLHandler::readXML()
 	//reset error count first
     errReporter.resetErrors();
 
-	try{    
-		/* reset document pool */
-		parser.resetDocumentPool();
-		/* parse */
-		parser.parse(xmlFile.c_str());
-		/* getDOM */
-		doc = parser.getDocument();
-		assert(doc);
-	}
+    try{    
+	/* reset document pool */
+	parser.resetDocumentPool();
+	/* parse */
+	parser.parse(xmlFile.c_str());
+	/* getDOM */
+	doc = parser.getDocument();
+	assert(doc);
+    }
     catch (const XMLException& toCatch)
     {
-		   char* error = XMLString::transcode(toCatch.getMessage());
-           cerr << "\nError during parsing: '" << xmlFile << "'\n"
-                 << "Exception message is:  \n"
-                 << error << "\n" << endl;
-		   XMLString::release(&error);
-	}
+        char* error = XMLString::transcode(toCatch.getMessage());
+        crusde_warning("Error during parsing: '%s' Exception message is: \n%s", xmlFile.c_str(), error);
+        XMLString::release(&error);
+    }
     catch (const DOMException& toCatch)
     {
-		   char* error = XMLString::transcode(toCatch.getMessage());
-            cerr << "\nDOM Error during parsing: '" << xmlFile << "'\n"
-                 << "Exception message is:  \n"
-                 << error << "\n" << endl;
-		   XMLString::release(&error);
+        char* error = XMLString::transcode(toCatch.getMessage());
+        crusde_warning("Error during parsing: '%s' Exception message is: \n%s", xmlFile.c_str(), error);
+	XMLString::release(&error);
     }
     catch (...)
     {
-            XERCES_STD_QUALIFIER cerr << "\nUnexpected exception during parsing: '" << xmlFile << "'\n";
+        crusde_warning("Unexpected exception during parsing: '%s'", const_cast<char*>( xmlFile.c_str() ) );
     }
 
     if (errReporter.getSawErrors())
     {
-            XERCES_STD_QUALIFIER cout << "\nErrors occurred when parsing XML file: '" << xmlFile << "' Aborting\n" << endl;
-            exit(-1);
+        crusde_error("Errors occurred when parsing XML file: '%s' ... Aborting. ", const_cast<char*>( xmlFile.c_str() ) );
     }
     else
     {
-		Debug("%s, line: %d, parsing done ....", __FILE__, __LINE__);
-	}
+        crusde_debug("%s, line: %d, parsing done ....", __FILE__, __LINE__);
+    }
 }
 
 void XMLHandler::writeXML(bool pretty)
 	throw( std::runtime_error )
 {
-Debug("%s, line: %d, XMLHandler::writeXML %s", __FILE__, __LINE__, xmlFile.c_str());
+    crusde_debug("%s, line: %d, XMLHandler::writeXML %s", __FILE__, __LINE__, const_cast<char*>( xmlFile.c_str() ) );
 	
-	XMLFormatTarget *outfile = new LocalFileFormatTarget( xmlFile.c_str() );
+    XMLFormatTarget *outfile = new LocalFileFormatTarget( xmlFile.c_str() );
 
-        DOMImplementation* impl = doc->getImplementation();
+    DOMImplementation* impl = doc->getImplementation();
 
-        if( impl == NULL )
-	{
-        	throw( std::runtime_error( "DOMImplementation is null!" ) );
-	}
+    if( impl == NULL )
+    {
+       	throw( std::runtime_error( "DOMImplementation is null!" ) );
+    }
 
-        DOMWriter* writer = impl->createDOMWriter();
+    DOMWriter* writer = impl->createDOMWriter();
 
-        // add spacing and such for human-readable output
-	if( pretty && writer->canSetFeature( XMLUni::fgDOMWRTFormatPrettyPrint, true ) )
-	{
-        	writer->setFeature(XMLUni::fgDOMWRTFormatPrettyPrint , true );
-	}
-        writer->writeNode( outfile , *doc );
+    // add spacing and such for human-readable output
+    if( pretty && writer->canSetFeature( XMLUni::fgDOMWRTFormatPrettyPrint, true ) )
+    {
+       	writer->setFeature(XMLUni::fgDOMWRTFormatPrettyPrint , true );
+    }
+    writer->writeNode( outfile , *doc );
 
-        delete(outfile);
-        delete(writer);
-Debug("%s, line: %d, XMLHandler::writeXML %s ... done", __FILE__, __LINE__, xmlFile.c_str());
-
+    delete(outfile);
+    delete(writer);
+    
+    crusde_debug("%s, line: %d, XMLHandler::writeXML %s ... done", __FILE__, __LINE__, xmlFile.c_str());
 }
 
 /*returns first element with name TAG_plugin*/

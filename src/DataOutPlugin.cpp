@@ -36,7 +36,7 @@ DataOutPlugin::DataOutPlugin(const string _name):
 
 DataOutPlugin::~DataOutPlugin()
 {
-  Debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
+  crusde_debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
 }
 
 /*								*/
@@ -44,7 +44,7 @@ DataOutPlugin::~DataOutPlugin()
 /*								*/
 void DataOutPlugin::load(string new_path) throw (FileNotFound, LibHandleError)
 {
-  Debug("%s, line: %d, DataOutPlugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
+  crusde_debug("%s, line: %d, DataOutPlugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
   Plugin::load(new_path);
     
   //assign function pointer ... 
@@ -66,7 +66,7 @@ void DataOutPlugin::load(string new_path) throw (FileNotFound, LibHandleError)
 /*								*/
 void DataOutPlugin::setModelData(double **result)
 {     
-  Debug("%s, line: %d, DataOutPlugin::setModelData: %s ", __FILE__, __LINE__, name.c_str());
+  crusde_debug("%s, line: %d, DataOutPlugin::setModelData: %s ", __FILE__, __LINE__, name.c_str());
   /* run function */
   func_value(result, 0, 0);  
 }

@@ -24,7 +24,7 @@ SO_OBJS 	:= $(notdir $(OBJS:%.o=%.so))
 	
 .o.so:
 	gcc $(INCLUDE_DIRS) -o $(*F).so $< $(LINKER_OPT) 
-	cp  ./*.so ../../../plugins/green
+	cp  ./*.so $(CRUSDE_HOME)/plugins/green
 
 include defs.h
 

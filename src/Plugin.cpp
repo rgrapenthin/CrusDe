@@ -50,12 +50,12 @@ Plugin::Plugin(const string _name):
 	is_registered(false),
 	is_loaded(false)	
 {
-  Debug("%s, line: %d, Plugin built: %s", __FILE__, __LINE__, name.c_str());
+  crusde_debug("%s, line: %d, Plugin built: %s", __FILE__, __LINE__, name.c_str());
 }
 
 Plugin::~Plugin()
 {
-  Debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
+  crusde_debug("%s, line: %d, Plugin destroyed: %s ", __FILE__, __LINE__, name.c_str());
 }
 
 /*								*/
@@ -71,7 +71,7 @@ void Plugin::load(string new_path) throw (FileNotFound,  LibHandleError)
   
   path.assign( new_path );
   
-  Debug("%s, line: %d, Plugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
+  crusde_debug("%s, line: %d, Plugin %s load: %s ", __FILE__, __LINE__, name.c_str(), path.c_str());
   // clear error flag 
   dlerror();
   LibHandle = dlopen(path.c_str(), RTLD_LAZY);
@@ -104,7 +104,7 @@ void Plugin::unload() throw (LibHandleError)
   if(!is_loaded)
   	return;
 
-  Debug("%s, line: %d, Plugin %s unload. ", __FILE__, __LINE__, name.c_str());
+  crusde_debug("%s, line: %d, Plugin %s unload. ", __FILE__, __LINE__, name.c_str());
 
   /* clear memory */
   release();
@@ -121,7 +121,7 @@ void Plugin::unload() throw (LibHandleError)
 
 category_t Plugin::get_categoryFunc(string func_name) throw (LibHandleError)
 {
-//    Debug("%s, line: %d, Plugin::dl_voidFunc %s: %s ", __FILE__, __LINE__, func_name.c_str(), name.c_str());
+//    crusde_debug("%s, line: %d, Plugin::dl_voidFunc %s: %s ", __FILE__, __LINE__, func_name.c_str(), name.c_str());
     /* clear error flag */
     dlerror();
     /* get init address of init function in function lib 		*/ 
@@ -137,7 +137,7 @@ category_t Plugin::get_categoryFunc(string func_name) throw (LibHandleError)
 
 void_t Plugin::get_dl_voidFunc(string func_name) throw (LibHandleError)
 {
-//    Debug("%s, line: %d, Plugin::dl_voidFunc %s: %s ", __FILE__, __LINE__, func_name.c_str(), name.c_str());
+//    crusde_debug("%s, line: %d, Plugin::dl_voidFunc %s: %s ", __FILE__, __LINE__, func_name.c_str(), name.c_str());
     /* clear error flag */
     dlerror();
     /* get init address of init function in function lib 		*/ 
@@ -154,7 +154,7 @@ void_t Plugin::get_dl_voidFunc(string func_name) throw (LibHandleError)
 
 char_t Plugin::get_dl_stringFunc(string func_name) throw (LibHandleError)
 {
-//    Debug("%s, line: %d, Plugin::dl_stringFunc %s: %s ", __FILE__, __LINE__, func_name.c_str(), name.c_str());
+//    crusde_debug("%s, line: %d, Plugin::dl_stringFunc %s: %s ", __FILE__, __LINE__, func_name.c_str(), name.c_str());
     /* clear error flag */
     dlerror();
     /* get init address of init function in function lib 		*/ 
@@ -175,7 +175,8 @@ void Plugin::registerParameter()
 { 
    if(is_loaded)
    {
-	cout << "  Plugin::registerParameter() for: "<<name<<endl;
+	crusde_info("  Plugin::registerParameter() for: %s", name.c_str());
+
 	if(!is_registered){
 		func_register_parameter();    
 		/* fly the flag */
@@ -183,7 +184,7 @@ void Plugin::registerParameter()
 	}
 	else
 	{
-		cerr << "Warning: Plugin::registerParameter() called at least twice, skipping repeated registration!"<< endl;
+		crusde_warning("Plugin::registerParameter() called at least twice, skipping repeated registration!");
 	}
    }
 }
@@ -229,7 +230,7 @@ void Plugin::init()
 	}
 	else
 	{
-			cerr << "Warning: Plugin::init() called at least twice, skipping repeated initialization!"<< endl;
+		crusde_warning("Plugin::init() called at least twice, skipping repeated initialization!");
 	}
    }	
 }
@@ -327,8 +328,9 @@ string Plugin::getCategory()
 	}else
   	if(cat == CRUSTALDECAY_PLUGIN){
   		return string("crustal_decay");
-  	}else
-		cerr<<"category not found."<<endl;
+  	}else{
+		crusde_warning("Plugin::getCategory(): Category not found: %d", cat); 
+        }
     
     return string();
 }

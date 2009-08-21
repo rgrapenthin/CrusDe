@@ -106,13 +106,13 @@ extern void register_parameter()
  */
 extern void register_output_fields() 
 { 
-printf("green_elastic registers output fields...");	
+crusde_info("%s registers output fields...", get_name());	
 	crusde_register_output_field(&x_pos, X_FIELD);	
 	crusde_register_output_field(&y_pos, Y_FIELD);	
 	crusde_register_output_field(&z_pos, Z_FIELD);	
-printf("\t x: %d\n", x_pos);	
-printf("\t y: %d\n", y_pos);	
-printf("\t z: %d\n", z_pos);	
+crusde_info("\t x: %d", x_pos);	
+crusde_info("\t y: %d", y_pos);	
+crusde_info("\t z: %d", z_pos);	
 }
 
 extern void request_plugins(){}

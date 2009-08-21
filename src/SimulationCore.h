@@ -81,8 +81,6 @@ struct s_parameters {
 	multimap<string, ParamWrapper* > postprocessor;/*!< name and pointer to value of postprocessor*/
 };
 
-extern void Debug( char* format, ... );
-
 //! Singleton class SimulationCore
 /*!
  * The SimulationCore is implemented following the Singleton Design Pattern, wich
@@ -147,7 +145,9 @@ class SimulationCore /*: 	public PluginAPI,
 	int operator_space_y;
 	bool operator_space_set;
 
-	int num_load_components;
+	unsigned int num_load_components;
+
+	bool quiet;
 							   
 	static SimulationCore 	*pSimulationCore;	/**< pointer to the only instance of SimulationCore */
 	
@@ -185,15 +185,11 @@ class SimulationCore /*: 	public PluginAPI,
 			}
 			catch(SeriousException e)
 			{
-				cerr<<e.what()<<"\nAborting..."<<endl;
-				delete pSimulationCore;
-				exit(2);
+				crusde_error("%s \nAborting...", e.what()); 
 			}
 			catch(...)
 			{
-				cerr<<"An unrecognized error occured while trying to build the SimulationCore.\nAborting..."<<endl;
-				delete pSimulationCore;
-				exit(2);
+				crusde_error("An unrecognized error occured while trying to build the SimulationCore.\nAborting..."); 
 			}
 		}
 		
@@ -208,8 +204,9 @@ class SimulationCore /*: 	public PluginAPI,
 		if(pSimulationCore)
 			return pSimulationCore;
 		else{
-			cerr << "call instance(argc, argv) first! "<< endl;
-			exit(1);
+			//must not call crusde_error, otherwise infinite loop
+			cerr << "Call instance(argc, argv) first!" << endl;
+			return NULL; 
 		}
 	}
 	
@@ -221,7 +218,7 @@ class SimulationCore /*: 	public PluginAPI,
 	unsigned int getLoadFunctionComponent();
 	void setLoadFunctionComponent(unsigned int i);
 
-    unsigned int getNumberOfLoadComponents();
+	unsigned int getNumberOfLoadComponents();
 
 	void registerParam(ParamWrapper *param, const char* name, PluginCategory category);
 	
@@ -251,6 +248,7 @@ class SimulationCore /*: 	public PluginAPI,
 	double** getModelData();
 	void runExperimentManager();
 	void runPluginManager();
+        void installPlugin(string);
 	PluginManager* pluginManager();
 	list<string> getRegisteredParameters(PluginCategory cat);
 	void deleteRegistrees();
@@ -266,6 +264,9 @@ class SimulationCore /*: 	public PluginAPI,
 	void registerOutputField(int *output_index, FieldName field);
 
 	string currentJob();
+
+	void setQuiet(bool);
+	bool isQuiet();
 
 	//these functions enable re-use of plug-ins within the same category
 	green_exec_function          addGreenPlugin(string plugin) throw (FileNotFound, runtime_error);

@@ -7,7 +7,7 @@
  * #########################################################################
  *
  * CrusDe, simulation framework for crustal deformation studies
- * Copyright (C) 2007 Ronni Grapenthin
+ * Copyright (C) 2007-2009 Ronni Grapenthin
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -28,12 +28,12 @@
 #ifndef _constants_h	
 #define _constants_h
 
-#define EXPERIMENT_DIR 	"experiment-db"
-#define EXPERIMENT_DB	"experiment-db.xml"
-#define PLUGIN_DIR 	"plugins"
-#define PLUGIN_DB	"plugins.xml"
+#define EXPERIMENT_DIR  "experiment-db"
+#define EXPERIMENT_DB   "experiment-db.xml"
+#define PLUGIN_DIR      "plugins"
+#define PLUGIN_DB       "plugins.xml"
 
-#define DIR_SEP			"/"
+#define DIR_SEP	        "/"
 
 extern int    const NO_TIME;
 extern double const PI;		//!< Pi 		[-]
@@ -46,5 +46,8 @@ extern short const UZ;		//!< marks z-direction
 
 // errors
 extern int const NOERROR;	//!< NO ERROR OCCURED
+
+extern char* const VERSION;
+extern char* const SVN_REVISION;
 
 #endif // _constants_h

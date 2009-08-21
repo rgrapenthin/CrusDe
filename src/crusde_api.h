@@ -30,6 +30,7 @@
 
 #include "constants.h"
 #include "config.h"
+#include "stdarg.h"
 
 #define boolean	int		/* mimic boolean */
 #define true	1		/* mimic boolean true */
@@ -60,12 +61,19 @@ typedef enum{
 	ADD_FIELD = 3
 }FieldName;
 
+//error and debugging functions
+void		crusde_error(const char* format, ...);		/* prints msg to stderr and aborts*/
+void		crusde_debug(const char* format, ...);		/* prints msg to stdout if DEBUG is set*/
+void		crusde_warning(const char* format, ...);	/* prints msg to stderr*/
+void		crusde_info(const char* format, ...);		/* prints msg to stderr*/
 
 double* 	crusde_register_param_double(const char* param_name, PluginCategory);
+double* 	crusde_register_optional_param_double(const char* param_name, PluginCategory, double);
 							/*register double parameter with CrusDe*/
 //int* 	        crusde_register_param_int(const char* param_name, PluginCategory);
 							/*register integer parameter with CrusDe*/
 char**          crusde_register_param_string(const char* param_name, PluginCategory);
+char**          crusde_register_optional_param_string(const char* param_name, PluginCategory, char*);
 							/*register string parameter with CrusDe*/
 void		crusde_register_output_field(int* position, FieldName);
 							/*register output field with CrusDe*/
@@ -97,16 +105,16 @@ double 		crusde_get_crustal_decay_at(int t);     /*crustal decay at t*/
 void 		crusde_set_result(double**);		/*return pointer to model results*/
 double** 	crusde_get_result();			/*pointer to model results*/
 void 		crusde_set_quadrant(int);		/*get / set quadrant in coordinate system ...*/
-int			crusde_get_quadrant();			/*... in which green's function is calculated*/
+int             crusde_get_quadrant();			/*... in which green's function is calculated*/
 
 void 		crusde_exit(int exitcode);		/*have CrusDe terminate gracefully*/
 
 int 		crusde_get_current_load_component();    /*get the current load component id to work with it with somewhere*/
 void 		crusde_set_current_load_component(int); /*set the current load component id that is globally worked with*/
-int         crusde_get_number_of_loads();
+int             crusde_get_number_of_loads();
 
-void        crusde_set_operator_space(int, int);    /* operator can set the spatial dimensions it operates on */
-void        crusde_get_operator_space(int*, int*);  /* anybody else can retrieve this information */
+void            crusde_set_operator_space(int, int);    /* operator can set the spatial dimensions it operates on */
+void            crusde_get_operator_space(int*, int*);  /* anybody else can retrieve this information */
 
 boolean 	crusde_crustal_decay_given();			/* tells whether the user set a crustal decay function for the current load*/
 boolean 	crusde_load_history_given();			/* tells whether the user set a load history function for the current load*/

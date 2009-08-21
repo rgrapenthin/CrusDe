@@ -67,7 +67,7 @@ extern void register_parameter()
 	p_deg_min  = crusde_register_param_double("deg_min", get_category());
 	p_deg_max  = crusde_register_param_double("deg_max", get_category());
 	p_deg_step = crusde_register_param_double("deg_step", get_category());
-	p_file     = crusde_register_param_string("file", get_category());
+	p_file     = crusde_register_optional_param_string("file", get_category(), "");
 	p_kv       = crusde_register_param_double("kv", get_category());
 	p_lth      = crusde_register_param_double("lth", get_category());
 	p_mode     = crusde_register_param_double("mode", get_category());
@@ -88,13 +88,15 @@ extern void register_parameter()
  */
 extern void register_output_fields() 
 { 
-printf("alma.c registers output fields...");	
-	crusde_register_output_field(&x_pos, X_FIELD);	
-	crusde_register_output_field(&y_pos, Y_FIELD);	
-	crusde_register_output_field(&z_pos, Z_FIELD);	
-printf("\t x: %d\n", x_pos);	
-printf("\t y: %d\n", y_pos);	
-printf("\t z: %d\n", z_pos);	
+    crusde_info("%s registers output fields...", get_name());	
+
+    crusde_register_output_field(&x_pos, X_FIELD);	
+    crusde_register_output_field(&y_pos, Y_FIELD);	
+    crusde_register_output_field(&z_pos, Z_FIELD);	
+
+    crusde_info("\t x: %d", x_pos);	
+    crusde_info("\t y: %d", y_pos);	
+    crusde_info("\t z: %d", z_pos);	
 }
 
 extern void request_plugins(){}
@@ -107,12 +109,30 @@ extern void init()
 	/* call ALMA */
 	char  alma_call[255];
 
-	sprintf(alma_call, "/usr/local/alma2/alma -h -l -k -load -salz -deg %d:%d:%d -kv %d -lth %e -mode %d -ng %d -nla %d -p %d -rheol %d -sd %d -time %d:%d \0", 
+	if(getenv("ALMA") == NULL){
+	    	crusde_error("Error: Environment variable ALMA is not defined!\n\n");
+		crusde_exit(-1);
+	}
+
+	//construct alma call string
+	sprintf(alma_call, "%s/alma -h -l -k -load -salz -deg %d:%d:%d -kv %d -lth %e -mode %d -ng %d -nla %d -p %d -rheol %d -sd %d -time %d:%d", 
+			   getenv("ALMA"), 
 			   (int) *(p_deg_min), (int) *(p_deg_step), (int) *(p_deg_max), (int) *(p_kv), *(p_lth), (int) *(p_mode), (int) *(p_ng), (int) *(p_nla), 
 			   (int) *(p_p), (int) *(p_rheol), (int) *(p_sd), (int) *(p_time_min), (int) *(p_time_max) );
 
-	printf("ALMA.C: calling: <%s>\n", alma_call);
+	crusde_info("Calling ALMA:");
+	crusde_info( alma_call );
+
+	//perform the actual system call.	
 	system(alma_call);
+
+	crusde_debug("reading ALMA output.");
+
+// need number of time points to alloc memory
+// need number of degrees to alloc memory
+// need memory for h, k, l
+
+//	read_alma_output();
 }    
 
 //! Not used in this plugin, left empty!

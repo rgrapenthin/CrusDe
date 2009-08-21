@@ -28,11 +28,12 @@
 #include <cstdlib>
 #include <string.h>
 #include "ParamWrapper.h"
-
+#include "crusde_api.h"
 
 ParamWrapper::ParamWrapper() :
 	string_param(NULL),	
-	double_param(NULL)
+	double_param(NULL),
+	optional(false)
 {}
 
 ParamWrapper::~ParamWrapper()
@@ -46,7 +47,7 @@ ParamWrapper::~ParamWrapper()
     }
 }
 
-char** ParamWrapper::newString()
+char** ParamWrapper::newString(char* val)
 {
 	if(double_param == NULL && string_param == NULL)
 	{
@@ -55,22 +56,21 @@ char** ParamWrapper::newString()
 	}
 	else
 	{
-		cerr << "ERROR: ParamWrapper::newString() : try creating string when double exists" <<endl;
+		crusde_error("ParamWrapper::newString() : try creating string when double exists\n");
 	}
 	
-cout<< ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> cStr:  "<<&cStr<<endl;
 	return &cStr;
 }
 
-double* ParamWrapper::newDouble()
+double* ParamWrapper::newDouble(double val)
 {
 	if(string_param == NULL && double_param == NULL)
 	{
-		double_param = new double();
+		double_param = new double(val);
 	}
 	else
 	{
-		cerr << "ERROR: ParamWrapper::newString() : try creating double when string exists" <<endl;
+		crusde_error("ParamWrapper::newString() : try creating double when string exists\n");
 	}
 
 	return double_param;		
@@ -83,7 +83,7 @@ void ParamWrapper::setValue(string value)
 		*string_param = value;
 		if( (cStr = (char*) realloc(cStr, sizeof(char*) * (string_param->length()+1))) == NULL )
 		{
-			cerr << "ERROR: ParamWrapper::setValue : cannot allocate memory" <<endl;
+			crusde_error("ParamWrapper::setValue : cannot allocate memory\n");
 		}
 		else
 		{		
@@ -93,7 +93,7 @@ void ParamWrapper::setValue(string value)
 	}
 	else
 	{
-		cerr << "ERROR: ParamWrapper::setValue : try setting string when param is not string" <<endl;
+		crusde_error("ParamWrapper::setValue : try setting string when param is not string\n");
 	}
 }
 
@@ -105,9 +105,11 @@ void ParamWrapper::setValue(double value)
 	}
 	else
 	{
-		cerr << "ERROR: ParamWrapper::setValue : try setting double when param is not double" <<endl;
+		crusde_error("ParamWrapper::setValue : try setting double when param is not double\n");
 	}
 }
+
+void ParamWrapper::setOptional(bool value){ optional = value;}
 
 double* ParamWrapper::doubleValue()
 {
@@ -121,4 +123,6 @@ char** ParamWrapper::stringValue()
 
 bool ParamWrapper::isString(){ return (string_param != NULL ? true : false);}
 bool ParamWrapper::isDouble(){ return (double_param != NULL ? true : false);}
+
+bool ParamWrapper::isOptional(){ return optional;}
 
