@@ -198,6 +198,8 @@ extern void init()
 	loads[my_id]->last = NIL;
 	loads[my_id]->current = NIL;
 	
+        crusde_debug("fopen %s", *p_file[my_id]);
+
 	if((fi = fopen( *p_file[my_id], "r" )) == NULL)
 	{
 		int n=0;

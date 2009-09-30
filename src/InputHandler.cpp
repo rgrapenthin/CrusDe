@@ -160,7 +160,7 @@ void InputHandler::readCommandline()
                case 'q': //quiet run
                case 'Q': //quiet run
                     SimulationCore::instance()->setQuiet(true);
-		    break
+		    break;
 
                case 'm': //start experiment manager
                case 'M': //start experiment manager

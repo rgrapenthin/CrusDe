@@ -19,12 +19,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <math.h>
 #include "crusde_api.h"
 
 double *p_deg_min;
 double *p_deg_max;
 double *p_deg_step;
-char   *p_file;
+char   **p_file;
 double *p_kv;
 double *p_lth;
 double *p_mode; 
@@ -38,8 +40,14 @@ double *p_time_max;
 
 int x_pos, y_pos, z_pos;
 
+float **love_number_h;
+float **love_number_k;
+float **love_number_l;
+
 double backpack[3];
 	
+void read_alma_output(const char* file, float** love_array);
+
 extern const char* get_name() 	 { return "alma"; }
 extern const char* get_version() { return "0.1"; }
 extern const char* get_authors() { return "ronni grapenthin"; }
@@ -128,11 +136,35 @@ extern void init()
 
 	crusde_debug("reading ALMA output.");
 
-// need number of time points to alloc memory
-// need number of degrees to alloc memory
-// need memory for h, k, l
+        // need number of time points to alloc memory: this is p_p+1
+        int times = ((int) *(p_p) )+1;
+        // need number of degrees to alloc memory: ceil( (deg_max-deg_min)/deg_step)
+        int degrees = (int) ceil ( (*(p_deg_max) - *(p_deg_min) + 1)/ *(p_deg_step) );
 
-//	read_alma_output();
+        // need memory for h, k, l
+        love_number_h = (float**) malloc (sizeof(float*) * times);
+        love_number_k = (float**) malloc (sizeof(float*) * times);
+        love_number_l = (float**) malloc (sizeof(float*) * times);
+       
+        int t=-1;
+        while(++t < times){
+            love_number_h[t] = (float*) malloc (sizeof(float) * degrees);
+            love_number_k[t] = (float*) malloc (sizeof(float) * degrees);
+            love_number_l[t] = (float*) malloc (sizeof(float) * degrees);
+
+            //init
+            int n = -1;
+            while(++n < degrees){
+                love_number_h[t][n] = 0.0;
+                love_number_k[t][n] = 0.0;
+                love_number_l[t][n] = 0.0;
+           }
+       }
+
+	//fill the arrays with values produced by alma.
+	read_alma_output("./h.dat", love_number_h);
+	read_alma_output("./k.dat", love_number_k);
+	read_alma_output("./l.dat", love_number_l);
 }    
 
 //! Not used in this plugin, left empty!
@@ -154,4 +186,77 @@ extern void clear(){}
 extern int get_value_at(double** result, int x, int y)
 {	
 	return NOERROR;
+}
+
+
+void read_alma_output(const char* file, float **love_array)
+{
+    FILE * fi;
+    char *    alma_header  = "  #";
+    const int alma_column_width = 19;
+    int degrees = (int) ceil ( (*(p_deg_max) - *(p_deg_min) + 1)/ *(p_deg_step) );
+    // need number of time points to alloc memory: this is p_p+1
+    int times = ((int) *(p_p) )+1;
+    int len          = alma_column_width * (degrees + 1) + 1;
+    char buffer[alma_column_width+1];
+
+    //allocate memory for lines that are of length that depends on number of degrees
+    char * line = (char *) malloc (len * sizeof(char) );
+
+    crusde_debug("Reading ALMA file <%s>, times = %d ", file, times);
+
+    if((fi = fopen( file, "r" )) == NULL)
+    {
+	crusde_warning("FILE PROBLEM: <%s>", file);
+ 	perror(file);
+	crusde_exit(1);
+    }
+
+    /*other problems with file?*/
+    if(ferror(fi) != 0)
+    {
+	crusde_warning("FILE PROBLEM ... <%s>", file);
+	perror(file);
+	crusde_exit(1);
+    }
+
+    /*reset filepointer*/
+    rewind(fi);
+
+   
+    /*read values, copy to local array*/
+    int t = -1;
+    while( true )
+    { 
+	 //read a line of unknown length
+	 fgets( line, len, fi );
+         //stop if we're at the end of the file
+         if( feof(fi) ) {              				  break; }
+         //ignore 'empty' lines
+         if( strlen(line) <= strlen(alma_header) ) {              continue; }
+         //stop once we're beyond the header            
+       	 if( !strncmp(line, alma_header, strlen(alma_header) ) ){ continue; }
+
+
+ 	 if (line != NULL){
+		 t++;		//we are at a new and relevant line which translates to a new time, hence increment it
+		 int n=0;	//count the 'degrees', keep in mind though that the index != the actual degree, would have to do arithmetic to get it!
+
+		 while(++n<=degrees)
+		 {
+			 //copy each value (as a string) into buffer, because we don't know how many there are we use this option instead of a dynamic
+			 //fgets which would be a pain.
+			 strncpy(buffer, &line[n*alma_column_width], alma_column_width);
+			 //terminate the string!
+			 buffer[alma_column_width] = '\0';
+			 //now read the float value in the format written by alma
+			 sscanf(buffer, "%E", &love_array[t][n-1] );
+  	   	         //debug info, what's been read, and stored and so on.
+			 crusde_debug("%d, %d read %s - got value %.8e", t, n, buffer, love_array[t][n-1]);
+		 }
+	 }
+     }
+
+     //free memory
+     if(line!=NULL) free(line);
 }
