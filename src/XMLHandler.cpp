@@ -65,7 +65,7 @@ StrXML::StrXML(const string& orig)
 
 StrXML::~StrXML() throw()
 {
-	XMLString::release(&xmlstring);
+    XMLString::release(&xmlstring);
     XMLString::release(&cstring);
 }
 
@@ -189,47 +189,47 @@ XMLHandler::~XMLHandler()
 void XMLHandler::readXML()
 	throw( std::runtime_error )
 {
-	crusde_debug("%s, line: %d, starting XML processing: %s", __FILE__, __LINE__, xmlFile.c_str());
+     crusde_debug("%s, line: %d, starting XML processing: %s", __FILE__, __LINE__, xmlFile.c_str());
 
-	// Test to see if the file is ok.
-	struct stat fileStatus;
+     // Test to see if the file is ok.
+     struct stat fileStatus;
 
-	int iretStat( stat(xmlFile.c_str(), &fileStatus) );
+     int iretStat( stat(xmlFile.c_str(), &fileStatus) );
 	
-	if( iretStat == ENOENT )
-		throw ( std::runtime_error("File does not exist, or file is an empty string.") );
-	else if( iretStat == ENOTDIR )
-		throw ( std::runtime_error("A component of the path is not a directory."));
-	else if( iretStat == ELOOP )
-		throw ( std::runtime_error("Too many symbolic links encountered while traversing the path."));
-	else if( iretStat == EACCES )
-		throw ( std::runtime_error("Permission denied."));
-	else if( iretStat == ENAMETOOLONG )
-		throw ( std::runtime_error("File can not be read\n"));
+     if( iretStat == ENOENT )
+         throw ( std::runtime_error("File does not exist, or file is an empty string.") );
+     else if( iretStat == ENOTDIR )
+          throw ( std::runtime_error("A component of the path is not a directory."));
+     else if( iretStat == ELOOP )
+          throw ( std::runtime_error("Too many symbolic links encountered while traversing the path."));
+     else if( iretStat == EACCES )
+          throw ( std::runtime_error("Permission denied."));
+     else if( iretStat == ENAMETOOLONG )
+          throw ( std::runtime_error("File can not be read\n"));
 		        	
 	//reset error count first
     errReporter.resetErrors();
 
     try{    
-	/* reset document pool */
-	parser.resetDocumentPool();
-	/* parse */
-	parser.parse(xmlFile.c_str());
-	/* getDOM */
-	doc = parser.getDocument();
-	assert(doc);
+          /* reset document pool */
+          parser.resetDocumentPool();
+          /* parse */
+          parser.parse(xmlFile.c_str());
+          /* getDOM */
+          doc = parser.getDocument();
+          assert(doc);
     }
     catch (const XMLException& toCatch)
     {
-        char* error = XMLString::transcode(toCatch.getMessage());
-        crusde_warning("Error during parsing: '%s' Exception message is: \n%s", xmlFile.c_str(), error);
-        XMLString::release(&error);
+          char* error = XMLString::transcode(toCatch.getMessage());
+          crusde_warning("Error during parsing: '%s' Exception message is: \n%s", xmlFile.c_str(), error);
+          XMLString::release(&error);
     }
     catch (const DOMException& toCatch)
     {
-        char* error = XMLString::transcode(toCatch.getMessage());
-        crusde_warning("Error during parsing: '%s' Exception message is: \n%s", xmlFile.c_str(), error);
-	XMLString::release(&error);
+          char* error = XMLString::transcode(toCatch.getMessage());
+          crusde_warning("Error during parsing: '%s' Exception message is: \n%s", xmlFile.c_str(), error);
+          XMLString::release(&error);
     }
     catch (...)
     {

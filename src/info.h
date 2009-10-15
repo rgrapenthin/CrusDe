@@ -38,11 +38,13 @@ static void usage()
             "This program runs an experiment that is parameterized by an XML file, \n"
 	    "or starts a gui for either the experiment manager or the plug-in manager.\n\n"
             "    guiOptions:\n"
-	    "    -P          run Plug-in manager.\n" 
-	    "    -M          run Experiment manager.\n\n" 
+	    "      -P|p                       run Plug-in manager.\n" 
+	    "      -P|p install <plug-in.so>  Install 'plug-in.so' from command line.\n" 
+	    "      -M|m                       run Experiment manager.\n\n" 
             "    Options:\n"
-	    "    -v          show version information.\n" 
-	    "    -h          show this help.\n" 
+	    "      -h|?                       show this help.\n" 
+	    "      -Q|q                       quiet run, minimal output.\n" 
+	    "      -v|V                       show version information.\n" 
          << endl;
 }
 
