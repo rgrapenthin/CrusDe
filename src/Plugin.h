@@ -34,7 +34,7 @@
 #include <dlfcn.h>
 
 #include "crusde_api.h"
-#include "config.h"
+#include "typedefs.h"
 #include "exceptions.h"
 
 using namespace std;

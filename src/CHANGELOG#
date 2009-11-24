@@ -1,3 +1,7 @@
+2009-10-18
+----------
+	renamed config.h to typedefs.h
+
 2009-08-21
 ----------
 	added 'crusde -p install <plugin.so>' which is used in install_plugins.sh

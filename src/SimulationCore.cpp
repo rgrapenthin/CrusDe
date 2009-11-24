@@ -29,7 +29,7 @@
 #include	"LoadHistoryPlugin.h"
 #include	"DataOutPlugin.h"
 #include	"ExperimentManager.h"
-#include	"config.h"
+#include	"typedefs.h"
 #include	"Plugin.h"
 #include	"GreensFunction.h"
 #include	"LoadPlugin.h"
@@ -37,6 +37,7 @@
 #include	"PluginManager.h"
 #include	"LoadFunction.h"
 #include	"ParamWrapper.h"
+#include	"ModelRegion.h"
 
 #include 	<iostream>
 
@@ -50,10 +51,9 @@ s_parameters SimulationCore::s_params = {};
 SimulationCore* SimulationCore::pSimulationCore=0;
 
 SimulationCore::SimulationCore(int argc, char** argv) throw (SeriousException) :
-	com_port(NULL), exp_man(NULL), plugin_man(NULL), pl_kernel(NULL), 
-        pl_out(NULL), greens_function(NULL), 
-        load_function(NULL),
-	load_function_component(0),
+	com_port(NULL), model_region(NULL), exp_man(NULL), plugin_man(NULL), 
+	pl_kernel(NULL), pl_out(NULL), greens_function(NULL), 
+        load_function(NULL), load_function_component(0),
 	x_west(0), x_east(0), y_south(0), y_north(0), 
 	gridsize(0), modelstep(0), modeltime(0), num_timesteps(1), num_timeincrement(1),
 	stepsize(1), quadrant(1), dimensions(0),
@@ -73,15 +73,15 @@ SimulationCore::SimulationCore(int argc, char** argv) throw (SeriousException) :
 	root_dir = string(getenv("CRUSDE_HOME"));
 
 	/*create integral parts*/
-	com_port  = new InputHandler(argc, argv);
-	exp_man   = new ExperimentManager(
+	com_port        = new InputHandler(argc, argv);
+	exp_man         = new ExperimentManager(
 				string(root_dir).append(DIR_SEP).append(EXPERIMENT_DIR).append(DIR_SEP).append(EXPERIMENT_DB).c_str()
-			);
-	plugin_man= new PluginManager(
+			      );
+	plugin_man      = new PluginManager(
 				string(root_dir).append(DIR_SEP).append(PLUGIN_DIR).append(DIR_SEP).append(PLUGIN_DB).c_str()
-			);
+			      );
+	model_region    = new ModelRegion("model region");
 
-	
 	/*create plugins*/
 	greens_function = new GreensFunction("greens function");
 	load_function   = new LoadFunction("load function"); //holds load, load history, crustal decay
@@ -112,12 +112,20 @@ void SimulationCore::init() //throw INIT_EXCEPTION
     // ------------------
     // set setup variables ... important to set these BEFORE plugins get initialized!
     // ------------------
-	x_west  =  com_port->getRegion("west");
-	x_east  =  com_port->getRegion("east");
-	y_south =  com_port->getRegion("south");
-	y_north =  com_port->getRegion("north");
+
+//	crusde_debug("%s, line: %d, got north=%f, south=%f, east=%f, west=%f", __FILE__, __LINE__, com_port->getRegion("north"), com_port->getRegion("south"), com_port->getRegion("east"), com_port->getRegion("west"));
+
+
+	model_region->setRegionDegrees(	com_port->getRegion("north"), com_port->getRegion("south"),
+					com_port->getRegion("east"), com_port->getRegion("west") );
+	model_region->setGridsizeDegrees(com_port->getGridSize());
 	
-	gridsize          = com_port->getGridSize();
+	x_west  = 0;
+	x_east  = model_region->getLonDistance();
+	y_south = 0;
+	y_north = model_region->getLatDistance();
+
+	gridsize          = model_region->getGridsizeMetric();
 	num_timesteps     = com_port->getTimeSteps();	
 	num_timeincrement = com_port->getTimeIncrement();	
 

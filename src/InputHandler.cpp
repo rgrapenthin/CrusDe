@@ -576,16 +576,19 @@ string InputHandler::getResultFileName()
 	
 }
 
-int InputHandler::getRegion(string direction)
+double InputHandler::getRegion(string direction)
 {
 	StrXML d(direction);
-	return atoi(getAttributeValueByName(TAG_region.xmlStr(), ATTR_value.xmlStr(), d.xmlStr()).c_str());
+//	string s(getAttributeValueByName(TAG_region.xmlStr(), ATTR_value.xmlStr(), d.xmlStr()).c_str());
+//	crusde_debug("%s, line: %d, InputHandler::getRegion %s=%s=%f", __FILE__, __LINE__, direction.c_str(), s.c_str(), atof(s.c_str()));
+	
+	return atof(getAttributeValueByName(TAG_region.xmlStr(), ATTR_value.xmlStr(), d.xmlStr()).c_str());
 }
 
-int InputHandler::getGridSize()
+double InputHandler::getGridSize()
 {
 	StrXML g("gridsize");
-	return atoi(getAttributeValueByName(TAG_parameter.xmlStr(), ATTR_value.xmlStr(), g.xmlStr()).c_str());
+	return atof(getAttributeValueByName(TAG_parameter.xmlStr(), ATTR_value.xmlStr(), g.xmlStr()).c_str());
 }
 
 unsigned long int InputHandler::getTimeSteps()

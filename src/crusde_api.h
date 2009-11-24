@@ -7,7 +7,7 @@
  * #########################################################################
  *
  * CrusDe, simulation framework for crustal deformation studies
- * Copyright (C) 2007 Ronni Grapenthin
+ * Copyright (C) 2007-2009 Ronni Grapenthin
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -29,7 +29,7 @@
 #define _green_api_h
 
 #include "constants.h"
-#include "config.h"
+#include "typedefs.h"
 #include "stdarg.h"
 
 #define boolean	int		/* mimic boolean */
@@ -44,6 +44,7 @@
 extern "C" {
 #endif
 
+//! PluginCategory holds ID values used to identify the various plug-in types that are valid within CrusDe
 typedef enum{
 	LOAD_PLUGIN = 0,
 	KERNEL_PLUGIN = 1,
@@ -54,6 +55,7 @@ typedef enum{
 	CRUSTALDECAY_PLUGIN = 6
 }PluginCategory;
 
+//! FieldName holds ID values to identify output field names
 typedef enum{
 	X_FIELD = 0,
 	Y_FIELD = 1,
@@ -61,11 +63,11 @@ typedef enum{
 	ADD_FIELD = 3
 }FieldName;
 
-//error and debugging functions
-void		crusde_error(const char* format, ...);		/* prints msg to stderr and aborts*/
-void		crusde_debug(const char* format, ...);		/* prints msg to stdout if DEBUG is set*/
-void		crusde_warning(const char* format, ...);	/* prints msg to stderr*/
-void		crusde_info(const char* format, ...);		/* prints msg to stderr*/
+//! error and debugging functions, formatting works just like <code>printf</code>
+void		crusde_error(const char* format, ...);		/** prints msg to stderr and aborts*/
+void		crusde_debug(const char* format, ...);		/** prints msg to stdout if DEBUG is set*/
+void		crusde_warning(const char* format, ...);	/** prints msg to stderr*/
+void		crusde_info(const char* format, ...);		/** prints msg to stderr*/
 
 double* 	crusde_register_param_double(const char* param_name, PluginCategory);
 double* 	crusde_register_optional_param_double(const char* param_name, PluginCategory, double);

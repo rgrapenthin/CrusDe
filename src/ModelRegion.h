@@ -1,13 +1,13 @@
 /***************************************************************************
- * File:        ./GreensFunctionPlugin.h
- * Author:      Ronni Grapenthin, NORVULK & HU-BERLIN
- * Created:     09.03.2007
+ * File:        ./ModelRegion.h
+ * Author:      Ronni Grapenthin, UAF-GI
+ * Created:     2009-11-23
  * Licence:     GPLv2
  *
  * #########################################################################
  *
  * CrusDe, simulation framework for crustal deformation studies
- * Copyright (C) 2007 Ronni Grapenthin
+ * Copyright (C) 2007-today Ronni Grapenthin
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -25,39 +25,47 @@
  *
  ****************************************************************************/
 
-#ifndef _green_plugin_h
-#define _green_plugin_h
+#ifndef _model_region_h
+#define _model_region_h
 
-#include "Plugin.h"
-#include "constants.h"
-#include "typedefs.h"
 #include <iostream>
 #include <cassert>
+#include <string>
+#include <stdexcept>
 #include <map>
-#include <dlfcn.h>
 
 using namespace std;
 
-class GreenPlugin : public Plugin
+class ModelRegion
 {
-
+		
 	private:
-        map<string, string> my_jobs;
-		green_exec_function func_value_array;		/*  Pointer to loaded routine	*/
-		/**hidden copy constructor - we do not want to accidentially copy objects*/
-		GreenPlugin(const GreenPlugin& x); 
+		const string name;
+		double north_deg;
+		double south_deg;
+		double east_deg;
+		double west_deg;
+		double gridsize_deg;
 
+		/**hidden copy constructor - we do not want to accidentially copy objects*/
+		ModelRegion(const ModelRegion& x); 
+		double distVincenty(double, double, double, double);
+			
 	public:
-		GreenPlugin(const string=NULL);	/* Constructor */
-		virtual ~GreenPlugin();		/* Destructor */
-		
-		virtual void load( const string ) throw (FileNotFound, LibHandleError);
-//		virtual void selftest();
-		
-		/*plug - in interface*/
-		int getValueArrayAt(double**, int, int);
-		/*get pointers to exec function*/
-		green_exec_function getArrayFunction();
+		ModelRegion(const string);	/*Constructor*/
+		~ModelRegion();		/*Destructor */
+
+		/*GETTERS*/
+		/*********/
+		double getEastDegrees();
+		int    getLonDistance();
+		int    getLatDistance();
+		int    getGridsizeMetric();
+
+		/*SETTERS*/
+		/*********/
+		void setGridsizeDegrees(double);
+		void setRegionDegrees(double, double, double, double);
 };
 
-#endif // _green_plugin_h
+#endif // _model_region_h

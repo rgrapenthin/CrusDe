@@ -48,7 +48,7 @@
 #include <cassert>
 #include <string>
 #include "constants.h"
-#include "config.h"
+#include "typedefs.h"
 #include "crusde_api.h"
 #include "exceptions.h"
 
@@ -64,6 +64,7 @@ class ExperimentManager;
 class PluginManager;
 class LoadFunction;
 class ParamWrapper;
+class ModelRegion;
 
 //! The parameter registry for plugins.
 /*! 
@@ -97,8 +98,9 @@ class SimulationCore /*: 	public PluginAPI,
 			public PluginSimulationCore,*/ {
 	
 	InputHandler      *com_port;        /**< hard-wired input handler, no plugin*/
-	ExperimentManager *exp_man;         /**< hard-wired experiment SimulationCore, no plugin*/
-	PluginManager     *plugin_man;      /**< hard-wired plugin SimulationCore, no plugin ;)*/
+	ModelRegion       *model_region;    /**< manager of model region; does conversions degree to great circle dists, holds gridsize */
+	ExperimentManager *exp_man;         /**< hard-wired experiment Manager, no plugin*/
+	PluginManager     *plugin_man;      /**< hard-wired plugin Manager, no plugin ;)*/
 
 	Plugin            *pl_kernel;       /**< Plug-in instance taking care on the simulation kernel */
 	DataOutPlugin     *pl_out;          /**< Plug-in instance handling data output*/
