@@ -233,6 +233,8 @@ class SimulationCore /*: 	public PluginAPI,
 	int minX();
 	int minY();
 	int modelTime();
+	int distMinLon(double, double);
+	int distMinLat(double, double);
 	int modelStep();
 	int stepSize();
 	int xIndex();
@@ -257,10 +259,13 @@ class SimulationCore /*: 	public PluginAPI,
 	list<string> getRequestedNames();
 	void deleteRequests();
 
-    int getOperatorSpaceX();
-    int getOperatorSpaceY();
-    void setOperatorSpace(int, int);
-    bool operatorSpaceIsSet();
+	int getOperatorSpaceX();
+	int getOperatorSpaceY();
+	void setOperatorSpace(int, int);
+	bool operatorSpaceIsSet();
+
+	double  getRegionBound(RegionBound bound);
+	double* getGridsizeGeographic();
 	
 	string getPluginFilename(string, string) throw (DatabaseError);
 	void registerOutputField(int *output_index, FieldName field);

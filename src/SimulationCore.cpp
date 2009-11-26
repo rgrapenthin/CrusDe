@@ -118,7 +118,7 @@ void SimulationCore::init() //throw INIT_EXCEPTION
 
 	model_region->setRegionDegrees(	com_port->getRegion("north"), com_port->getRegion("south"),
 					com_port->getRegion("east"), com_port->getRegion("west") );
-	model_region->setGridsizeDegrees(com_port->getGridSize());
+	model_region->setGridsizeMetric(com_port->getGridSize());
 	
 	x_west  = 0;
 	x_east  = model_region->getLonDistance();
@@ -810,10 +810,32 @@ int SimulationCore::minY()
 	return y_south;
 }
 
+int SimulationCore::distMinLon(double lat, double lon)
+{
+	return model_region->getDistMinLon(lat, lon);
+}
+
+int SimulationCore::distMinLat(double lat, double lon)
+{
+	return model_region->getDistMinLat(lat, lon);
+}
+
+
 int SimulationCore::gridSize()
 {
 	return gridsize;
 }
+
+double SimulationCore::getRegionBound(RegionBound bound)
+{
+	return model_region->getRegionBound(bound);
+}
+
+double* SimulationCore::getGridsizeGeographic()
+{
+	return model_region->getGridsizeGeographic();
+}
+
 
 int SimulationCore::stepSize()
 {

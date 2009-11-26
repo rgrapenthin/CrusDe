@@ -63,6 +63,14 @@ typedef enum{
 	ADD_FIELD = 3
 }FieldName;
 
+
+typedef enum{
+	NORTH = 0,
+	SOUTH = 1,
+	EAST  = 2,
+	WEST  = 3
+}RegionBound;
+
 //! error and debugging functions, formatting works just like <code>printf</code>
 void		crusde_error(const char* format, ...);		/** prints msg to stderr and aborts*/
 void		crusde_debug(const char* format, ...);		/** prints msg to stdout if DEBUG is set*/
@@ -85,6 +93,8 @@ int 		crusde_get_size_t();            /*total number of time steps*/
 int 		crusde_get_gridsize();          /*side length of a grid cell*/
 int 		crusde_get_min_x();             /*westernmost coordinate of ROI*/
 int 		crusde_get_min_y();             /*southernmost coordinate of ROI*/
+int 		crusde_get_dist_to_min_lon(double lat, double lon); /*distance of lon to minimum longitude of model region */
+int 		crusde_get_dist_to_min_lat(double lat, double lon); /*distance of lat to minimum latitude of model region */
 int 		crusde_get_dimensions();		/*total number of output fields*/
 int 		crusde_get_displacement_dimensions();	/*total number of spatial output fields (x,y,z)*/
 int 		crusde_model_time();      /*current time step*/
@@ -94,6 +104,8 @@ int 		crusde_stepsize();              /*time increment with each model step*/
 int 		crusde_get_x_index();           /*index of x-displacement values in result array*/
 int 		crusde_get_y_index();           /*index of y-displacement values in result array*/
 int 		crusde_get_z_index();           /*index of z-displacement values in result array*/
+double 		crusde_get_bound(RegionBound);	
+double*		crusde_get_gridsize_geographic();
 
 const char* 	crusde_get_observation_file();		/*filename of points to be observed (unused)*/
 const char* 	crusde_get_out_file();			/*filename for result output*/

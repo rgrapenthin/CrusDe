@@ -40,31 +40,38 @@ class ModelRegion
 {
 		
 	private:
-		const string name;
-		double north_deg;
-		double south_deg;
-		double east_deg;
-		double west_deg;
-		double gridsize_deg;
+		const   string name;
+		double  north_deg;
+		double  south_deg;
+		double  east_deg;
+		double  west_deg;
+		double  gridsize_deg[2];
+		int     gridsize_metric;
+		double  tmp_point[2];
 
 		/**hidden copy constructor - we do not want to accidentially copy objects*/
 		ModelRegion(const ModelRegion& x); 
-		double distVincenty(double, double, double, double);
-			
+		double  distVincenty(double, double, double, double);
+		double* destVincenty(double lat1, double lon1, double brng, double dist);
 	public:
 		ModelRegion(const string);	/*Constructor*/
 		~ModelRegion();		/*Destructor */
 
 		/*GETTERS*/
 		/*********/
-		double getEastDegrees();
-		int    getLonDistance();
-		int    getLatDistance();
-		int    getGridsizeMetric();
+		double    getEastDegrees();
+		int       getLonDistance();
+		int       getLatDistance();
+		int       getGridsizeMetric();
+		double*   getGridsizeGeographic();
+		double    getRegionBound(RegionBound bound);
+		int       getDistMinLon(double, double);
+		int       getDistMinLat(double, double);
+
 
 		/*SETTERS*/
 		/*********/
-		void setGridsizeDegrees(double);
+		void setGridsizeMetric(int);
 		void setRegionDegrees(double, double, double, double);
 };
 

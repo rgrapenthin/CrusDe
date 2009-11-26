@@ -277,6 +277,17 @@ extern "C" int crusde_get_min_y()
     return SimulationCore::instance()->minY();
 }
 
+
+extern "C" int crusde_get_dist_to_min_lon(double lat, double lon)
+{
+    return SimulationCore::instance()->distMinLon(lat, lon);
+}
+
+extern "C" int crusde_get_dist_to_min_lat(double lat, double lon)
+{
+    return SimulationCore::instance()->distMinLat(lat, lon);
+}
+
 extern "C" void crusde_set_result(double **result)
 {
     SimulationCore::instance()->setModelData(result);
@@ -315,152 +326,59 @@ extern "C" int crusde_load_history_exists()
     return 0; //SimulationCore::instance()->loadHistoryPlugin()->isLoaded() ? 1 : 0;
 }
 */
-extern "C" int crusde_model_time()
-{
-    return SimulationCore::instance()->modelTime();
-}
+extern "C" int       crusde_model_time(){                                                      return SimulationCore::instance()->modelTime(); }
+extern "C" int       crusde_get_timesteps(){                                                   return SimulationCore::instance()->getTimesteps(); }
+extern "C" int       crusde_model_step() {                                                     return SimulationCore::instance()->modelStep(); }
+extern "C" int       crusde_stepsize() {                                                       return SimulationCore::instance()->stepSize(); }
+extern "C" int       crusde_get_x_index() {                                                    return SimulationCore::instance()->xIndex(); }
+extern "C" int       crusde_get_y_index() {                                                    return SimulationCore::instance()->yIndex(); }
+extern "C" int       crusde_get_z_index() {                                                    return SimulationCore::instance()->zIndex(); }
+extern "C" int       crusde_get_current_load_component(){                                      return SimulationCore::instance()->getLoadFunctionComponent();  }
+extern "C" void      crusde_set_current_load_component(int id){                                SimulationCore::instance()->setLoadFunctionComponent(id);       }
+extern "C" int       crusde_get_number_of_load_components(){                                   return SimulationCore::instance()->getNumberOfLoadComponents(); }
+extern "C" boolean   crusde_crustal_decay_given(){                                             return SimulationCore::instance()->loadFunction()->crustalDecayGiven(); }
+extern "C" boolean   crusde_load_history_given(){                                              return SimulationCore::instance()->loadFunction()->loadHistoryGiven(); }
+extern "C" double    crusde_get_bound(RegionBound bound) {                                     return SimulationCore::instance()->getRegionBound(bound); }	
+extern "C" double*   crusde_get_gridsize_geographic() {                                        return SimulationCore::instance()->getGridsizeGeographic();}
 
-extern "C" int crusde_get_timesteps()
+extern "C" green_exec_function crusde_request_green_plugin(char* plugin)
 {
-    return SimulationCore::instance()->getTimesteps();
-}
-
-extern "C" int crusde_model_step()
-{
-    return SimulationCore::instance()->modelStep();
-}
-
-
-extern "C" int crusde_stepsize()
-{
-    return SimulationCore::instance()->stepSize();
-}
-
-extern "C" int crusde_get_x_index()
-{
-    return SimulationCore::instance()->xIndex();
-}
-
-extern "C" int crusde_get_y_index()
-{
-    return SimulationCore::instance()->yIndex();
-}
-
-extern "C" int crusde_get_z_index()
-{
-    return SimulationCore::instance()->zIndex();
-}
-
-extern "C" int crusde_get_current_load_component()
-{
-	return SimulationCore::instance()->getLoadFunctionComponent();
-}
-
-extern "C" void crusde_set_current_load_component(int id)
-{
-	SimulationCore::instance()->setLoadFunctionComponent(id);
-}
-
-extern "C" int crusde_get_number_of_load_components()
-{
-	return SimulationCore::instance()->getNumberOfLoadComponents();
-}
-
-extern "C" boolean crusde_crustal_decay_given()
-{
-    return SimulationCore::instance()->loadFunction()->crustalDecayGiven();
-}
-
-extern "C" boolean crusde_load_history_given()
-{
-    return SimulationCore::instance()->loadFunction()->loadHistoryGiven();
-}
-
-extern "C" green_exec_function crusde_request_green_plugin(char* plugin) 
-{
-	try
-	{
-		return SimulationCore::instance()->addGreenPlugin( string(plugin) );
-	}
-	catch( runtime_error e)
-	{
-		SimulationCore::instance()->abort(e.what());
-	}
-	
-	return NULL;
+        try{                       return SimulationCore::instance()->addGreenPlugin( string(plugin) );         }
+        catch( runtime_error e) {  SimulationCore::instance()->abort(e.what());                                 }
+        return NULL;
 }
 
 extern "C" load_exec_function crusde_request_load_plugin(char* plugin) 
 {
-	try
-	{
-		return SimulationCore::instance()->addLoadPlugin( string(plugin) );
-	}
-	catch( runtime_error e)
-	{
-		SimulationCore::instance()->abort(e.what());
-	}
-	
-	return NULL;
-
+        try{                       return SimulationCore::instance()->addLoadPlugin( string(plugin) );          }
+        catch( runtime_error e) {  SimulationCore::instance()->abort(e.what());                                 }
+        return NULL;
 }
 
 extern "C" run_function crusde_request_kernel_plugin(char* plugin)
 {
-	try
-	{
-		return SimulationCore::instance()->addKernelPlugin( string(plugin) );
-	}
-	catch( runtime_error e)
-	{
-		SimulationCore::instance()->abort(e.what());
-	}
-	
-	return NULL;
-	
+        try{                       return SimulationCore::instance()->addKernelPlugin( string(plugin) );        }
+        catch( runtime_error e) {  SimulationCore::instance()->abort(e.what());                                 }
+        return NULL;
 }
 
 extern "C" run_function crusde_request_postprocessor_plugin(char* plugin)
 {
-	try
-	{
-		return SimulationCore::instance()->addPostprocessorPlugin( string(plugin) );
-	}
-	catch( runtime_error e)
-	{
-		SimulationCore::instance()->abort(e.what());
-	}
-	
-	return NULL;
-	
+        try{                       return SimulationCore::instance()->addPostprocessorPlugin( string(plugin) ); }
+        catch( runtime_error e) {  SimulationCore::instance()->abort(e.what());                                 }
+        return NULL;
 }
 
 extern "C" loadhistory_exec_function crusde_request_loadhistory_plugin(char* plugin) 
 {
-	try
-	{
-		return SimulationCore::instance()->addLoadHistoryPlugin( string(plugin) );
-	}
-	catch( runtime_error e)
-	{
-		SimulationCore::instance()->abort(e.what());
-	}
-	
-	return NULL;
-
+        try{                       return SimulationCore::instance()->addLoadHistoryPlugin( string(plugin) );   }
+        catch( runtime_error e) {  SimulationCore::instance()->abort(e.what());                                 }
+        return NULL;
 }
 
 extern "C" crustaldecay_exec_function crusde_request_crustaldecay_plugin(char* plugin) 
 {
-	try
-	{
-		return SimulationCore::instance()->addCrustalDecayPlugin( string(plugin) );
-	}
-	catch( runtime_error e)
-	{
-		SimulationCore::instance()->abort(e.what());
-	}
-	
-	return NULL;
-
+        try {                      return SimulationCore::instance()->addCrustalDecayPlugin( string(plugin) );  }
+        catch( runtime_error e) {  SimulationCore::instance()->abort(e.what());                                 }
+        return NULL;
 }

@@ -61,8 +61,8 @@ cout << "THERE" <<endl;
 //	try
 //	{	
 		core->init();	
-//		core->exec();	
-//		core->terminate();	
+		core->exec();	
+		core->terminate();	
 //	}
 /*	
 	catch (const INIT_EXCEPTION& e)

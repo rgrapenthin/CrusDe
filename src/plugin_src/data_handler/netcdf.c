@@ -290,10 +290,11 @@ extern void init()
    if (status != NC_NOERR) ERR(status);
 
    /* Create lat, long, and time data arrays.*/
+   double *gridsize_geographic = crusde_get_gridsize_geographic();
    for (lon = 0; lon < NLON; ++lon)
-      lons[lon] = lon*crusde_get_gridsize()+crusde_get_min_x();;
+      lons[lon] = lon*gridsize_geographic[1]+crusde_get_bound(WEST);
    for (lat = 0; lat < NLAT; ++lat)
-      lats[lat] = lat*crusde_get_gridsize()+crusde_get_min_y();
+      lats[lat] = lat*gridsize_geographic[0]+crusde_get_bound(SOUTH);
    for (time = 0; time < NTIM; ++time)
       times[time] = time*crusde_stepsize();
    for (dir = 0; dir < NDIR; ++dir)

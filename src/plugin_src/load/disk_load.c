@@ -37,6 +37,8 @@ double disk_height; 	/**< Disk's height 		[m]		*/
 double disk_radius; 	/**< Disk's radius 		[m] 		*/
 double disk_x;     	/**< Disk's center, x-Coordinate[-]		*/
 double disk_y;     	/**< Disk's center, y-Coordinate[-]		*/
+double disk_lon;     	/**< Disk's center, x-Coordinate[-]		*/
+double disk_lat;     	/**< Disk's center, y-Coordinate[-]		*/
 double rho;		/**< Density of the load	[kg/m^3]	*/
 
 /* internals */
@@ -87,7 +89,8 @@ extern void init(){}
  * 
  *  -# disk_height, XML config identifier is "height", SI-unit [m]
  *  -# disk_radius, XML config identifier is "radius", SI-unit [m]
- *  -# disk_x, XML config identifier is "center_x", SI-unit [m] (Lambert  *  -# disk_y, XML config identifier is "center_y", SI-unit [m] (Lambert coordinate)
+ *  -# disk_x, XML config identifier is "center_x", SI-unit [m] (Lambert coord)
+ *  -# disk_y, XML config identifier is "center_y", SI-unit [m] (Lambert coordinate)
  *  -# rho, XML config identifier is "rho", SI-unit [kg/m^3]
  *
  *  @see register_load_param()
@@ -101,7 +104,7 @@ extern void register_parameter()
     p_height[my_id] = crusde_register_param_double("height", get_category());
     p_radius[my_id] = crusde_register_param_double("radius", get_category());
     p_x[my_id]      = crusde_register_param_double("center_x", get_category());
-	p_y[my_id]      = crusde_register_param_double("center_y", get_category());
+    p_y[my_id]      = crusde_register_param_double("center_y", get_category());
     p_rho[my_id]    = crusde_register_param_double("rho", get_category());
 
 }
@@ -123,12 +126,13 @@ extern double get_value_at(int x, int y)
 
 	disk_height = *p_height[my_id];
 	disk_radius = *p_radius[my_id];
-	disk_x = *p_x[my_id];
-	disk_y = *p_y[my_id];
+	disk_lon = *p_x[my_id];
+	disk_lat = *p_y[my_id];
 	rho = *p_rho[my_id];
 
-	disk_x -= crusde_get_min_x();
-	disk_y -= crusde_get_min_y();
+	disk_x = crusde_get_dist_to_min_lon(disk_lat, disk_lon);
+	disk_y = crusde_get_dist_to_min_lat(disk_lat, disk_lon);
+
 	dS = crusde_get_gridsize()*crusde_get_gridsize();
 	rho_dS_const = rho * dS ;
 	all_const    = rho_dS_const * disk_height;
