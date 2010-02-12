@@ -54,7 +54,7 @@ using namespace std;
 extern "C" void crusde_error(const char* format, ...){
 	va_list args;
 	va_start( args, format );
-	fprintf( stderr, "[ Crusde ERROR ] : " );
+	fprintf( stderr, "[ CrusDe ERROR ] : " );
 	vfprintf( stderr, format, args );
 	fprintf( stderr, "\n" );
 	va_end( args );
@@ -67,7 +67,7 @@ extern "C" void crusde_error(const char* format, ...){
 extern "C" void crusde_warning(const char* format, ...){
 	va_list args;
 	va_start( args, format );
-	fprintf( stderr, "[ Crusde WARNING ] : " );
+	fprintf( stderr, "[ CrusDe WARNING ] : " );
 	vfprintf( stderr, format, args );
 	fprintf( stderr, "\n" );
 	va_end( args );
@@ -78,7 +78,7 @@ extern "C" void crusde_info(const char* format, ...){
 	if(!SimulationCore::instance()->isQuiet()){
 		va_list args;
 		va_start( args, format );
-		fprintf( stdout, "[ Crusde ] : " );
+		fprintf( stdout, "[ CrusDe ] : " );
 		vfprintf( stdout, format, args );
 		fprintf( stdout, "\n" );
 		va_end( args );
@@ -91,7 +91,7 @@ extern "C" void crusde_debug(const char* format, ...){
 	//cannot check for quietness, since one should be able to call it even in SimulationCore constructor.
 	va_list args;
 	va_start( args, format );
-	fprintf( stderr, "[ Crusde debug ] : " );
+	fprintf( stderr, "[ CrusDe debug ] : " );
 	vfprintf( stderr, format, args );
 	fprintf( stderr, "\n" );
 	va_end( args );

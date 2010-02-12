@@ -57,7 +57,9 @@ int main( int argc, char** argv )
     	time(&start);		
 
 	SimulationCore *core = SimulationCore::instance(argc, argv);
-cout << "THERE" <<endl;
+
+	crusde_info("Welcome! I'm starting your experiment.");
+
 	try
 	{	
 		core->init();	
@@ -93,6 +95,7 @@ cout << "THERE" <<endl;
 	
 	time(&finish);
 	crusde_info("run time= %f s", (float)difftime(finish,start) );
+	crusde_info("Terminating normally! Bye.");
 		
 	return 0;
 }

@@ -50,6 +50,9 @@ LINKER_OPT             := -lm -ldl -lstdc++ -lxerces-c -rdynamic
 #LINKER_QT              := -lQtGui -lQtCore  -lQtXml -lfreetype -lfontconfig -lpthread -lXrender -lpng  -lXcursor -lXi  -lXrandr -lXinerama -lSM -lrt 
 LINKER_QT              := -lQtGui -lQtCore  -lQtXml -lX11 -lrt 
 
+#--- debug flag, empty by default, set specifically for each target below
+DEBUG                  := 
+
 #--- this directories' sources
 SOURCE                 := $(shell ls *.c *.cpp 2>/dev/null)
 HEADER                 := $(shell ls *.h 2>/dev/null)
@@ -74,7 +77,7 @@ MOC_MODULES            := $(patsubst %.h, moc_%.o, $(shell grep -l Q_OBJECT *.h)
 
 #--- compile sources (C++) 
 .cpp.o:
-	g++ -c -Wall -DDEBUG $(INCLUDE_DIRS) $(QT_INCLUDES) $<
+	g++ -c -Wall $(DEBUG) $(INCLUDE_DIRS) $(QT_INCLUDES) $<
 
 moc_%.cpp: %.h
 	$(MOC) $< -o $@
@@ -100,8 +103,12 @@ defs.h: $(SOURCE)
 	gcc -MM $(INCLUDE_DIRS) $(QT_INCLUDES) $? > defs.h
 	@echo --------------------------------------
 
-all: plugins $(TARGET) 
+all: plugins $(TARGET)
 	cp $(TARGET) $(BIN)	
+
+debug: DEBUG = -DDEBUG
+debug: plugins $(TARGET)
+	cp $(TARGET) $(BIN)
 
 # ----- the targets ...
 $(TARGET): defs.h $(MOC_MODULES) $(OBJS) $(HEADER) #creates the 'crusde'-binary to model deformation using green's functions.
