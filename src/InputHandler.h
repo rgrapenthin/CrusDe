@@ -89,8 +89,8 @@ class InputHandler : public XMLHandler
 		string getOutputPlugin(string);
 		string getFileName(string type);
 		string getResultFileName();
-		double getRegion(string direction);
-		double getGridSize();
+		int    getRegion(string direction);
+		int    getGridSize();
 		unsigned long int getTimeSteps();
         unsigned long int getTimeIncrement();
 		DOMNode* getExperiment();

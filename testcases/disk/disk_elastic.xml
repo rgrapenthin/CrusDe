@@ -39,8 +39,8 @@
        <plugin name="disk load" />
        <parameter name="height" value="150"/>
        <parameter name="radius" value="2000" />
-       <parameter name="center_x" value="5010" />
-       <parameter name="center_y" value="5010" />
+       <parameter name="center_x" value="5000" />
+       <parameter name="center_y" value="5000" />
        <parameter name="rho" value="1000" />
    </load>
   </load_function>

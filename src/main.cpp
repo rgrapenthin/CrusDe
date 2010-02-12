@@ -58,12 +58,12 @@ int main( int argc, char** argv )
 
 	SimulationCore *core = SimulationCore::instance(argc, argv);
 cout << "THERE" <<endl;
-//	try
-//	{	
+	try
+	{	
 		core->init();	
 		core->exec();	
 		core->terminate();	
-//	}
+	}
 /*	
 	catch (const INIT_EXCEPTION& e)
 	{
@@ -86,10 +86,10 @@ cout << "THERE" <<endl;
 		exit(-1);
 	}
 */		
-//	catch ( ... )
-//	{
-//		crusde_error("Unexpected exception during CrusDe run.\nAborting.");
-//	}
+	catch ( ... )
+	{
+		crusde_error("Unexpected exception during CrusDe run.\nAborting.");
+	}
 	
 	time(&finish);
 	crusde_info("run time= %f s", (float)difftime(finish,start) );

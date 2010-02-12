@@ -31,7 +31,7 @@
 #include "Plugin.h"
 #include "GreenPlugin.h"
 #include "constants.h"
-#include "typedefs.h"
+#include "config.h"
 #include <iostream>
 #include <cassert>
 #include <dlfcn.h>

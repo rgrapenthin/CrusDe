@@ -29,7 +29,7 @@
 #include	"LoadHistoryPlugin.h"
 #include	"DataOutPlugin.h"
 #include	"ExperimentManager.h"
-#include	"typedefs.h"
+#include	"config.h"
 #include	"Plugin.h"
 #include	"GreensFunction.h"
 #include	"LoadPlugin.h"
@@ -72,14 +72,14 @@ SimulationCore::SimulationCore(int argc, char** argv) throw (SeriousException) :
 	root_dir = string(getenv("CRUSDE_HOME"));
 
 	/*create integral parts*/
-	com_port        = new InputHandler(argc, argv);
-	exp_man         = new ExperimentManager(
+	com_port  = new InputHandler(argc, argv);
+	exp_man   = new ExperimentManager(
 				string(root_dir).append(DIR_SEP).append(EXPERIMENT_DIR).append(DIR_SEP).append(EXPERIMENT_DB).c_str()
-			      );
-	plugin_man      = new PluginManager(
+			);
+	plugin_man= new PluginManager(
 				string(root_dir).append(DIR_SEP).append(PLUGIN_DIR).append(DIR_SEP).append(PLUGIN_DB).c_str()
-			      );
-
+			);
+	
 	/*create plugins*/
 	greens_function = new GreensFunction("greens function");
 	load_function   = new LoadFunction("load function"); //holds load, load history, crustal decay
@@ -112,7 +112,6 @@ void SimulationCore::init() //throw INIT_EXCEPTION
     // ------------------
 
 //	crusde_debug("%s, line: %d, got north=%f, south=%f, east=%f, west=%f", __FILE__, __LINE__, com_port->getRegion("north"), com_port->getRegion("south"), com_port->getRegion("east"), com_port->getRegion("west"));
-
 
 	//the region of interest
 	x_west  =  com_port->getRegion("west");

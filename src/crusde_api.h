@@ -7,7 +7,7 @@
  * #########################################################################
  *
  * CrusDe, simulation framework for crustal deformation studies
- * Copyright (C) 2007-2009 Ronni Grapenthin
+ * Copyright (C) 2007 Ronni Grapenthin
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -29,7 +29,7 @@
 #define _green_api_h
 
 #include "constants.h"
-#include "typedefs.h"
+#include "config.h"
 #include "stdarg.h"
 
 #define boolean	int		/* mimic boolean */
@@ -44,7 +44,6 @@
 extern "C" {
 #endif
 
-//! PluginCategory holds ID values used to identify the various plug-in types that are valid within CrusDe
 typedef enum{
 	LOAD_PLUGIN = 0,
 	KERNEL_PLUGIN = 1,
@@ -55,7 +54,6 @@ typedef enum{
 	CRUSTALDECAY_PLUGIN = 6
 }PluginCategory;
 
-//! FieldName holds ID values to identify output field names
 typedef enum{
 	X_FIELD = 0,
 	Y_FIELD = 1,
@@ -63,19 +61,11 @@ typedef enum{
 	ADD_FIELD = 3
 }FieldName;
 
-
-typedef enum{
-	NORTH = 0,
-	SOUTH = 1,
-	EAST  = 2,
-	WEST  = 3
-}RegionBound;
-
-//! error and debugging functions, formatting works just like <code>printf</code>
-void		crusde_error(const char* format, ...);		/** prints msg to stderr and aborts*/
-void		crusde_debug(const char* format, ...);		/** prints msg to stdout if DEBUG is set*/
-void		crusde_warning(const char* format, ...);	/** prints msg to stderr*/
-void		crusde_info(const char* format, ...);		/** prints msg to stderr*/
+//error and debugging functions
+void		crusde_error(const char* format, ...);		/* prints msg to stderr and aborts*/
+void		crusde_debug(const char* format, ...);		/* prints msg to stdout if DEBUG is set*/
+void		crusde_warning(const char* format, ...);	/* prints msg to stderr*/
+void		crusde_info(const char* format, ...);		/* prints msg to stderr*/
 
 double* 	crusde_register_param_double(const char* param_name, PluginCategory);
 double* 	crusde_register_optional_param_double(const char* param_name, PluginCategory, double);
@@ -93,8 +83,6 @@ int 		crusde_get_size_t();            /*total number of time steps*/
 int 		crusde_get_gridsize();          /*side length of a grid cell*/
 int 		crusde_get_min_x();             /*westernmost coordinate of ROI*/
 int 		crusde_get_min_y();             /*southernmost coordinate of ROI*/
-int 		crusde_get_dist_to_min_lon(double lat, double lon); /*distance of lon to minimum longitude of model region */
-int 		crusde_get_dist_to_min_lat(double lat, double lon); /*distance of lat to minimum latitude of model region */
 int 		crusde_get_dimensions();		/*total number of output fields*/
 int 		crusde_get_displacement_dimensions();	/*total number of spatial output fields (x,y,z)*/
 int 		crusde_model_time();      /*current time step*/
@@ -104,8 +92,6 @@ int 		crusde_stepsize();              /*time increment with each model step*/
 int 		crusde_get_x_index();           /*index of x-displacement values in result array*/
 int 		crusde_get_y_index();           /*index of y-displacement values in result array*/
 int 		crusde_get_z_index();           /*index of z-displacement values in result array*/
-double 		crusde_get_bound(RegionBound);	
-double*		crusde_get_gridsize_geographic();
 
 const char* 	crusde_get_observation_file();		/*filename of points to be observed (unused)*/
 const char* 	crusde_get_out_file();			/*filename for result output*/

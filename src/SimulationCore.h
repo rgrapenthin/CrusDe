@@ -48,7 +48,7 @@
 #include <cassert>
 #include <string>
 #include "constants.h"
-#include "typedefs.h"
+#include "config.h"
 #include "crusde_api.h"
 #include "exceptions.h"
 
@@ -64,7 +64,6 @@ class ExperimentManager;
 class PluginManager;
 class LoadFunction;
 class ParamWrapper;
-class ModelRegion;
 
 //! The parameter registry for plugins.
 /*! 
@@ -232,8 +231,6 @@ class SimulationCore /*: 	public PluginAPI,
 	int minX();
 	int minY();
 	int modelTime();
-	int distMinLon(double, double);
-	int distMinLat(double, double);
 	int modelStep();
 	int stepSize();
 	int xIndex();
@@ -258,12 +255,10 @@ class SimulationCore /*: 	public PluginAPI,
 	list<string> getRequestedNames();
 	void deleteRequests();
 
-	int getOperatorSpaceX();
-	int getOperatorSpaceY();
-	void setOperatorSpace(int, int);
-	bool operatorSpaceIsSet();
-
-	double* getGridsizeGeographic();
+    int getOperatorSpaceX();
+    int getOperatorSpaceY();
+    void setOperatorSpace(int, int);
+    bool operatorSpaceIsSet();
 	
 	string getPluginFilename(string, string) throw (DatabaseError);
 	void registerOutputField(int *output_index, FieldName field);

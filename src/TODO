@@ -1,16 +1,5 @@
-Here are some things that need to be improved in CrusDe 
-(numbers give relative importance 1=low, 10=high):
---------------------------------------------------------------------------
 
-2 omitting of region indicates that whole earth is to be modeled (only if GF=spherical)
-4 add a flag that indicates whether a Green's function is for flat or spherical earth
-6 add udunits package
-5 implement intelligent gridding for model world:
-	- that will not require an equally spaced input load grid
-	- that will use the given grid size and actually massage the input load 
-          in a way that will allow reasonable results.
-
-1 remove all string constants from code and put them into separate header
-1 implement option to have all values (all arrays etc) written to a log file
-2 use look up table that's already started in pinel_thickplate.c
-
+- remove all string constants from code and put them into separate header
+- implement option to have all values (all arrays etc) written to a log file
+- use look up table that's already started in pinel_thickplate.c
+- 
