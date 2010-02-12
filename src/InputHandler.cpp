@@ -41,6 +41,7 @@
 #include <map>
 #include <stdexcept>
 #include <algorithm>
+#include <fstream>
 
 #include "PluginManager.h"
 #include "ParamWrapper.h"
@@ -53,7 +54,7 @@ using namespace std;
 InputHandler::InputHandler(int Argc, char *Argv[]):
      XMLHandler("dummy"),
      argc(Argc),
-     isXML(false)
+     gotFile(false)
 {
      argv = Argv;
      crusde_debug("%s, line: %d, InputHandler built for: %s ", __FILE__, __LINE__, argv[0]);
@@ -80,10 +81,17 @@ void InputHandler::init()
      while (n < argc )
      {
           // break at param that has no dash and following arguments contains ".xml" which means a xml-file is to be processed
-          if (argv[n][0] != '-' && (string(argv[n]).find(".xml", 0) != string::npos) )
+          if (argv[n][0] != '-')
           {
-               isXML = true;
+			if(fileExists(string(argv[n]))){
+               gotFile = true;
                break;
+			}
+			else{
+               crusde_error("File not found: %s", argv[n]);
+//               usage();
+//               exit(-1);
+			}
           }
 
           // help request
@@ -98,26 +106,25 @@ void InputHandler::init()
           {
                SimulationCore::instance()->setQuiet(true);
           }
-
           ++n;
      }
 	
      /* in case of xml processing there should be only 1 argument left, 	*/
      /* if experiment is set via command line, none should be left.		*/
-     if ( (isXML && n != argc - 1) /*||  (!isXML && n != argc)*/ )
+     if ( (gotFile && n != argc - 1) /*||  (!gotFile && n != argc)*/ )
      {
           usage();
           exit(2);
      }
 
-     if(isXML)
+     if(gotFile)
      {
           xmlFile = string(argv[n]);
      }	
 
      /* decide whether to process an xml input file or to have a closer look	*/
      /* at the command line arguments and built a DOM from there.		*/	
-     if(isXML)
+     if(gotFile)
      {	
           try
           {
@@ -903,4 +910,21 @@ map<string, string> InputHandler::getGreenJobMap()
      //return filled map
      return green_job_map;
 }
+
+/*
+ * checks whether a file exists.
+ */ 
+bool InputHandler::fileExists(string filename)
+{
+  ifstream file_in;
+  file_in.open (filename.c_str());
+
+  if (file_in.fail()) 
+	return false;
+
+  file_in.close();
+
+  return true;
+}
+
 

@@ -49,7 +49,7 @@ class InputHandler : public XMLHandler
 	private:
 		int 	argc;
 		char** 	argv;
-		bool 	isXML;
+		bool 	gotFile;
 
 		DOMElement	*rootElem, *greenElem, *loadElem, *kernelElem;
 
@@ -60,6 +60,7 @@ class InputHandler : public XMLHandler
 		void initParamsFromDOM(DOMNode *node, multimap<string, ParamWrapper*>);
 		void initParamsFromDOMNodeList(DOMNodeList* , map< unsigned int, multimap<string, ParamWrapper*> >);
 		bool jobExists(string);
+		bool fileExists(string);
 
 		/**hidden copy constructor - we do not want to accidentially copy objects*/
 		InputHandler(const InputHandler& x); 
@@ -98,7 +99,7 @@ class InputHandler : public XMLHandler
 
 		/*SETTERS*/
 		/*********/
-		void setXML(bool b){/*isXML = b;*/}
+		void setXML(bool b){/*gotFile = b;*/}
 		void setList(bool b){/*doList = b;*/}
 };
 

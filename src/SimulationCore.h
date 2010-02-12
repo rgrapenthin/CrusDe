@@ -98,7 +98,6 @@ class SimulationCore /*: 	public PluginAPI,
 			public PluginSimulationCore,*/ {
 	
 	InputHandler      *com_port;        /**< hard-wired input handler, no plugin*/
-	ModelRegion       *model_region;    /**< manager of model region; does conversions degree to great circle dists, holds gridsize */
 	ExperimentManager *exp_man;         /**< hard-wired experiment Manager, no plugin*/
 	PluginManager     *plugin_man;      /**< hard-wired plugin Manager, no plugin ;)*/
 
@@ -264,7 +263,6 @@ class SimulationCore /*: 	public PluginAPI,
 	void setOperatorSpace(int, int);
 	bool operatorSpaceIsSet();
 
-	double  getRegionBound(RegionBound bound);
 	double* getGridsizeGeographic();
 	
 	string getPluginFilename(string, string) throw (DatabaseError);

@@ -37,7 +37,6 @@
 #include	"PluginManager.h"
 #include	"LoadFunction.h"
 #include	"ParamWrapper.h"
-#include	"ModelRegion.h"
 
 #include 	<iostream>
 
@@ -51,7 +50,7 @@ s_parameters SimulationCore::s_params = {};
 SimulationCore* SimulationCore::pSimulationCore=0;
 
 SimulationCore::SimulationCore(int argc, char** argv) throw (SeriousException) :
-	com_port(NULL), model_region(NULL), exp_man(NULL), plugin_man(NULL), 
+	com_port(NULL), exp_man(NULL), plugin_man(NULL), 
 	pl_kernel(NULL), pl_out(NULL), greens_function(NULL), 
         load_function(NULL), load_function_component(0),
 	x_west(0), x_east(0), y_south(0), y_north(0), 
@@ -80,7 +79,6 @@ SimulationCore::SimulationCore(int argc, char** argv) throw (SeriousException) :
 	plugin_man      = new PluginManager(
 				string(root_dir).append(DIR_SEP).append(PLUGIN_DIR).append(DIR_SEP).append(PLUGIN_DB).c_str()
 			      );
-	model_region    = new ModelRegion("model region");
 
 	/*create plugins*/
 	greens_function = new GreensFunction("greens function");
@@ -116,16 +114,14 @@ void SimulationCore::init() //throw INIT_EXCEPTION
 //	crusde_debug("%s, line: %d, got north=%f, south=%f, east=%f, west=%f", __FILE__, __LINE__, com_port->getRegion("north"), com_port->getRegion("south"), com_port->getRegion("east"), com_port->getRegion("west"));
 
 
-	model_region->setRegionDegrees(	com_port->getRegion("north"), com_port->getRegion("south"),
-					com_port->getRegion("east"), com_port->getRegion("west") );
-	model_region->setGridsizeMetric(com_port->getGridSize());
+	//the region of interest
+	x_west  =  com_port->getRegion("west");
+	x_east  =  com_port->getRegion("east");
+	y_south =  com_port->getRegion("south");
+	y_north =  com_port->getRegion("north");
 	
-	x_west  = 0;
-	x_east  = model_region->getLonDistance();
-	y_south = 0;
-	y_north = model_region->getLatDistance();
-
-	gridsize          = model_region->getGridsizeMetric();
+	//gridsize and time parameters
+	gridsize          = com_port->getGridSize();
 	num_timesteps     = com_port->getTimeSteps();	
 	num_timeincrement = com_port->getTimeIncrement();	
 
@@ -810,32 +806,10 @@ int SimulationCore::minY()
 	return y_south;
 }
 
-int SimulationCore::distMinLon(double lat, double lon)
-{
-	return model_region->getDistMinLon(lat, lon);
-}
-
-int SimulationCore::distMinLat(double lat, double lon)
-{
-	return model_region->getDistMinLat(lat, lon);
-}
-
-
 int SimulationCore::gridSize()
 {
 	return gridsize;
 }
-
-double SimulationCore::getRegionBound(RegionBound bound)
-{
-	return model_region->getRegionBound(bound);
-}
-
-double* SimulationCore::getGridsizeGeographic()
-{
-	return model_region->getGridsizeGeographic();
-}
-
 
 int SimulationCore::stepSize()
 {
