@@ -729,7 +729,7 @@ void SimulationCore::registerOutputField(int *output_index, FieldName field)
 		map<int*,int>::iterator iter = add_field_map.find(output_index);
   		if( iter != add_field_map.end() ) 
 		{
-	    		crusde_warning("Seems like address '%d' has already requested memory. Is there one plugin trying to do its job twice? We will NOT give additional memory to that address.", iter->first);
+	   		crusde_warning("Seems like address '%d' has already requested memory. Is there one plugin trying to do its job twice? We will NOT give additional memory to that address.", iter->first);
 			return;
  		}
 		else

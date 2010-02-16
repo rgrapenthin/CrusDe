@@ -119,6 +119,9 @@ doc:				# creates documenation
 	@doxygen Doxyfile
 	@cp -rf ./doc_html ../
 	@rm -rf ./doc_html
+ifeq ($(shell hostname), eolan)
+	@cp -rf ../doc_html $(WWW)/ronni/projects/crusde
+endif
 
 plugins:			# creates plugins
 	@echo --------------------------------------

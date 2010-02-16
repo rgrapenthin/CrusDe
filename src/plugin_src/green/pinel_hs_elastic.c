@@ -155,7 +155,7 @@ extern void clear(){}
  * @param x The x-Coordinate of the wanted value.
  * @param y The y-Coordinate of the wanted value.
  * 
- * @return The value found at Point[y][x]
+ * @return error code
  */
 extern int get_value_at(double** result, int x, int y)
 {	

@@ -186,7 +186,7 @@ Include dependency graph for irregular_load.c:</div>
 <div class="memdoc">
 <p>frees load array that was read from file </p>
 
-<p>References <a class="el" href="crusde__api_8cpp_source.html#l00384">crusde_get_current_load_component()</a>, <a class="el" href="irregular__load_8c_source.html#l00109">destroy()</a>, and <a class="el" href="conv_8c.html#aafde19f7d36ca163a143579c1b125b6d">free()</a>.</p>
+<p>References <a class="el" href="crusde__api_8cpp_source.html#l00534">crusde_get_current_load_component()</a>, <a class="el" href="irregular__load_8c_source.html#l00109">destroy()</a>, and <a class="el" href="conv_8c.html#aafde19f7d36ca163a143579c1b125b6d">free()</a>.</p>
 
 </div>
 </div>
@@ -325,7 +325,7 @@ Include dependency graph for irregular_load.c:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The load at Point (x,y,t). </dd></dl>
 
-<p>References <a class="el" href="crusde__api_8cpp_source.html#l00384">crusde_get_current_load_component()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00285">crusde_get_gridsize()</a>, <a class="el" href="disk__load_8c_source.html#l00043">dS</a>, <a class="el" href="exponential_8c_source.html#l00036">my_id</a>, <a class="el" href="disk__load_8c_source.html#l00031">p_rho</a>, <a class="el" href="disk__load_8c_source.html#l00040">rho</a>, <a class="el" href="disk__load_8c_source.html#l00045">rho_dS_const</a>, and <a class="el" href="irregular__load_8c_source.html#l00091">value_at()</a>.</p>
+<p>References <a class="el" href="crusde__api_8cpp_source.html#l00534">crusde_get_current_load_component()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00400">crusde_get_gridsize()</a>, <a class="el" href="disk__load_8c_source.html#l00043">dS</a>, <a class="el" href="exponential_8c_source.html#l00036">my_id</a>, <a class="el" href="disk__load_8c_source.html#l00031">p_rho</a>, <a class="el" href="disk__load_8c_source.html#l00040">rho</a>, <a class="el" href="disk__load_8c_source.html#l00045">rho_dS_const</a>, and <a class="el" href="irregular__load_8c_source.html#l00091">value_at()</a>.</p>
 
 </div>
 </div>
@@ -364,7 +364,7 @@ Include dependency graph for irregular_load.c:</div>
 <p>Initialize members that depend on registered values. </p>
 <p>This function <b>must not</b> be called before <a class="el" href="exponential_8c.html#a8d8a340c9e92212550682cb42d078ca1" title="Register parameters this Kernel claims from the input.">register_parameter()</a> unless none of the necessary values depends on parameters provided by the user, which are only set after they have been registered. This function is called some time <b>after</b> <a class="el" href="exponential_8c.html#a8d8a340c9e92212550682cb42d078ca1" title="Register parameters this Kernel claims from the input.">register_parameter()</a>. </p>
 
-<p>References <a class="el" href="irregular__load_8c_source.html#l00058">add_elem()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00119">crusde_debug()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00064">crusde_error()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00335">crusde_exit()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00384">crusde_get_current_load_component()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00285">crusde_get_gridsize()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00300">crusde_get_min_x()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00305">crusde_get_min_y()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00270">crusde_get_size_x()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00275">crusde_get_size_y()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00099">crusde_info()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00083">crusde_warning()</a>, <a class="el" href="irregular__load_8c_source.html#l00054">s_load_list::current</a>, <a class="el" href="disk__load_8c_source.html#l00043">dS</a>, <a class="el" href="irregular__load_8c_source.html#l00052">s_load_list::first</a>, <a class="el" href="irregular__load_8c_source.html#l00053">s_load_list::last</a>, <a class="el" href="exponential_8c_source.html#l00036">my_id</a>, <a class="el" href="fast__conv_8c_source.html#l00043">n</a>, <a class="el" href="irregular__load_8c_source.html#l00048">NIL</a>, <a class="el" href="irregular__load_8c_source.html#l00131">nx</a>, <a class="el" href="irregular__load_8c_source.html#l00131">ny</a>, <a class="el" href="alma_8c_source.html#l00029">p_file</a>, and <a class="el" href="conv_8c_source.html#l00027">result</a>.</p>
+<p>References <a class="el" href="irregular__load_8c_source.html#l00058">add_elem()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00134">crusde_debug()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00064">crusde_error()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00476">crusde_exit()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00534">crusde_get_current_load_component()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00400">crusde_get_gridsize()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00421">crusde_get_min_x()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00428">crusde_get_min_y()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00381">crusde_get_size_x()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00388">crusde_get_size_y()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00109">crusde_info()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00088">crusde_warning()</a>, <a class="el" href="irregular__load_8c_source.html#l00054">s_load_list::current</a>, <a class="el" href="disk__load_8c_source.html#l00043">dS</a>, <a class="el" href="irregular__load_8c_source.html#l00052">s_load_list::first</a>, <a class="el" href="irregular__load_8c_source.html#l00053">s_load_list::last</a>, <a class="el" href="exponential_8c_source.html#l00036">my_id</a>, <a class="el" href="fast__conv_8c_source.html#l00043">n</a>, <a class="el" href="irregular__load_8c_source.html#l00048">NIL</a>, <a class="el" href="irregular__load_8c_source.html#l00131">nx</a>, <a class="el" href="irregular__load_8c_source.html#l00131">ny</a>, <a class="el" href="alma_8c_source.html#l00029">p_file</a>, and <a class="el" href="conv_8c_source.html#l00027">result</a>.</p>
 
 </div>
 </div>
@@ -411,7 +411,7 @@ Include dependency graph for irregular_load.c:</div>
 <dd>
 <a class="el" href="exponential_8c.html#a8d8a340c9e92212550682cb42d078ca1" title="Register parameters this Kernel claims from the input.">register_parameter()</a> (<a class="el" href="temp__plugin_8c_8tmp.html">temp_plugin.c.tmp</a>) </dd></dl>
 
-<p>References <a class="el" href="crusde__api_8cpp_source.html#l00384">crusde_get_current_load_component()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00135">crusde_register_param_double()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00157">crusde_register_param_string()</a>, <a class="el" href="exponential_8c_source.html#l00041">get_category()</a>, <a class="el" href="exponential_8c_source.html#l00036">my_id</a>, <a class="el" href="alma_8c_source.html#l00029">p_file</a>, and <a class="el" href="disk__load_8c_source.html#l00031">p_rho</a>.</p>
+<p>References <a class="el" href="crusde__api_8cpp_source.html#l00534">crusde_get_current_load_component()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00159">crusde_register_param_double()</a>, <a class="el" href="crusde__api_8cpp_source.html#l00203">crusde_register_param_string()</a>, <a class="el" href="exponential_8c_source.html#l00041">get_category()</a>, <a class="el" href="exponential_8c_source.html#l00036">my_id</a>, <a class="el" href="alma_8c_source.html#l00029">p_file</a>, and <a class="el" href="disk__load_8c_source.html#l00031">p_rho</a>.</p>
 
 </div>
 </div>
@@ -467,7 +467,7 @@ Include dependency graph for irregular_load.c:</div>
 </div>
 <div class="memdoc">
 
-<p>References <a class="el" href="crusde__api_8cpp_source.html#l00384">crusde_get_current_load_component()</a>, and <a class="el" href="disk__load_8c_source.html#l00033">history_function</a>.</p>
+<p>References <a class="el" href="crusde__api_8cpp_source.html#l00534">crusde_get_current_load_component()</a>, and <a class="el" href="disk__load_8c_source.html#l00033">history_function</a>.</p>
 
 </div>
 </div>
@@ -649,7 +649,7 @@ Include dependency graph for irregular_load.c:</div>
 </div>
 </div>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Feb 15 18:41:29 2010 for CrusDe by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Tue Feb 16 00:01:16 2010 for CrusDe by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1-20091004 </small></address>
 </body>

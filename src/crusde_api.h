@@ -61,6 +61,11 @@ typedef enum{
 	ADD_FIELD = 3
 }FieldName;
 
+typedef enum{
+	ERROR_MSG = -1,			//!< error message printed, aborting program
+	NOERROR	= 0				//!< no error occured
+}ExitCode;
+
 //error and debugging functions
 void		crusde_error(const char* format, ...);		/* prints msg to stderr and aborts*/
 void		crusde_debug(const char* format, ...);		/* prints msg to stdout if DEBUG is set*/
@@ -87,27 +92,27 @@ int 		crusde_get_dimensions();		/*total number of output fields*/
 int 		crusde_get_displacement_dimensions();	/*total number of spatial output fields (x,y,z)*/
 int 		crusde_model_time();      /*current time step*/
 int 		crusde_get_timesteps();   /* total number of timesteps*/
-int		crusde_model_step();
+int			crusde_model_step();
 int 		crusde_stepsize();              /*time increment with each model step*/
 int 		crusde_get_x_index();           /*index of x-displacement values in result array*/
 int 		crusde_get_y_index();           /*index of y-displacement values in result array*/
 int 		crusde_get_z_index();           /*index of z-displacement values in result array*/
 
-const char* 	crusde_get_observation_file();		/*filename of points to be observed (unused)*/
+const char* 	crusde_get_observation_file();	/*filename of points to be observed (unused)*/
 const char* 	crusde_get_out_file();			/*filename for result output*/
 
 int 		crusde_get_green_at(double** res, int x, int y);
-							/*green's function coefficients at x,y, t*/
-double 		crusde_get_load_at(int x, int y);/*load at x,y,t*/
-double 		crusde_get_load_history_at(int t);      /*load history at t*/
-double 		crusde_get_crustal_decay_at(int t);     /*crustal decay at t*/
+												/*green's function coefficients at x,y*/
+double 		crusde_get_load_at(int x, int y);	/*load at x,y,t*/
+double 		crusde_get_load_history_at(int t);  /*load history at t*/
+double 		crusde_get_crustal_decay_at(int t); /*crustal decay at t*/
 
 void 		crusde_set_result(double**);		/*return pointer to model results*/
-double** 	crusde_get_result();			/*pointer to model results*/
-void 		crusde_set_quadrant(int);		/*get / set quadrant in coordinate system ...*/
+double** 	crusde_get_result();				/*pointer to model results*/
+void 		crusde_set_quadrant(int);			/*get / set quadrant in coordinate system ...*/
 int             crusde_get_quadrant();			/*... in which green's function is calculated*/
 
-void 		crusde_exit(int exitcode);		/*have CrusDe terminate gracefully*/
+void 		crusde_exit(ExitCode code);				/*have CrusDe terminate gracefully*/
 
 int 		crusde_get_current_load_component();    /*get the current load component id to work with it with somewhere*/
 void 		crusde_set_current_load_component(int); /*set the current load component id that is globally worked with*/

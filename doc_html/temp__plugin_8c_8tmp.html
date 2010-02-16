@@ -271,9 +271,9 @@ Include dependency graph for temp_plugin.c.tmp:</div>
 <div class="memdoc">
 
 <p>Allocate an output field of size (lat*lon) with the framework. </p>
-<p>It calls <a class="el" href="crusde__api_8cpp.html#a7e6b7b665aec3d309214f0b7cd542d85">crusde_register_output_field()</a> as many times as indices are to be registered. The assigned index in the output field is saved to an address that must be provided as a parameter to <a class="el" href="crusde__api_8cpp.html#a7e6b7b665aec3d309214f0b7cd542d85">crusde_register_output_field()</a> Furthermore, it must be said what type of field (X_FIELD|Y_FIELD|Z_FIELD|ADD_FIELD) is to be registered using <a class="el" href="crusde__api_8cpp.html#a7e6b7b665aec3d309214f0b7cd542d85">crusde_register_output_field()</a>. </p>
+<p>It calls <a class="el" href="crusde__api_8cpp.html#a7e6b7b665aec3d309214f0b7cd542d85" title="Request space in the output array. This allocates necessary memory for your results...">crusde_register_output_field()</a> as many times as indices are to be registered. The assigned index in the output field is saved to an address that must be provided as a parameter to <a class="el" href="crusde__api_8cpp.html#a7e6b7b665aec3d309214f0b7cd542d85" title="Request space in the output array. This allocates necessary memory for your results...">crusde_register_output_field()</a> Furthermore, it must be said what type of field (X_FIELD|Y_FIELD|Z_FIELD|ADD_FIELD) is to be registered using <a class="el" href="crusde__api_8cpp.html#a7e6b7b665aec3d309214f0b7cd542d85" title="Request space in the output array. This allocates necessary memory for your results...">crusde_register_output_field()</a>. </p>
 
-<p>References <a class="el" href="crusde__api_8cpp_source.html#l00179">crusde_register_output_field()</a>, <a class="el" href="crusde__api_8h_source.html#l00058">X_FIELD</a>, <a class="el" href="table_8c_source.html#l00036">x_pos</a>, <a class="el" href="crusde__api_8h_source.html#l00059">Y_FIELD</a>, <a class="el" href="table_8c_source.html#l00036">y_pos</a>, <a class="el" href="crusde__api_8h_source.html#l00060">Z_FIELD</a>, and <a class="el" href="table_8c_source.html#l00036">z_pos</a>.</p>
+<p>References <a class="el" href="crusde__api_8cpp_source.html#l00249">crusde_register_output_field()</a>, <a class="el" href="crusde__api_8h_source.html#l00058">X_FIELD</a>, <a class="el" href="table_8c_source.html#l00036">x_pos</a>, <a class="el" href="crusde__api_8h_source.html#l00059">Y_FIELD</a>, <a class="el" href="table_8c_source.html#l00036">y_pos</a>, <a class="el" href="crusde__api_8h_source.html#l00060">Z_FIELD</a>, and <a class="el" href="table_8c_source.html#l00036">z_pos</a>.</p>
 
 </div>
 </div>
@@ -294,9 +294,9 @@ Include dependency graph for temp_plugin.c.tmp:</div>
 
 <p>Register parameters this <a class="el" href="classPlugin.html">Plugin</a> claims from the input. </p>
 <p>This function is called right after loading of the Plug-in. It calls register_green_param() defined in <a class="el" href="crusde__api_8h.html">crusde_api.h</a> to register references to parameters this Green's function will need to operate properly. For command line use the order of registration in this function defines the identification of parameters in the command line string (i.e. './green -GfirstRegistered/secondRegistered/...'). In case an XML is used to configure the experiment, the reference to this parameter will be identified by the string passed as second argument to register_green_param().</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="crusde__api_8cpp.html#a3fbe650a8ad2b2f90d662c63a575a98e">crusde_register_param_double()</a> </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="crusde__api_8cpp.html#a3fbe650a8ad2b2f90d662c63a575a98e" title="Register double parameter that is required by a plug-in.">crusde_register_param_double()</a> </dd></dl>
 
-<p>References <a class="el" href="crusde__api_8cpp_source.html#l00135">crusde_register_param_double()</a>, <a class="el" href="temp__plugin_8c_8tmp_source.html#l00033">first_parameter</a>, <a class="el" href="exponential_8c_source.html#l00041">get_category()</a>, and <a class="el" href="temp__plugin_8c_8tmp_source.html#l00034">second_parameter</a>.</p>
+<p>References <a class="el" href="crusde__api_8cpp_source.html#l00159">crusde_register_param_double()</a>, <a class="el" href="temp__plugin_8c_8tmp_source.html#l00033">first_parameter</a>, <a class="el" href="exponential_8c_source.html#l00041">get_category()</a>, and <a class="el" href="temp__plugin_8c_8tmp_source.html#l00034">second_parameter</a>.</p>
 
 </div>
 </div>
@@ -401,7 +401,7 @@ Include dependency graph for temp_plugin.c.tmp:</div>
 </div>
 </div>
 </div>
-<hr size="1"/><address style="text-align: right;"><small>Generated on Mon Feb 15 18:41:30 2010 for CrusDe by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Tue Feb 16 00:01:17 2010 for CrusDe by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1-20091004 </small></address>
 </body>

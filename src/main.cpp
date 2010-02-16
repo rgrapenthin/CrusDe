@@ -45,8 +45,8 @@ short const UY = 1;				//< y-direction
 short const UZ = 2;				//< z-direction
 
 /*error codes*/
-int const NOERROR 	=  0;			//< no error occured (0)
-int const ERROR_MSG = -1;			//< error message printed (-1)
+//int const NOERROR 	=  0;			//< no error occured (0)
+//int const ERROR_MSG = -1;			//< error message printed (-1)
 
 char* const VERSION="0.2.0";
 char* const SVN_REVISION="r3";

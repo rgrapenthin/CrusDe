@@ -45,8 +45,8 @@ extern short const UY;			//!< marks y-direction
 extern short const UZ;			//!< marks z-direction
 
 // errors
-extern int const NOERROR;		//!< no error occured
-extern int const ERROR_MSG;		//!< error message printed, aborting program
+//extern int const NOERROR;		//!< no error occured
+//extern int const ERROR_MSG;		//!< error message printed, aborting program
 
 extern char* const VERSION;
 extern char* const SVN_REVISION;
