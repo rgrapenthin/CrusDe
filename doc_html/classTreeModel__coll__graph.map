@@ -1,2 +1,3 @@
-base referer
-rect $classTreeItem.html 21,7 144,273
+<map id="G" name="G">
+<area shape="rect" href="$classTreeItem.html" title="{TreeItem\n|&#45; childItems\l&#45; itemData\l&#45; parentItem\l&#45; id\l|+ TreeItem()\l+ ~TreeItem()\l+ appendChild()\l+ child()\l+ childCount()\l+ columnCount()\l+ data()\l+ row()\l+ parent()\l+ getID()\l+ removeChild()\l}" alt="" coords="19,5,139,293"/>
+</map>

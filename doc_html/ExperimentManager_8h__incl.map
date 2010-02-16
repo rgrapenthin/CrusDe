@@ -1,4 +1,5 @@
-base referer
-rect $DatabaseManager_8h.html 209,233 351,257
-rect $exceptions_8h.html 557,208 653,232
-rect $XMLHandler_8h.html 400,260 507,284
+<map id="G" name="G">
+<area shape="rect" href="$DatabaseManager_8h.html" title="DatabaseManager.h" alt="" coords="5039,93,5183,120"/>
+<area shape="rect" href="$exceptions_8h.html" title="exceptions.h" alt="" coords="205,243,301,269"/>
+<area shape="rect" href="$XMLHandler_8h.html" title="XMLHandler.h" alt="" coords="2328,168,2432,195"/>
+</map>

@@ -1,5 +1,6 @@
-base referer
-rect $classSeriousException.html 8,55 133,79
-rect $classConversion.html 193,7 284,31
-rect $classFileNotFound.html 188,55 289,79
-rect $classLibHandleError.html 183,103 295,127
+<map id="G" name="G">
+<area shape="rect" href="$classSeriousException.html" title="An exception that should lead to shutdown of the application&#45;." alt="" coords="5,56,131,83"/>
+<area shape="rect" href="$classConversion.html" title="Some Conversion went wrong ... serious." alt="" coords="188,5,279,32"/>
+<area shape="rect" href="$classFileNotFound.html" title="A file could not be found." alt="" coords="183,56,284,83"/>
+<area shape="rect" href="$classLibHandleError.html" title="Something went wrong with Library access." alt="" coords="179,107,288,133"/>
+</map>

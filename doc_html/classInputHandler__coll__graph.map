@@ -1,2 +1,5 @@
-base referer
-rect $classXMLHandler.html 13,7 219,802
+<map id="G" name="G">
+<area shape="rect" href="$classXMLHandler.html" title="{XMLHandler\n|# xmlFile\l# xmlPath\l# doc\l# core\l# TAG_authors\l# TAG_category\l# TAG_crustaldecay\l# TAG_dateAdded\l# TAG_dependency\l# TAG_description\l# TAG_experiment\l# TAG_file\l# TAG_filename\l# TAG_green\l# TAG_job\l# TAG_kernel\l# TAG_load\l# TAG_loadfunction\l# TAG_loadhistory\l# TAG_name\l# TAG_output\l# TAG_parameter\l# TAG_plugin\l# TAG_postprocessor\l# TAG_region\l# TAG_version\l# ATTR_date\l# ATTR_gmtime\l# ATTR_id\l# ATTR_job\l# ATTR_localtime\l# ATTR_name\l# ATTR_user\l# ATTR_value\l&#45; parser\l&#45; errReporter\l&#45; rootElem\l|+ XMLHandler()\l+ ~XMLHandler()\l+ getElementByTagName()\l+ getElementListByTagName()\l+ getValueOfNode()\l+ getValueOfNode()\l+ init()\l# getNodesChildDataList()\l# getChildData()\l# readXML()\l# writeXML()\l# getActualID()\l&#45; XMLHandler()\l&#45; fillNodesChildDataList()\l}" alt="" coords="15,437,220,1301"/>
+<area shape="rect" href="$classXMLCore.html" title="{XMLCore\n||+ XMLCore()\l+ ~XMLCore()\l}" alt="" coords="5,61,109,157"/>
+<area shape="rect" href="$classStrXML.html" title="{StrXML\n|&#45; cstring\l&#45; xmlstring\l&#45; cppstring\l|+ StrXML()\l+ StrXML()\l+ StrXML()\l+ ~StrXML()\l+ xmlStr()\l+ cStr()\l+ cppStr()\l}" alt="" coords="133,5,224,213"/>
+</map>

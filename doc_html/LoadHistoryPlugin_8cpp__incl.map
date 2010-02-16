@@ -1,8 +1,9 @@
-base referer
-rect $LoadHistoryPlugin_8h.html 212,231 354,255
-rect $SimulationCore_8h.html 402,401 527,425
-rect $Plugin_8h.html 430,205 499,229
-rect $constants_8h.html 722,501 812,525
-rect $config_8h.html 732,205 802,229
-rect $crusde__api_8h.html 575,401 674,425
-rect $exceptions_8h.html 576,353 672,377
+<map id="G" name="G">
+<area shape="rect" href="$LoadHistoryPlugin_8h.html" title="LoadHistoryPlugin.h" alt="" coords="313,80,452,107"/>
+<area shape="rect" href="$SimulationCore_8h.html" title="SimulationCore.h" alt="" coords="601,155,724,181"/>
+<area shape="rect" href="$Plugin_8h.html" title="Plugin.h" alt="" coords="301,155,368,181"/>
+<area shape="rect" href="$constants_8h.html" title="constants.h" alt="" coords="140,304,228,331"/>
+<area shape="rect" href="$config_8h.html" title="config.h" alt="" coords="432,304,499,331"/>
+<area shape="rect" href="$crusde__api_8h.html" title="crusde_api.h" alt="" coords="188,229,284,256"/>
+<area shape="rect" href="$exceptions_8h.html" title="exceptions.h" alt="" coords="657,229,753,256"/>
+</map>

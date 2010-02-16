@@ -1,4 +1,6 @@
-base referer
-rect $classExperimentManager.html 7,1157 177,1408
-rect $classPluginManager.html 201,1135 343,1431
-rect $classXMLHandler.html 79,7 284,801
+<map id="G" name="G">
+<area shape="rect" href="$classExperimentManager.html" title="{ExperimentManager\n|&#45; actual_experiment\l|+ ExperimentManager()\l+ ~ExperimentManager()\l+ run()\l+ addEntry()\l+ getEntryDetails()\l+ getEntryMap()\l+ deleteEntry()\l+ addMetaData()\l&#45; ExperimentManager()\l&#45; operator=()\l&#45; childrenToString()\l&#45; childrenToString()\l&#45; getEntryById()\l}" alt="" coords="5,1437,173,1709"/>
+<area shape="rect" href="$classPluginManager.html" title="{PluginManager\n|&#45; plugin\l|+ PluginManager()\l+ ~PluginManager()\l+ deleteEntry()\l+ run()\l+ getEntryMap()\l+ getEntryDetails()\l+ addEntry()\l+ getFilename()\l&#45; PluginManager()\l&#45; isInDB()\l&#45; addToDB()\l&#45; getEntryById()\l&#45; getEntryById()\l&#45; getDependents()\l&#45; getDependencies()\l&#45; getParameters()\l}" alt="" coords="197,1413,341,1733"/>
+<area shape="rect" href="$classXMLHandler.html" title="{XMLHandler\n|# xmlFile\l# xmlPath\l# doc\l# core\l# TAG_authors\l# TAG_category\l# TAG_crustaldecay\l# TAG_dateAdded\l# TAG_dependency\l# TAG_description\l# TAG_experiment\l# TAG_file\l# TAG_filename\l# TAG_green\l# TAG_job\l# TAG_kernel\l# TAG_load\l# TAG_loadfunction\l# TAG_loadhistory\l# TAG_name\l# TAG_output\l# TAG_parameter\l# TAG_plugin\l# TAG_postprocessor\l# TAG_region\l# TAG_version\l# ATTR_date\l# ATTR_gmtime\l# ATTR_id\l# ATTR_job\l# ATTR_localtime\l# ATTR_name\l# ATTR_user\l# ATTR_value\l&#45; parser\l&#45; errReporter\l&#45; rootElem\l|+ XMLHandler()\l+ ~XMLHandler()\l+ getElementByTagName()\l+ getElementListByTagName()\l+ getValueOfNode()\l+ getValueOfNode()\l+ init()\l# getNodesChildDataList()\l# getChildData()\l# readXML()\l# writeXML()\l# getActualID()\l&#45; XMLHandler()\l&#45; fillNodesChildDataList()\l}" alt="" coords="76,149,281,1013"/>
+<area shape="rect" href="$classXMLCore.html" title="{XMLCore\n||+ XMLCore()\l+ ~XMLCore()\l}" alt="" coords="127,5,231,101"/>
+</map>

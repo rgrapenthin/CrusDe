@@ -1,6 +1,7 @@
-base referer
-rect $SimulationCore_8h.html 132,249 257,273
-rect $constants_8h.html 452,445 543,469
-rect $config_8h.html 463,372 532,396
-rect $crusde__api_8h.html 305,396 404,420
-rect $exceptions_8h.html 307,55 403,79
+<map id="G" name="G">
+<area shape="rect" href="$SimulationCore_8h.html" title="SimulationCore.h" alt="" coords="389,80,512,107"/>
+<area shape="rect" href="$constants_8h.html" title="constants.h" alt="" coords="656,229,744,256"/>
+<area shape="rect" href="$config_8h.html" title="config.h" alt="" coords="472,229,539,256"/>
+<area shape="rect" href="$crusde__api_8h.html" title="crusde_api.h" alt="" coords="531,155,627,181"/>
+<area shape="rect" href="$exceptions_8h.html" title="exceptions.h" alt="" coords="360,155,456,181"/>
+</map>

@@ -1,3 +1,4 @@
-base referer
-rect $constants_8h.html 154,7 244,31
-rect $config_8h.html 164,55 234,79
+<map id="G" name="G">
+<area shape="rect" href="$constants_8h.html" title="constants.h" alt="" coords="5,80,93,107"/>
+<area shape="rect" href="$config_8h.html" title="config.h" alt="" coords="117,80,184,107"/>
+</map>

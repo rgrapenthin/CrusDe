@@ -50,7 +50,17 @@ using namespace std;
 //creates param wrapper, registers it with the simulation core and returns it to the
 //calling function so they can allocate memory for the right type.
 
-//error, warning and debugging functions
+//! Prints error message to stderr, exists CrusDe with code ERROR_MSG
+/*!
+	This function prints an error message to stderr. It works exactly like
+	printf, hence complex message printing is possible. The simulation run
+	will be terminated by calling crusde_exist with the error code ERROR_MSG.
+
+    \param format A formatted string following the sprintf conventions
+    \param ... 	
+    \return void
+    \sa crusde_warning(), crusde_info(), crusde_debug(), 
+*/
 extern "C" void crusde_error(const char* format, ...){
 	va_list args;
 	va_start( args, format );
@@ -61,9 +71,15 @@ extern "C" void crusde_error(const char* format, ...){
 	fflush( stderr );
 
 	//abort program
-	crusde_exit(-1);
+	crusde_exit(ERROR_MSG);
 }
 
+//! Prints warning message to stderr.
+/*!
+	This function prints a warning message to stderr. It works exactly like
+	printf, hence complex message printing is possible. The simulation run
+	will be continued.
+*/
 extern "C" void crusde_warning(const char* format, ...){
 	va_list args;
 	va_start( args, format );
@@ -74,6 +90,12 @@ extern "C" void crusde_warning(const char* format, ...){
 	fflush( stderr );
 }
 
+//! Prints information message to stdout.
+/*!
+	This function prints an information message to stderr. It works exactly like
+	printf, hence complex message printing is possible. The simulation run
+	will be continued.
+*/
 extern "C" void crusde_info(const char* format, ...){
 	if(!SimulationCore::instance()->isQuiet()){
 		va_list args;
@@ -86,6 +108,14 @@ extern "C" void crusde_info(const char* format, ...){
 	}
 }
 
+//! Prints debug messages to stderr if compiled with -DDEBUG
+/*!
+	This function prints a debug message to stderr if CrusDe was compiled with
+	flag -DDEBUG; otherwise nothing is printed; hence debug statements can stay
+	with the code. It is strongly recommended to use this function that 
+	works exactly like printf, instead of printf. This way the output 
+	of CrusDe is not cluttered with tests and development messages.
+*/
 extern "C" void crusde_debug(const char* format, ...){
 #ifdef DEBUG
 	//cannot check for quietness, since one should be able to call it even in SimulationCore constructor.

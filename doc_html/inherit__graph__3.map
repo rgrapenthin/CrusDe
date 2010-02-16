@@ -1,2 +1,3 @@
-base referer
-rect $classParamWrapper.html 8,7 120,31
+<map id="G" name="G">
+<area shape="rect" href="$classParamWrapper.html" title="ParamWrapper" alt="" coords="5,5,117,32"/>
+</map>

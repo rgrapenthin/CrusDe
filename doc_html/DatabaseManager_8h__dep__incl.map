@@ -1,10 +1,11 @@
-base referer
-rect $DatabaseManager_8cpp.html 197,7 352,31
-rect $Dialog_8h.html 239,55 311,79
-rect $ExperimentManager_8h.html 199,103 351,127
-rect $PluginManager_8h.html 213,151 336,175
-rect $Dialog_8cpp.html 443,7 528,31
-rect $ExperimentManager_8cpp.html 401,55 569,79
-rect $PluginManager_8cpp.html 417,103 553,127
-rect $SimulationCore_8cpp.html 416,151 555,175
-rect $InputHandler_8cpp.html 424,199 547,223
+<map id="G" name="G">
+<area shape="rect" href="$DatabaseManager_8cpp.html" title="DatabaseManager.cpp" alt="" coords="5,155,163,181"/>
+<area shape="rect" href="$Dialog_8h.html" title="Dialog.h" alt="" coords="200,80,272,107"/>
+<area shape="rect" href="$ExperimentManager_8h.html" title="ExperimentManager.h" alt="" coords="303,80,452,107"/>
+<area shape="rect" href="$PluginManager_8h.html" title="PluginManager.h" alt="" coords="565,80,685,107"/>
+<area shape="rect" href="$Dialog_8cpp.html" title="Dialog.cpp" alt="" coords="187,155,272,181"/>
+<area shape="rect" href="$ExperimentManager_8cpp.html" title="ExperimentManager.cpp" alt="" coords="296,155,459,181"/>
+<area shape="rect" href="$SimulationCore_8cpp.html" title="SimulationCore.cpp" alt="" coords="483,155,619,181"/>
+<area shape="rect" href="$InputHandler_8cpp.html" title="InputHandler.cpp" alt="" coords="643,155,760,181"/>
+<area shape="rect" href="$PluginManager_8cpp.html" title="PluginManager.cpp" alt="" coords="784,155,920,181"/>
+</map>

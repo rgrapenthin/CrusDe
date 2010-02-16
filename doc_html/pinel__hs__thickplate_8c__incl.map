@@ -1,4 +1,5 @@
-base referer
-rect $crusde__api_8h.html 345,295 444,319
-rect $constants_8h.html 532,271 623,295
-rect $config_8h.html 543,319 612,343
+<map id="G" name="G">
+<area shape="rect" href="$crusde__api_8h.html" title="crusde_api.h" alt="" coords="779,80,875,107"/>
+<area shape="rect" href="$constants_8h.html" title="constants.h" alt="" coords="681,155,769,181"/>
+<area shape="rect" href="$config_8h.html" title="config.h" alt="" coords="793,155,860,181"/>
+</map>

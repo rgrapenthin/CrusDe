@@ -1,4 +1,12 @@
-base referer
-rect $ExperimentManager_8h.html 224,153 376,177
-rect $Dialog_8h.html 264,351 336,375
-rect $SimulationCore_8h.html 238,201 363,225
+<map id="G" name="G">
+<area shape="rect" href="$ExperimentManager_8h.html" title="ExperimentManager.h" alt="" coords="3129,80,3279,107"/>
+<area shape="rect" href="$Dialog_8h.html" title="Dialog.h" alt="" coords="3984,80,4056,107"/>
+<area shape="rect" href="$SimulationCore_8h.html" title="SimulationCore.h" alt="" coords="4695,229,4817,256"/>
+<area shape="rect" href="$DatabaseManager_8h.html" title="DatabaseManager.h" alt="" coords="3335,155,3479,181"/>
+<area shape="rect" href="$exceptions_8h.html" title="exceptions.h" alt="" coords="4401,304,4497,331"/>
+<area shape="rect" href="$XMLHandler_8h.html" title="XMLHandler.h" alt="" coords="2528,229,2632,256"/>
+<area shape="rect" href="$Qt__TreeModel_8h.html" title="Qt_TreeModel.h" alt="" coords="4513,155,4631,181"/>
+<area shape="rect" href="$constants_8h.html" title="constants.h" alt="" coords="4980,379,5068,405"/>
+<area shape="rect" href="$config_8h.html" title="config.h" alt="" coords="4725,379,4792,405"/>
+<area shape="rect" href="$crusde__api_8h.html" title="crusde_api.h" alt="" coords="4796,304,4892,331"/>
+</map>

@@ -1,2 +1,3 @@
-base referer
-rect $classPluginExistsException.html 7,7 161,31
+<map id="G" name="G">
+<area shape="rect" href="$classPluginExistsException.html" title="Plugin that is to be installed already exists." alt="" coords="5,5,157,32"/>
+</map>

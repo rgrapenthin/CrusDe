@@ -1,7 +1,9 @@
-base referer
-rect $DatabaseManager_8h.html 178,207 319,231
-rect $exceptions_8h.html 526,164 622,188
-rect $XMLHandler_8h.html 368,260 475,284
-rect $Plugin_8h.html 387,457 456,481
-rect $crusde__api_8h.html 524,531 623,555
-rect $config_8h.html 671,505 740,529
+<map id="G" name="G">
+<area shape="rect" href="$DatabaseManager_8h.html" title="DatabaseManager.h" alt="" coords="4900,80,5044,107"/>
+<area shape="rect" href="$exceptions_8h.html" title="exceptions.h" alt="" coords="4847,229,4943,256"/>
+<area shape="rect" href="$XMLHandler_8h.html" title="XMLHandler.h" alt="" coords="3257,155,3361,181"/>
+<area shape="rect" href="$Plugin_8h.html" title="Plugin.h" alt="" coords="5228,155,5295,181"/>
+<area shape="rect" href="$crusde__api_8h.html" title="crusde_api.h" alt="" coords="5353,229,5449,256"/>
+<area shape="rect" href="$config_8h.html" title="config.h" alt="" coords="5279,304,5345,331"/>
+<area shape="rect" href="$constants_8h.html" title="constants.h" alt="" coords="5463,304,5551,331"/>
+</map>

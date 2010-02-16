@@ -1,4 +1,5 @@
-base referer
-rect $InputHandler_8cpp.html 187,7 309,31
-rect $PluginManager_8cpp.html 180,55 316,79
-rect $SimulationCore_8cpp.html 179,103 317,127
+<map id="G" name="G">
+<area shape="rect" href="$InputHandler_8cpp.html" title="InputHandler.cpp" alt="" coords="5,80,123,107"/>
+<area shape="rect" href="$PluginManager_8cpp.html" title="PluginManager.cpp" alt="" coords="147,80,283,107"/>
+<area shape="rect" href="$SimulationCore_8cpp.html" title="SimulationCore.cpp" alt="" coords="307,80,443,107"/>
+</map>

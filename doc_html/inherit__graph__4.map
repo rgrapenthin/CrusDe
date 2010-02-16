@@ -1,9 +1,10 @@
-base referer
-rect $classPlugin.html 8,151 67,175
-rect $classCrustalDecayPlugin.html 117,7 256,31
-rect $classDataOutPlugin.html 132,55 241,79
-rect $classGreenPlugin.html 139,103 235,127
-rect $classGreensFunction.html 128,151 245,175
-rect $classLoadFunction.html 136,199 237,223
-rect $classLoadHistoryPlugin.html 121,247 252,271
-rect $classLoadPlugin.html 143,295 231,319
+<map id="G" name="G">
+<area shape="rect" href="$classPlugin.html" title="Plugin" alt="" coords="5,157,64,184"/>
+<area shape="rect" href="$classCrustalDecayPlugin.html" title="CrustalDecayPlugin" alt="" coords="113,5,252,32"/>
+<area shape="rect" href="$classDataOutPlugin.html" title="DataOutPlugin" alt="" coords="129,56,236,83"/>
+<area shape="rect" href="$classGreenPlugin.html" title="GreenPlugin" alt="" coords="135,107,231,133"/>
+<area shape="rect" href="$classGreensFunction.html" title="GreensFunction" alt="" coords="125,157,240,184"/>
+<area shape="rect" href="$classLoadFunction.html" title="LoadFunction" alt="" coords="132,208,233,235"/>
+<area shape="rect" href="$classLoadHistoryPlugin.html" title="LoadHistoryPlugin" alt="" coords="117,259,248,285"/>
+<area shape="rect" href="$classLoadPlugin.html" title="LoadPlugin" alt="" coords="139,309,227,336"/>
+</map>

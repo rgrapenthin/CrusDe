@@ -1,3 +1,4 @@
-base referer
-rect $Qt__TreeItem_8cpp.html 169,7 292,31
-rect $Qt__TreeModel_8cpp.html 165,55 296,79
+<map id="G" name="G">
+<area shape="rect" href="$Qt__TreeItem_8cpp.html" title="Qt_TreeItem.cpp" alt="" coords="5,80,125,107"/>
+<area shape="rect" href="$Qt__TreeModel_8cpp.html" title="Qt_TreeModel.cpp" alt="" coords="149,80,280,107"/>
+</map>

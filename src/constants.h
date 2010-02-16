@@ -36,16 +36,17 @@
 #define DIR_SEP	        "/"
 
 extern int    const NO_TIME;
-extern double const PI;		//!< Pi 		[-]
+extern double const PI;			//!< Pi 		[-]
 extern double const PI_half;	//!< Pi half		[-]
-extern double const two_PI;	//!< two Pi 		[-]
+extern double const two_PI;		//!< two Pi 		[-]
 
-extern short const UX;		//!< marks x-direction 
-extern short const UY;		//!< marks y-direction 
-extern short const UZ;		//!< marks z-direction
+extern short const UX;			//!< marks x-direction 
+extern short const UY;			//!< marks y-direction 
+extern short const UZ;			//!< marks z-direction
 
 // errors
-extern int const NOERROR;	//!< NO ERROR OCCURED
+extern int const NOERROR;		//!< no error occured
+extern int const ERROR_MSG;		//!< error message printed, aborting program
 
 extern char* const VERSION;
 extern char* const SVN_REVISION;

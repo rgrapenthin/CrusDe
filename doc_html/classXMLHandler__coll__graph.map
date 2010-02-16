@@ -1,3 +1,4 @@
-base referer
-rect $classXMLCore.html 7,59 113,150
-rect $classStrXML.html 137,8 233,200
+<map id="G" name="G">
+<area shape="rect" href="$classXMLCore.html" title="{XMLCore\n||+ XMLCore()\l+ ~XMLCore()\l}" alt="" coords="5,61,109,157"/>
+<area shape="rect" href="$classStrXML.html" title="{StrXML\n|&#45; cstring\l&#45; xmlstring\l&#45; cppstring\l|+ StrXML()\l+ StrXML()\l+ StrXML()\l+ ~StrXML()\l+ xmlStr()\l+ cStr()\l+ cppStr()\l}" alt="" coords="133,5,224,213"/>
+</map>

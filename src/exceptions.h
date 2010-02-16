@@ -43,7 +43,7 @@
 #include <string>
 #include <stdexcept>
 
-//!An exception that should lead to shutdown of the application-
+//! An exception that should lead to shutdown of the application-
 class SeriousException : public std::runtime_error {
  public:
    SeriousException(const std::string& s)
@@ -59,7 +59,7 @@ class Conversion : public SeriousException {
      { }
  };
 
-//!A file could not be found.
+//! A file could not be found.
 class FileNotFound : public SeriousException {
  public:
    FileNotFound(const std::string& s)
@@ -67,7 +67,7 @@ class FileNotFound : public SeriousException {
      { }
  };
 
- //!Something went wrong with Library access
+//! Something went wrong with Library access
 class LibHandleError : public SeriousException {
  public:
    LibHandleError(const std::string& s)
@@ -90,6 +90,7 @@ class PluginError : public std::runtime_error {
      { }
 };
 
+//! Plugin that is to be installed already exists
 class PluginExistsException : public std::runtime_error {
  public:
    PluginExistsException(const std::string& s)

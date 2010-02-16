@@ -1,3 +1,4 @@
-base referer
-rect $exceptions_8h.html 355,149 451,173
-rect $XMLHandler_8h.html 198,57 304,81
+<map id="G" name="G">
+<area shape="rect" href="$exceptions_8h.html" title="exceptions.h" alt="" coords="5156,155,5252,181"/>
+<area shape="rect" href="$XMLHandler_8h.html" title="XMLHandler.h" alt="" coords="2951,80,3055,107"/>
+</map>

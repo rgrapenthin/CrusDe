@@ -1,2 +1,3 @@
-base referer
-rect $classPlugin.html 7,8 199,728
+<map id="G" name="G">
+<area shape="rect" href="$classPlugin.html" title="{Plugin\n|# LibHandle\l# name\l# path\l# category\l# is_released\l# is_initialized\l# is_registered\l# is_loaded\l&#45; func_void\l&#45; func_get_string\l&#45; func_get_name\l&#45; func_get_version\l&#45; func_get_authors\l&#45; func_get_description\l&#45; func_get_category\l&#45; func_run\l&#45; func_register_parameter\l&#45; func_register_output_fields\l&#45; func_request_plugins\l&#45; func_init\l&#45; func_release\l&#45; rc\l|+ Plugin()\l+ ~Plugin()\l+ load()\l+ unload()\l+ run()\l+ registerParameter()\l+ registerOutputFields()\l+ requestPlugins()\l+ init()\l+ release()\l+ selftest()\l+ getName()\l+ getVersion()\l+ getAuthors()\l+ getDescription()\l+ getCategory()\l+ getCategoryID()\l+ isLoaded()\l+ setCategory()\l+ getRunFunction()\l&#45; Plugin()\l&#45; get_dl_voidFunc()\l&#45; get_dl_stringFunc()\l&#45; get_categoryFunc()\l}" alt="" coords="5,5,192,789"/>
+</map>

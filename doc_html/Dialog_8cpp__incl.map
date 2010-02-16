@@ -1,7 +1,8 @@
-base referer
-rect $Dialog_8h.html 159,247 231,271
-rect $constants_8h.html 150,295 240,319
-rect $Qt__TreeModel_8h.html 310,442 427,466
-rect $DatabaseManager_8h.html 298,615 439,639
-rect $exceptions_8h.html 683,640 779,664
-rect $XMLHandler_8h.html 507,690 614,714
+<map id="G" name="G">
+<area shape="rect" href="$Dialog_8h.html" title="Dialog.h" alt="" coords="588,80,660,107"/>
+<area shape="rect" href="$constants_8h.html" title="constants.h" alt="" coords="684,80,772,107"/>
+<area shape="rect" href="$Qt__TreeModel_8h.html" title="Qt_TreeModel.h" alt="" coords="965,155,1083,181"/>
+<area shape="rect" href="$DatabaseManager_8h.html" title="DatabaseManager.h" alt="" coords="1257,155,1401,181"/>
+<area shape="rect" href="$exceptions_8h.html" title="exceptions.h" alt="" coords="1328,304,1424,331"/>
+<area shape="rect" href="$XMLHandler_8h.html" title="XMLHandler.h" alt="" coords="3841,229,3945,256"/>
+</map>

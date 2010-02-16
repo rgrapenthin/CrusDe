@@ -1,3 +1,8 @@
-base referer
-rect $XMLHandler_8h.html 187,7 293,31
-rect $SimulationCore_8h.html 177,105 303,129
+<map id="G" name="G">
+<area shape="rect" href="$XMLHandler_8h.html" title="XMLHandler.h" alt="" coords="2683,80,2787,107"/>
+<area shape="rect" href="$SimulationCore_8h.html" title="SimulationCore.h" alt="" coords="5315,80,5437,107"/>
+<area shape="rect" href="$exceptions_8h.html" title="exceptions.h" alt="" coords="5056,155,5152,181"/>
+<area shape="rect" href="$constants_8h.html" title="constants.h" alt="" coords="5555,229,5643,256"/>
+<area shape="rect" href="$config_8h.html" title="config.h" alt="" coords="5760,229,5827,256"/>
+<area shape="rect" href="$crusde__api_8h.html" title="crusde_api.h" alt="" coords="5653,155,5749,181"/>
+</map>

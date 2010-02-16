@@ -1,8 +1,11 @@
-base referer
-rect $Plugin_8h.html 394,311 463,335
-rect $config_8h.html 524,411 594,435
-rect $LoadPlugin_8h.html 203,261 302,285
-rect $constants_8h.html 383,511 474,535
-rect $LoadHistoryPlugin_8h.html 182,436 323,460
-rect $LoadFunctionElement_8h.html 171,811 334,835
-rect $CrustalDecayPlugin_8h.html 178,560 327,584
+<map id="G" name="G">
+<area shape="rect" href="$Plugin_8h.html" title="Plugin.h" alt="" coords="485,155,552,181"/>
+<area shape="rect" href="$constants_8h.html" title="constants.h" alt="" coords="113,304,201,331"/>
+<area shape="rect" href="$config_8h.html" title="config.h" alt="" coords="360,304,427,331"/>
+<area shape="rect" href="$LoadPlugin_8h.html" title="LoadPlugin.h" alt="" coords="149,80,248,107"/>
+<area shape="rect" href="$LoadHistoryPlugin_8h.html" title="LoadHistoryPlugin.h" alt="" coords="445,80,584,107"/>
+<area shape="rect" href="$LoadFunctionElement_8h.html" title="LoadFunctionElement.h" alt="" coords="804,80,964,107"/>
+<area shape="rect" href="$CrustalDecayPlugin_8h.html" title="CrustalDecayPlugin.h" alt="" coords="272,80,421,107"/>
+<area shape="rect" href="$crusde__api_8h.html" title="crusde_api.h" alt="" coords="485,229,581,256"/>
+<area shape="rect" href="$exceptions_8h.html" title="exceptions.h" alt="" coords="656,229,752,256"/>
+</map>

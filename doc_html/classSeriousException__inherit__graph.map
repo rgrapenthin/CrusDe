@@ -1,4 +1,5 @@
-base referer
-rect $classConversion.html 7,133 116,208
-rect $classFileNotFound.html 140,133 263,208
-rect $classLibHandleError.html 287,133 420,208
+<map id="G" name="G">
+<area shape="rect" href="$classConversion.html" title="Some Conversion went wrong ... serious." alt="" coords="5,133,115,213"/>
+<area shape="rect" href="$classFileNotFound.html" title="A file could not be found." alt="" coords="139,133,259,213"/>
+<area shape="rect" href="$classLibHandleError.html" title="Something went wrong with Library access." alt="" coords="283,133,411,213"/>
+</map>

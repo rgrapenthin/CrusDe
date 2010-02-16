@@ -88,33 +88,39 @@ include defs.h
 
 
 # --- help  ---------------------------------------------
-help: 		# hope this helps
+help:		 		# hope this helps
 	@echo '-----------------------------------------------------------------------------------'
 	@echo 'this is the makefile for the deformation package'
-	@echo "usage: make [option]"
+	@echo "usage: make [target]"
 	@echo ;
-	@echo "option (without colon) = "
-	@egrep '^[^:;=.]*::?[	 ]*#' [mM]akefile
+	@echo "targets:"
+	@echo ""
+	@egrep '^[^:;=.#	()]*::?[^#-]*[	 ]*#' [mM]akefile | awk 'BEGIN { FS="[:#]" } { print "\t"$$1"\t-\t"$$3}'
 	@echo '-----------------------------------------------------------------------------------'
-	echo $(OBJS)
+#	echo $(OBJS)
 
 defs.h: $(SOURCE)
 	@echo --------------------------------------
 	gcc -MM $(INCLUDE_DIRS) $(QT_INCLUDES) $? > defs.h
 	@echo --------------------------------------
 
-all: plugins $(TARGET)
+all: plugins $(TARGET)		# creates release binary
 	cp $(TARGET) $(BIN)	
 
 debug: DEBUG = -DDEBUG
-debug: plugins $(TARGET)
+debug: plugins $(TARGET)	# creates development version
 	cp $(TARGET) $(BIN)
 
 # ----- the targets ...
 $(TARGET): defs.h $(MOC_MODULES) $(OBJS) $(HEADER) #creates the 'crusde'-binary to model deformation using green's functions.
 	gcc -o $@ $(OBJS) $(MOC_MODULES) $(LIB_DIRS) $(LINKER_OPT) $(LINKER_QT)
 
-plugins:	# creates plugins
+doc:				# creates documenation  
+	@doxygen Doxyfile
+	@cp -rf ./doc_html ../
+	@rm -rf ./doc_html
+
+plugins:			# creates plugins
 	@echo --------------------------------------
 	@echo making plugins ...	
 	@make $(M_FLAGS) -C $(GREEN_DIR) all
@@ -127,7 +133,7 @@ plugins:	# creates plugins
 	@echo plugins done ...
 	@echo --------------------------------------
 
-clean:		# cleans directories
+clean:				# cleans directories, removes whatever make created
 	-rm *.o crusde defs.h moc_*
 	@make $(M_FLAGS) -C $(GREEN_DIR) clean
 	@make $(M_FLAGS) -C $(LOAD_DIR) clean 

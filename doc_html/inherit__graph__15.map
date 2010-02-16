@@ -1,7 +1,8 @@
-base referer
-rect $classXMLCore.html 7,55 87,79
-rect $classXMLHandler.html 136,55 232,79
-rect $classDatabaseManager.html 282,31 412,55
-rect $classInputHandler.html 298,79 396,103
-rect $classExperimentManager.html 462,7 603,31
-rect $classPluginManager.html 476,55 588,79
+<map id="G" name="G">
+<area shape="rect" href="$classXMLCore.html" title="XMLCore" alt="" coords="5,56,83,83"/>
+<area shape="rect" href="$classXMLHandler.html" title="XMLHandler" alt="" coords="131,56,227,83"/>
+<area shape="rect" href="$classDatabaseManager.html" title="DatabaseManager" alt="" coords="276,31,409,57"/>
+<area shape="rect" href="$classInputHandler.html" title="InputHandler" alt="" coords="295,81,391,108"/>
+<area shape="rect" href="$classExperimentManager.html" title="ExperimentManager" alt="" coords="459,5,600,32"/>
+<area shape="rect" href="$classPluginManager.html" title="PluginManager" alt="" coords="473,56,585,83"/>
+</map>

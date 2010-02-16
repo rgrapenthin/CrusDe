@@ -1,6 +1,7 @@
-base referer
-rect $Plugin_8h.html 165,176 235,200
-rect $constants_8h.html 431,153 521,177
-rect $config_8h.html 441,203 511,227
-rect $crusde__api_8h.html 284,153 383,177
-rect $exceptions_8h.html 285,105 381,129
+<map id="G" name="G">
+<area shape="rect" href="$Plugin_8h.html" title="Plugin.h" alt="" coords="349,80,416,107"/>
+<area shape="rect" href="$constants_8h.html" title="constants.h" alt="" coords="5,229,93,256"/>
+<area shape="rect" href="$config_8h.html" title="config.h" alt="" coords="249,229,316,256"/>
+<area shape="rect" href="$crusde__api_8h.html" title="crusde_api.h" alt="" coords="147,155,243,181"/>
+<area shape="rect" href="$exceptions_8h.html" title="exceptions.h" alt="" coords="368,155,464,181"/>
+</map>
