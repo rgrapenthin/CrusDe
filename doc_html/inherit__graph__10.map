@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$classSeriousException.html" title="An exception that should lead to shutdown of the application&#45;." alt="" coords="5,56,131,83"/>
-<area shape="rect" href="$classConversion.html" title="Some Conversion went wrong ... serious." alt="" coords="188,5,279,32"/>
-<area shape="rect" href="$classFileNotFound.html" title="A file could not be found." alt="" coords="183,56,284,83"/>
-<area shape="rect" href="$classLibHandleError.html" title="Something went wrong with Library access." alt="" coords="179,107,288,133"/>
-</map>

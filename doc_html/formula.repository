@@ -1,8 +1,0 @@
-\form#0:\[ h(t) = \frac{h_m}{2} \left[ 1 + cos( \frac{2\,\pi}{p} (t - d_m) ) \right] \]
-\form#1:\[ G_{z}(r) = \frac{g}{\pi} \frac{(1-\nu ^2)}{E} \frac{1}{r} \]
-\form#2:\[ G_{r}(r) = -\frac{g}{2\pi} \frac{(1+\nu)(1-2\nu)}{E} \frac{1}{r} \]
-\form#3:$G_{z}(r)$
-\form#4:$G_{r}(r)$
-\form#5:$r$
-\form#6:\[ U_{z,const} = \frac{g}{\pi} \frac{(1-\nu ^2)}{E} \]
-\form#7:\[ U_{r, const} = -\frac{g}{2\pi} \frac{(1+\nu)(1-2\nu)}{E} \]

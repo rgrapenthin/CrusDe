@@ -115,12 +115,12 @@ debug: plugins $(TARGET)	# creates development version
 $(TARGET): defs.h $(MOC_MODULES) $(OBJS) $(HEADER) #creates the 'crusde'-binary to model deformation using green's functions.
 	gcc -o $@ $(OBJS) $(MOC_MODULES) $(LIB_DIRS) $(LINKER_OPT) $(LINKER_QT)
 
-doc:				# creates documenation  
-	@doxygen Doxyfile
-	@cp -rf ./doc_html ../
+doc:				# creates documentation  
+	@doxygen ../doc/Doxyfile
+	@cp -rf ./doc_html ../doc/
 	@rm -rf ./doc_html
 ifeq ($(shell hostname), eolan)
-	@cp -rf ../doc_html $(WWW)/ronni/projects/crusde
+	@cp -rf ../doc/doc_html $(WWW)/ronni/projects/crusde
 endif
 
 plugins:			# creates plugins

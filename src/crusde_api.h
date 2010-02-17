@@ -74,32 +74,32 @@ void		crusde_info(const char* format, ...);		/* prints msg to stderr*/
 
 double* 	crusde_register_param_double(const char* param_name, PluginCategory);
 double* 	crusde_register_optional_param_double(const char* param_name, PluginCategory, double);
-							/*register double parameter with CrusDe*/
+														/*register double parameter with CrusDe*/
 //int* 	        crusde_register_param_int(const char* param_name, PluginCategory);
-							/*register integer parameter with CrusDe*/
+														/*register integer parameter with CrusDe*/
 char**          crusde_register_param_string(const char* param_name, PluginCategory);
 char**          crusde_register_optional_param_string(const char* param_name, PluginCategory, char*);
-							/*register string parameter with CrusDe*/
+														/*register string parameter with CrusDe*/
 void		crusde_register_output_field(int* position, FieldName);
-							/*register output field with CrusDe*/
-int 		crusde_get_size_x();            /*length of the region of interest*/
-int 		crusde_get_size_y();            /*width of the region of interest*/
-int 		crusde_get_size_t();            /*total number of time steps*/
-int 		crusde_get_gridsize();          /*side length of a grid cell*/
-int 		crusde_get_min_x();             /*westernmost coordinate of ROI*/
-int 		crusde_get_min_y();             /*southernmost coordinate of ROI*/
-int 		crusde_get_dimensions();		/*total number of output fields*/
-int 		crusde_get_displacement_dimensions();	/*total number of spatial output fields (x,y,z)*/
-int 		crusde_model_time();      /*current time step*/
-int 		crusde_get_timesteps();   /* total number of timesteps*/
-int			crusde_model_step();
-int 		crusde_stepsize();              /*time increment with each model step*/
-int 		crusde_get_x_index();           /*index of x-displacement values in result array*/
-int 		crusde_get_y_index();           /*index of y-displacement values in result array*/
-int 		crusde_get_z_index();           /*index of z-displacement values in result array*/
+														/*register output field with CrusDe*/
+int 		crusde_get_size_x();          				/*length of the region of interest*/
+int 		crusde_get_size_y();                        /*width of the region of interest*/
+int 		crusde_get_size_t();                        /*total number of time steps*/
+int 		crusde_get_gridsize();                      /*side length of a grid cell*/
+int 		crusde_get_min_x();                         /*westernmost coordinate of ROI*/
+int 		crusde_get_min_y();                         /*southernmost coordinate of ROI*/
+int 		crusde_get_dimensions();		            /*total number of output fields*/
+int 		crusde_get_displacement_dimensions();	    /*total number of spatial output fields (x,y,z)*/
+int 		crusde_model_time();                        /*current time step*/
+int 		crusde_get_timesteps();                     /*total number of timesteps*/
+int			crusde_model_step();						/*current model step, i.e. iteration through time*/ 
+int 		crusde_stepsize();                          /*time increment with each model step*/
+int 		crusde_get_x_index();                       /*index of x-displacement values in result array*/
+int 		crusde_get_y_index();                       /*index of y-displacement values in result array*/
+int 		crusde_get_z_index();                       /*index of z-displacement values in result array*/
 
-const char* 	crusde_get_observation_file();	/*filename of points to be observed (unused)*/
-const char* 	crusde_get_out_file();			/*filename for result output*/
+const char* 	crusde_get_observation_file();	        /*filename of points to be observed (unused)*/
+const char* 	crusde_get_out_file();		            /*filename for result output*/
 
 int 		crusde_get_green_at(double** res, int x, int y);
 												/*green's function coefficients at x,y*/

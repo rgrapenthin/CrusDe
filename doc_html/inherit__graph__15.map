@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" href="$classXMLCore.html" title="XMLCore" alt="" coords="5,56,83,83"/>
-<area shape="rect" href="$classXMLHandler.html" title="XMLHandler" alt="" coords="131,56,227,83"/>
-<area shape="rect" href="$classDatabaseManager.html" title="DatabaseManager" alt="" coords="276,31,409,57"/>
-<area shape="rect" href="$classInputHandler.html" title="InputHandler" alt="" coords="295,81,391,108"/>
-<area shape="rect" href="$classExperimentManager.html" title="ExperimentManager" alt="" coords="459,5,600,32"/>
-<area shape="rect" href="$classPluginManager.html" title="PluginManager" alt="" coords="473,56,585,83"/>
-</map>

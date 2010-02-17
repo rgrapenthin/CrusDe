@@ -59,6 +59,14 @@ described below. I appreciate your patience!
      $> make all
 
 5) install the plug-ins
+     Try running:
+
+     $> cd $CRUSDE_HOME/src
+     $> install_plugins.sh
+
+     This should automatically install the standard plug-ins. If it doesn't work, 
+     follow the long procedure that was in place before this script:
+     
      This step might be a little painful, but also helps to familiarize with
      the plug-in manager; there's always a good side to everything, right?!
 
