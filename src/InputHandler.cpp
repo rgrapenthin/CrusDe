@@ -68,6 +68,7 @@ InputHandler::~InputHandler()
 void InputHandler::init()
 {
      int n(1);
+	 bool plugin_manager = false;
 	
      if (n == argc)
      {
@@ -81,16 +82,16 @@ void InputHandler::init()
      while (n < argc )
      {
           // break at param that has no dash and following arguments contains ".xml" which means a xml-file is to be processed
-          if (argv[n][0] != '-')
+          if (argv[n][0] != '-' && !plugin_manager)
           {
 			if(fileExists(string(argv[n]))){
                gotFile = true;
                break;
 			}
 			else{
-               crusde_error("File not found: %s", argv[n]);
-//               usage();
-//               exit(-1);
+	             crusde_error("File not found: %s", argv[n]);
+	               usage();
+	               exit(-1);
 			}
           }
 
@@ -106,6 +107,13 @@ void InputHandler::init()
           {
                SimulationCore::instance()->setQuiet(true);
           }
+
+          if (!strncmp(argv[n], "-p", 2) || !strncmp(argv[n], "-P", 2) )
+          {
+               plugin_manager = true;
+          }
+
+
           ++n;
      }
 	
@@ -176,7 +184,7 @@ void InputHandler::readCommandline()
 
                case 'p': //start plugin manager
                case 'P': //start plugin manager
-		    if(argc == 2){ //run GUI Manager if no further arguments given
+				    if(argc == 2){ //run GUI Manager if no further arguments given
 	                    SimulationCore::instance()->runPluginManager();
                     }else{         //otherwise check what's requested
                         //INSTALL
@@ -189,7 +197,7 @@ void InputHandler::readCommandline()
                                  crusde_error("Plugin file missing! Call: crusde -p install <plugin.so>");
                             }
                         }
-		    }
+				    }
                     break;
 
                case 'v': //show version

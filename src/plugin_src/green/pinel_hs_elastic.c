@@ -1,5 +1,5 @@
 /***************************************************************************
- * File:        ./plugins/green/green_elastic.c
+ * File:        ./plugins/green/pinel_hs_elastic.c
  * Author:      Ronni Grapenthin, NORVULK & HU-BERLIN
  * Created:     20.02.2007
  * Licence:     GPL
@@ -11,7 +11,7 @@
  **/
 
 /*@{*/
-/** \file green_elastic.c
+/** \file pinel_hs_elastic.c
  * 
  * Implements the 'elastic halfspace' case as described by 
  * Pinel et al (2006) for horizontal and vertical displacement:
