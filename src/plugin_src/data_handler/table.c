@@ -181,7 +181,7 @@ extern void register_parameter() {}
  extern void set_model_data(double** data, int dim_x, int dim_y)
 {  
 
-crusde_infor("%s, line: %d, netcdf::set_model_data\n", __FILE__, __LINE__);
+crusde_info("%s, line: %d, netcdf::set_model_data\n", __FILE__, __LINE__);
 fflush(stdout);
 	
 	//shallow or deep copy???
