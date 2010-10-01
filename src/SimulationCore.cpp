@@ -270,7 +270,7 @@ crusde_info(">>>>>>>>>>> requested_size=%d, requested_plugin_list.size()=%d", re
 
     if( !operatorSpaceIsSet() )
 	{
-		printf("%s, %d: WARNING OPERATOR SPACE NOT SET BY KERNEL\n", __FILE__, __LINE__);
+		crusde_warning("%s, %d: WARNING OPERATOR SPACE NOT SET BY KERNEL\n", __FILE__, __LINE__);
     }
 
 

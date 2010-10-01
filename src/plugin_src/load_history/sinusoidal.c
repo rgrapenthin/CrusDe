@@ -1,6 +1,6 @@
 /***************************************************************************
- * File:        ./plugins/load_history/sinusoidal.c
- * Author:      Ronni Grapenthin, NORVULK & HU-BERLIN
+ * File:        ./plugins/load_history/.c
+ * Author:      Ronni Grapenthin, UAF-GI
  * Created:     29.04.2007
  * Licence:     GPL
  ****************************************************************************/
@@ -20,6 +20,10 @@
  *	h(t) = \frac{h_m}{2} \left[ 1 + cos( \frac{2\,\pi}{p} (t - d_m) ) \right]
  * \f]
  * with <i>h<sub>m</sub></i> being the maximum load height.
+ 
+	h(t) = p[0] + p[1]*x + p[2]*cos(2.0*pi*x) + p[3]*sin(2.0*pi*x) + \
+                      p[4]*cos(4.0*pi*x) + p[5]*sin(4.0*pi*x) 
+ 
  */
 /*@}*/
 
@@ -30,8 +34,8 @@
 #include "crusde_api.h"
 
 /*load command line parameters*/
-double* p_d_max[100];		/*!< day of maximum load	[d]		*/
-double* p_period_length[100];	/*!< number of days in a cycle	[d]		*/
+double* p_d_max[N_LOAD_COMPS];		/*!< day of maximum load	[d]		*/
+double* p_period_length[N_LOAD_COMPS];	/*!< number of days in a cycle	[d]		*/
 
 double d_max;		/*!< day of maximum load	[d]		*/
 double period_length;	/*!< number of days in a cycle	[d]		*/
@@ -41,7 +45,7 @@ int my_id = 0;
 extern const char* get_name() 	     		{ return "sinusoidal"; }
 extern const char* get_version()     		{ return "0.1"; }
 extern const char* get_authors()     		{ return "ronni grapenthin"; }
-extern PluginCategory get_category() 	{ return LOADHISTORY_PLUGIN; }
+extern PluginCategory get_category() 		{ return LOADHISTORY_PLUGIN; }
 extern const char* get_description() 		{ 
 	return "Sinusoidal load history that calculates a load height depending on the\
 	current time step (<i>t</i>), a period length (<i>p</i>) and the timestep when the load is supposed to \
@@ -72,21 +76,10 @@ extern void register_parameter()
 	my_id = crusde_get_current_load_component();
 
     /* tell main program about parameters we claim from input */
-    p_d_max[my_id] = crusde_register_param_double("peak", get_category());
-    p_period_length[my_id] = crusde_register_param_double("period_length", get_category());
+	p_d_max[my_id]          = crusde_register_param_double("peak", get_category());
+	p_period_length[my_id]  = crusde_register_param_double("period_length", get_category());
 }
 
-/*! Returns the constrained load depending on the current timestep at point (x,y)*/
-/*extern double constrain_load_height(double h_max, int x, int y, int t)
-{
-	my_id = crusde_get_current_load_component();
-
-	d_max = *p_d_max[my_id];
-	period_length = *p_period_length[my_id];
-
-	return (( h_max + h_max * cos( PI*2 / period_length * (t-d_max) ) ) / 2 )  ;
-}
-*/
 extern double get_value_at(unsigned int t)
 {
 	my_id = crusde_get_current_load_component();

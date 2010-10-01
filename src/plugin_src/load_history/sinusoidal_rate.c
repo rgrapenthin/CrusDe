@@ -30,8 +30,8 @@
 #include "crusde_api.h"
 
 /*load command line parameters*/
-double* p_d_max[100];		/*!< day of maximum load	[d]		*/
-double* p_period_length[100];	/*!< number of days in a cycle	[d]		*/
+double* p_d_max[N_LOAD_COMPS];		/*!< day of maximum load	[d]		*/
+double* p_period_length[N_LOAD_COMPS];	/*!< number of days in a cycle	[d]		*/
 
 double d_max;		/*!< day of maximum load	[d]		*/
 double period_length;	/*!< number of days in a cycle	[d]		*/

@@ -184,6 +184,13 @@ void LoadFunction::load(list<LoadFunctionElement*> names)
 	load_function_component = 0;
 	
 	while(names_iter != names.end()){
+		
+		if(load_function_component > N_LOAD_COMPS)
+		{
+			crusde_error("Maximum Load component number (%d) exceeded. This number is a memory saving measure. \
+				      Go to constants.h, increase the number N_LOAD_COMPS to your needs, recompile and rerun.", N_LOAD_COMPS);
+		}
+		
 		SimulationCore::instance()->setLoadFunctionComponent( load_function_component );
 		LoadPlugin *pl_load = new LoadPlugin( (*names_iter)->getLoadName().c_str() );
 		LoadHistoryPlugin *pl_history(NULL);

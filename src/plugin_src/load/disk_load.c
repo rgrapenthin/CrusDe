@@ -24,13 +24,13 @@
 #include "crusde_api.h"
 
 /*disk command line parameters*/
-double* p_height[100]; 	/**< Disk's height 		[m]		*/
-double* p_radius[100]; 	/**< Disk's radius 		[m] 		*/
-double* p_x[100];     	/**< Disk's center, x-Coordinate[-]		*/
-double* p_y[100];     	/**< Disk's center, y-Coordinate[-]		*/
-double* p_rho[100];		/**< Density of the load	[kg/m^3]	*/
+double* p_height[N_LOAD_COMPS]; 	/**< Disk's height 		[m]		*/
+double* p_radius[N_LOAD_COMPS]; 	/**< Disk's radius 		[m] 		*/
+double* p_x[N_LOAD_COMPS];     	/**< Disk's center, x-Coordinate[-]		*/
+double* p_y[N_LOAD_COMPS];     	/**< Disk's center, y-Coordinate[-]		*/
+double* p_rho[N_LOAD_COMPS];		/**< Density of the load	[kg/m^3]	*/
 
-loadhistory_exec_function history_function[100];
+loadhistory_exec_function history_function[N_LOAD_COMPS];
 
 /*disk internal parameters*/
 double disk_height; 	/**< Disk's height 		[m]		*/
@@ -95,13 +95,13 @@ extern void init(){}
  */
 extern void register_parameter()
 {
-	my_id = crusde_get_current_load_component();
-
+     my_id = crusde_get_current_load_component();
+printf("\tMy id: %d\n", my_id);
     /* tell main program about parameters we claim from input */
     p_height[my_id] = crusde_register_param_double("height", get_category());
     p_radius[my_id] = crusde_register_param_double("radius", get_category());
     p_x[my_id]      = crusde_register_param_double("center_x", get_category());
-	p_y[my_id]      = crusde_register_param_double("center_y", get_category());
+    p_y[my_id]      = crusde_register_param_double("center_y", get_category());
     p_rho[my_id]    = crusde_register_param_double("rho", get_category());
 
 }

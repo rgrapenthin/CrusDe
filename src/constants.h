@@ -33,11 +33,13 @@
 #define PLUGIN_DIR      "plugins"
 #define PLUGIN_DB       "plugins.xml"
 
+#define N_LOAD_COMPS    1000
+
 #define DIR_SEP	        "/"
 
 extern int    const NO_TIME;
 extern double const PI;			//!< Pi 		[-]
-extern double const PI_half;	//!< Pi half		[-]
+extern double const PI_half;		//!< Pi half		[-]
 extern double const two_PI;		//!< two Pi 		[-]
 
 extern short const UX;			//!< marks x-direction 

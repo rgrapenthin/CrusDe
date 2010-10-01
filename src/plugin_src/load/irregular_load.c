@@ -120,8 +120,8 @@ static void destroy(load_list * list)
 
 /*load command line parameters*/
 /*disk command line parameters*/
-double *p_rho[100];		/**< Density of the load	[kg/m^3]	*/
-char*  *p_file[100];		/**< load definition	*/
+double *p_rho[N_LOAD_COMPS];		/**< Density of the load	[kg/m^3]	*/
+char*  *p_file[N_LOAD_COMPS];		/**< load definition	*/
 
 double rho;		/*!< Density of the load	[kg/m^3]	*/
 
@@ -130,10 +130,10 @@ int dS;			/*!< Area around point P(x,y)	[m^2]		*/
 double rho_dS_const;	/*!< rho_dS_const = rho * dS	[kg/m] 		 */
 int nx=-1, ny=-1;
 
-loadhistory_exec_function history_function[100];
+loadhistory_exec_function history_function[N_LOAD_COMPS];
 
 /*load_list*/
-load_list * loads[100];
+load_list * loads[N_LOAD_COMPS];
 
 int my_id = 0;
 
@@ -203,7 +203,7 @@ extern void init()
 	if((fi = fopen( *p_file[my_id], "r" )) == NULL)
 	{
 		int n=0;
-		while(n < 100){
+		while(n < N_LOAD_COMPS){
 			crusde_warning("(%d) FILE PROBLEM ...: <%s>, addr: %X", n, *p_file[n], (unsigned int) p_file[n]);
 			++n;
 		}

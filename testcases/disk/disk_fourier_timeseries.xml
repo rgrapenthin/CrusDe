@@ -13,18 +13,22 @@
 
 <experiment name="disk">
 
-  <file name="result" value="./disk_elastic_high.nc" />
+  <file name="result" value="./disk_fourier_ts.nc" />
 
   <region name="west" value="-10000" />
   <region name="east" value="10000" />
   <region name="south" value="-10000" />
   <region name="north" value="10000" />
 
-  <parameter name="gridsize" value="100" />
+  <parameter name="gridsize" value="250" />
+
+<!-- MODEL TIME CONFIG -->  
+  <parameter name="timestep_size"  value="1"/> 		<!-- each step is a day -->
+  <parameter name="timesteps"      value="365"/> 	<!-- 365 steps == 1 year -->
 
   <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
   <kernel>
-    <plugin name="fast 2d convolution" />
+    <plugin name="fast 3d convolution" />
  </kernel>
 
  <greens_function>
@@ -43,6 +47,19 @@
        <parameter name="center_y" value="0" />
        <parameter name="rho" value="1000" />
    </load>
+   
+  <!-- load history: use low order terms of fourier series -->
+    <load_history>
+     <plugin    name="fourier_series" />
+     <parameter name="period_length"  value="365"/>	<!-- 365 days -->
+     <parameter name="bias"           value="0" />	<!-- vertical offset -->
+     <parameter name="trend"          value="0" />	<!-- linear trend -->
+     <parameter name="annual_sin"     value="0.3" />	<!-- linear trend -->
+     <parameter name="annual_cos"     value="0.3" />	<!-- linear trend -->
+     <parameter name="semiannual_sin" value="0.3" />	<!-- linear trend -->
+     <parameter name="semiannual_cos" value="0.3" />	<!-- linear trend -->
+</load_history>
+
   </load_function>
   
   <postprocessor>

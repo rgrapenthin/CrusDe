@@ -21,7 +21,7 @@
 #include "crusde_api.h"
 
 /*load command line parameters*/
-double* p_start[100];/*!< pointer to start interval values	*/
+double* p_start[N_LOAD_COMPS];/*!< pointer to start interval values	*/
 
 int my_id = 0;
 
