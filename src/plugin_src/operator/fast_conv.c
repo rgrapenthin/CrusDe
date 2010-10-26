@@ -55,7 +55,7 @@ extern void init();
 extern void clear();
 extern void run();
 
-extern const char* get_name() 	 { return "fast 2d convolution"; }
+extern const char* get_name() 	 { return "standard 2d convolution"; }
 extern const char* get_version() { return "0.1"; }
 extern const char* get_authors() { return "ronni grapenthin"; }
 extern const char* get_description() { return "Performs a fast 2D-convolution of load and Green's function based \
