@@ -277,7 +277,7 @@ extern void init()
 	    fgets( st, sizeof(st), fi );
 	    if( feof(fi) )
             {
-                crusde_info("IRREGULAR_LOAD.C: read %d data sets, %d comments, %d lines total.", line_no-comment_line, comment_line, line_no);
+                crusde_info("(%s): read %d data sets, %d comments, %d lines total.", get_name(), line_no-comment_line, comment_line, line_no);
                 break;
             }
 
@@ -301,7 +301,7 @@ extern void init()
             }
             else
             {
-               crusde_error("IRREGULAR_LOAD.C: Formatting problem in file <%s>, line %d ", *p_file[my_id], line_no);
+               crusde_error("(%s): Formatting problem in file <%s>, line %d ", get_name(), *p_file[my_id], line_no);
             }
 	}
 

@@ -54,9 +54,9 @@ extern void clear(){};
 /*! registers one ADD_FIELD type field with the framework */
 extern void register_output_fields() 
 { 
-crusde_info("%s registers output field...", get_name());	
+crusde_info("(%s) registering output field ...", get_name());	
 	crusde_register_output_field(&my_position, ADD_FIELD);	
-crusde_info(" ... got %d", my_position);	
+crusde_info("(%s)\t... got %d", get_name(), my_position);	
 }
 
 /*!initializes local variables*/
@@ -78,7 +78,7 @@ extern void run()
    int i = -1;
    
    if( x < 0 || y < 0 || z < 0){
-   	fprintf( stderr, "Warning: Uhm, seems like X, Y, or Z have not been modeled ... don't know what to do\n");
+   	crusde_warning("(%s) Uhm, seems like X, Y, or Z have not been modeled ... don't know what to do.", get_name());
    }
    else
    {   
@@ -86,6 +86,7 @@ extern void run()
 	{
 		result[my_position][i] = fabs(sqrt( result[x][i]*result[x][i] + result[y][i]*result[y][i] ) / result[z][i]);
 	}
-crusde_info("%s: wrote hori2vert ratio to position: %d", get_name(), my_position);
+
+    crusde_info("(%s) wrote hori2vert ratio to position: %d", get_name(), my_position);
    }
 }

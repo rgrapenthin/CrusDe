@@ -243,12 +243,11 @@ extern void run()
 		/* here comes the fun part - four possibilities exist 
          * for the current load component:
 		 *      - 1) crustal_decay = no, load_history = no:
-		 *           This is a stupid experiment setup and only good to calculate
-		 *           end members, e.g. elastic response or final relaxed response.
-         *           Hopefully our dear user knows what it's doing. We'll give him 
-		 *           note anyway, return the spatial results and are done.
+		 *           This is the multi load case that is run without any temporal 
+		 *           modeling. It is useful if users want to keep their load models
+         *           separate; even if only one timestep is modeled. 
 		 *      - 2) crustal_decay = yes, load_history = no:
-		 *           This is useful to simulate gradual subsidence due to a static load.
+		 *           This is useful to simulate gradual subsidence due to static loads.
 		 *           Theoretically we would do a convolution of decay function 
 		 *           with a delta function. Since the delta function is the 
          *           identity operator of the convolution, we get the same

@@ -31,11 +31,11 @@
 #define POSITION(m,n) (n+(N_Y)*m)
 
 /*variables*/
-double		*load_in,  *green_in,  *conv_out, *green_back;
-fftw_complex 	*load_out, *green_out, *conv_in;
-fftw_plan 	load_plan, green_plan, conv_plan;
+double       *load_in,  *green_in,  *conv_out, *green_back;
+fftw_complex *load_out, *green_out, *conv_in;
+fftw_plan     load_plan, green_plan, conv_plan;
 
-double 		**model_buffer, **result;
+double      **model_buffer, **result;
 
 /* *_X: number of rows, *_Y: number of columns*/
 int N, N_X, N_Y;
@@ -55,11 +55,15 @@ extern void init();
 extern void clear();
 extern void run();
 
-extern const char* get_name() 	 { return "standard 2d convolution"; }
+extern const char* get_name() 	 { return "fast 2d convolution"; }
 extern const char* get_version() { return "0.1"; }
 extern const char* get_authors() { return "ronni grapenthin"; }
 extern const char* get_description() { return "Performs a fast 2D-convolution of load and Green's function based \
-on FFTW3 (http://www.fftw.org)"; }
+    on FFTW3 (http://www.fftw.org). \
+    <br /><br /> \
+    NOTE: This plug-in will treat only one load function. Use 'fast 3d convolution' if you want to apply \
+    multiple load functions."; 
+}
 extern PluginCategory get_category() { return KERNEL_PLUGIN; }
 /*!empty*/
 extern void request_plugins(){}
@@ -165,6 +169,7 @@ extern void init(){
 /*------------------------------*/
    /* fftw_plan_dft_r2c_1d is always FFTW_FORWARD, 		*/
    /* fftw_plan_dft_c2c_1d is always FFTW_BACKWARD 		*/ 
+   crusde_info("(%s) planning FFT ...", get_name());
    load_plan = fftw_plan_dft_r2c_2d(N_X, N_Y, load_in, load_out, FFTW_ESTIMATE);
    green_plan= fftw_plan_dft_r2c_2d(N_X, N_Y, green_in, green_out, FFTW_ESTIMATE);
    conv_plan = fftw_plan_dft_c2r_2d(N_X, N_Y, conv_in, conv_out, FFTW_ESTIMATE);
@@ -300,7 +305,7 @@ extern void run()
 	}
    }
 
-crusde_info("%s : planning FFT ...", get_name());
+   crusde_info("(%s) Convolution of Green's function and load ...", get_name());
 
    /* transform green's function results and load values to frequency domain */
    fftw_execute(load_plan);

@@ -56,12 +56,12 @@ char* filename;
 /* Names of things. */
 static const char* netcdf_history 	= "written by CrusDe\'s netCDF Plugin, direction indices are: ";
 static const char* netcdf_latitude 	= "latitude";
-static const char* netcdf_longitude 	= "longitude";
+static const char* netcdf_longitude = "longitude";
 static const char* netcdf_longname	= "experiment name";
 static const char* netcdf_time 		= "time";
 static const char* netcdf_direction	= "direction";
 static const char* netcdf_deg_east 	= "meters_east";
-static const char* netcdf_deg_north 	= "meters_north";
+static const char* netcdf_deg_north = "meters_north";
 static const char* netcdf_meters 	= "m";
 static const char* netcdf_days 		= "days";
 

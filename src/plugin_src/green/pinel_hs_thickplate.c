@@ -404,10 +404,9 @@ extern int get_value_at(double** result, int x, int y)
 		cos_sign = 1;
 		
 		/* get the angle of the cyllindrical coordinate */
-//		if(xx == yy){	theta=PI/2;		}
-//		else{		theta = atan(yy/xx);	}
-		theta = atan(yy/xx);
-
+		if(xx == 0){	theta=PI/2;		}
+		else{		theta = atan(fabs(yy)/fabs(xx));	}
+		
 		/* get the direction of the direction cosine */
 		if(quadrant==2){	
 			sin_sign = -1;

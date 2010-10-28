@@ -15,12 +15,12 @@
 
   <file name="result" value="./disk_elastic_high.nc" />
 
-  <region name="west" value="-10000" />
-  <region name="east" value="10000" />
-  <region name="south" value="-10000" />
-  <region name="north" value="10000" />
+  <region name="west" value="-20000" />
+  <region name="east" value="20000" />
+  <region name="south" value="-20000" />
+  <region name="north" value="20000" />
 
-  <parameter name="gridsize" value="100" />
+  <parameter name="gridsize" value="1000" />
 
   <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
   <kernel>
@@ -47,7 +47,6 @@
   
   <postprocessor>
     <plugin name="xy2r" />
-    <plugin name="hori2vert-ratio" />
   </postprocessor>
 
   <output>

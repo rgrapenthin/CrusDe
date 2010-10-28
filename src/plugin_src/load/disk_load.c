@@ -24,25 +24,25 @@
 #include "crusde_api.h"
 
 /*disk command line parameters*/
-double* p_height[N_LOAD_COMPS]; 	/**< Disk's height 		[m]		*/
-double* p_radius[N_LOAD_COMPS]; 	/**< Disk's radius 		[m] 		*/
+double* p_height[N_LOAD_COMPS]; /**< Disk's height 		[m]		*/
+double* p_radius[N_LOAD_COMPS]; /**< Disk's radius 		[m] 		*/
 double* p_x[N_LOAD_COMPS];     	/**< Disk's center, x-Coordinate[-]		*/
-double* p_y[N_LOAD_COMPS];     	/**< Disk's center, y-Coordinate[-]		*/
-double* p_rho[N_LOAD_COMPS];		/**< Density of the load	[kg/m^3]	*/
+double* p_y[N_LOAD_COMPS];      /**< Disk's center, y-Coordinate[-]		*/
+double* p_rho[N_LOAD_COMPS];    /**< Density of the load	[kg/m^3]	*/
 
 loadhistory_exec_function history_function[N_LOAD_COMPS];
 
 /*disk internal parameters*/
-double disk_height; 	/**< Disk's height 		[m]		*/
-double disk_radius; 	/**< Disk's radius 		[m] 		*/
+double disk_height;	/**< Disk's height 		[m]		*/
+double disk_radius; /**< Disk's radius 		[m] 		*/
 double disk_x;     	/**< Disk's center, x-Coordinate[-]		*/
-double disk_y;     	/**< Disk's center, y-Coordinate[-]		*/
-double rho;		/**< Density of the load	[kg/m^3]	*/
+double disk_y;      /**< Disk's center, y-Coordinate[-]		*/
+double rho;	        /**< Density of the load	[kg/m^3]	*/
 
 /* internals */
-double dS;		/**< Area around point P(x,y)	[m^2]		*/
-double all_const;	/**< all_const = rho*dS*disk_height, no parts of the load depend on time	*/
-double rho_dS_const;	/**< rho_dS_const = rho * dS, height depends on time		*/
+//double dS;           /**< Area around point P(x,y)	[m^2]		*/
+//double all_const;    /**< all_const = rho*dS*disk_height, no parts of the load depend on time	*/
+//double rho_dS_const; /**< rho_dS_const = rho * dS, height depends on time		*/
 
 int my_id =0;
 
@@ -129,9 +129,6 @@ extern double get_value_at(int x, int y)
 
 	disk_x -= crusde_get_min_x();
 	disk_y -= crusde_get_min_y();
-	dS = crusde_get_gridsize()*crusde_get_gridsize();
-	rho_dS_const = rho * dS ;
-	all_const    = rho_dS_const * disk_height;
 
 	/*get euclidean distance to center of disc	*/
 	double xx = (double) (x*crusde_get_gridsize());
@@ -142,16 +139,7 @@ extern double get_value_at(int x, int y)
 	/*if point is outside disc: h=0.0, see below*/
 	if(dist <= disk_radius)
 	{
-		/*do time dependent load modeling if requested*/
-/*		if(history_function[my_id] != NULL)
-		{
-			return ( history_function[my_id](disk_height, x, y, t) * rho_dS_const);
-		}
-		else
-		{
-*/
-			return all_const;
-//		}
+		return crusde_get_gridsize()*crusde_get_gridsize()*rho*disk_height;
 	}
 	
 	return 0.0;

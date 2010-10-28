@@ -32,6 +32,7 @@ int size_x, size_y;
 int dimensions=1;
 int displacement_dimensions=1;
 int x=-1, xg=-1, xk=-1, y=-1, yg=-1, yk=-1,n=-1, mm=-1, nn=-1;
+int green_edge_x=0, green_edge_y=0;
 
 boolean is_initialized = false;
 
@@ -42,12 +43,23 @@ extern void init();
 extern void free();
 extern void run();
 
+extern PluginCategory get_category() { return KERNEL_PLUGIN; }
 extern const char* get_name() 	 { return "2d convolution"; }
 extern const char* get_version() { return "0.1"; }
 extern const char* get_authors() { return "ronni grapenthin"; }
-extern const char* get_description() { return "not implemented yet"; }
-extern PluginCategory get_category() { return KERNEL_PLUGIN; }
-
+extern const char* get_description() { return "The '2d convolution' operator \
+    implements the convolution of Green's function and load in the spatial domain. \
+    The particluar algorithm implemented is the Input Side Algorithm as described \
+    at <a href=\"http://www.dspguide.com/ch6/3.htm\">http://www.dspguide.com/ch6/3.htm</a>. \
+    Keep in mind that a convolutoin in the spatial domain is in most cases much slower than \
+    applying a fast convolution which is the multiplication of the Fourier transformed spectra \
+    of load and Green's function; it is implemented as CrusDe plug-in 'fast 2d convolution'. \
+    The spatial convolution plug-in is provided for the cases when the fast convolution is not \
+    applicable.\
+    <br /><br /> \
+    NOTE: This plug-in will treat only one load function. Use '3d convolution' if you want to apply \
+    multiple load functions."; 
+}
 
 /******************************************************************/
 /***IMPLEMENTATION*************************************************/
@@ -61,15 +73,19 @@ extern void request_plugins(){}
 extern void register_output_fields(){}
 /*!empty*/
 extern void init(){
-   size_x = crusde_get_size_x(); // LONGITUDE
-   size_y = crusde_get_size_y(); // LATITUDE
+
+   green_edge_x = 10; //crusde_get_size_x()/2;
+   green_edge_y = 10;//crusde_get_size_y()/2;
+   
+   size_x = crusde_get_size_x()+green_edge_x; // LONGITUDE
+   size_y = crusde_get_size_y()+green_edge_y; // LATITUDE
 
    dimensions = crusde_get_dimensions();
    displacement_dimensions = crusde_get_displacement_dimensions();
    /* find a size long enough and a power of two to allocate memory for DFT*/    
    /*get minimum values for DFT size in x and y direction*/
-   /*we take the bigger*/
-   crusde_set_operator_space(size_x, size_y);
+   /*we take the larger*/
+   crusde_set_operator_space(size_x-green_edge_x, size_y-green_edge_y);
    
    N_X = 2*size_x;
    N_Y = 2*size_y;
@@ -87,12 +103,12 @@ extern void init(){
    while(++n < dimensions){
 	green_function[n] = (double*) malloc(sizeof(double) * size_x*size_y);
    	result[n] 	  = (double*) malloc(sizeof(double) * N);/* size_x * size_y);*/
-   	real_result[n] 	  = (double*) malloc(sizeof(double) * size_x*size_y);
+   	real_result[n] 	  = (double*) malloc(sizeof(double) * (size_x-green_edge_x)*(size_y-green_edge_y));
 	//init
 	x = -1;
 	while(++x < size_x*size_y){
 		result[n][x] = 0.0;
-		real_result[n][x] = 0.0;
+//		real_result[n][x] = 0.0;
 		green_function[n][x] = 0.0;
 	}
 	while(++x < N){
@@ -107,7 +123,7 @@ extern void init(){
 /*!empty*/
 extern void clear()
 {
-   /*if(is_initialized)
+   if(is_initialized)
    {
 	   free(load);
 	   free(green_back);   
@@ -123,104 +139,106 @@ extern void clear()
 	   free(green_function);   
 	   free(result);   
   }
-	*/
+
 }
 
 /*!empty*/
 extern void run()
 {   
-    crusde_info("Calculating Green's function and Load");
-    //Get Green's function
+    //Get Green's function and load for a suffcient region
+    crusde_info("(%s) Calculating Green's function and load", get_name());
     for(x=-size_x/2; x<size_x/2+1; ++x){
-       for(y=-size_y/2; y<size_y/2+1; ++y){
+    for(y=-size_y/2; y<size_y/2+1; ++y){
 	 //GF is time invariant!
-         if (crusde_model_time() == 0)
-         {	
-	    if( (x >= 0) && (y >= 0) ){
-			/*set quadrant we're in, in case of cylindrical:carthesian conversion in green's function*/
-			crusde_set_quadrant(1);
-	    }
-	    else{
-			/* do origin shift (see paper)*/
-			if( (x >= 0 ) && (y < 0) ){
-				crusde_set_quadrant(2);
-			}
-			else
-			if( (x < 0 ) && (y < 0) ){
-				crusde_set_quadrant(3);
-			}
-			else
-			if( (x < 0) && (y >= 0) ){
-				crusde_set_quadrant(4);
-			}
-	    }
+        if (crusde_model_time() == 0)
+        {	
+	        if( (x >= 0) && (y >= 0) ){
+			    /*set quadrant we're in, in case of cylindrical:carthesian conversion in green's function*/
+			    crusde_set_quadrant(1);
+	        }
+	        else{
+                if( (x >= 0 ) && (y < 0)  ){ crusde_set_quadrant(2);}
+                else
+                if( (x < 0 )  && (y < 0)  ){ crusde_set_quadrant(3);}
+                else
+                if( (x < 0 )  && (y >= 0) ){ crusde_set_quadrant(4);}
+            }
 
-	    crusde_get_green_at(&green_back, x, y);
+            crusde_get_green_at(&green_back, x, y);
+            /*copy results to greens function*/
+            n=-1;
+            while(++n<displacement_dimensions){
+                green_function[n][x+size_x/2+size_x*(y+size_y/2)] = green_back[n];
+            }
+       }    
 
-	     /*copy results to model buffer*/
-	     n=-1;
-             while(++n<displacement_dimensions){
-		green_function[n][x+size_x/2+size_x*(y+size_x/2)] = green_back[n];
-	     }
-	 }
+       /*third, get the load and do zero padding ... the load is the thing that is time dependent*/
+//       load[x+size_x/2+size_x*(y+size_y/2)] = crusde_get_load_at(x+size_x/2, y+size_y/2);
+    }
+    }
 
-	 /*third, get the load and do zero padding ... the load is the thing that is time dependent*/
-	 load[x+size_x/2+size_x*(y+size_y/2)] = crusde_get_load_at(x+size_x/2, y+size_y/2);
-       }
+    for(x=0; x<size_x; ++x){
+    for(y=0; y<size_y; ++y){
+       load[x+size_x*(y)] = crusde_get_load_at(x, y);
+    }
     }
 	    
-    crusde_info("Doing the Convolution ... ");
+    crusde_info("(%s) Convolving Green's function and load ... this may take a while.", get_name());
    
-    // Input side algorithm: http://www.dspguide.com/ch6/3.htm
-    for(x=0; x < size_x; ++x){              // rows
-    for(y=0; y < size_y; ++y){              // rows
-	for(xk=0; xk < size_x; ++xk){     // kernel rows
+    // Input side algorithm: http://www.dspguide.com/ch6/3.htm, faster than output side algo
+    for(x=0; x <= size_x; ++x){            // cols
+    for(y=0; y <= size_y; ++y){            // rows
+  	    for(xk=0; xk < size_x; ++xk){     // kernel cols
         for(yk=0; yk < size_y; ++yk){     // kernel rows
-	   for(n=0; n<displacement_dimensions; ++n){
-	      result[n][(x+xk)+N_X*(y+yk)] += green_function[n][xk+size_x*yk] * load[x+size_x*y];
-  	   }
-	}
-	}
+	        for(n=0; n<displacement_dimensions; ++n){
+	            result[n][(x+xk)+N_X*(y+yk)] += green_function[n][xk+size_x*yk] * load[x+size_x*y];
+  	        }
+	    }
+	    }
     }
     }
 
-   for(x=0; x < size_x; ++x){
-      for(y=0; y < size_y; ++y){
+   //copy 
+    crusde_info("(%s) Copy result subset to output ... ", get_name());
+    for(x=green_edge_x/2; x < size_x-green_edge_x/2; ++x){
+    for(y=green_edge_y/2; y < size_y-green_edge_y/2; ++y){
         for(n=0; n<displacement_dimensions; ++n){
-          real_result[n][x+size_x*y] = result[n][x+size_x/2+N_X*(y+size_y/2)];
-	}
-      }
-   }
-    
+            real_result[n][x-green_edge_x/2+(size_x-green_edge_x)*(y-green_edge_y/2)] = result[n][x+(size_x/2-green_edge_x/2)+N_X*(y+size_y/2-green_edge_y/2)];
+	     }
+     }
+     } 
 /*
+ * Keep Output side Algorithm commented for reference!
+ *
    //Output side algorithm, http://www.dspguide.com/ch6/4.htm
    for(x=0; x < N_X; ++x){              // rows
-    for(y=0; y < N_Y; ++y){              // rows
-	for(xk=0; xk < size_x; ++xk){     // kernel rows
-        for(yk=0; yk < size_y; ++yk){     // kernel rows
-	   mm = x-xk;
-	   nn = y-yk;
-	   
-	   if(mm>=0 && mm <= size_x && nn>=0 && nn <= size_y){
-	      for(n=0; n<displacement_dimensions; ++n){
-	         result[n][x+N_X*y] += green_function[n][xk+size_x*yk]*load[mm+size_x*nn];
-	      }
-  	   }
-	}
-	}
-    }
-    }
-   for(x=0; x < size_x; ++x){
-      for(y=0; y < size_y; ++y){
-        for(n=0; n<displacement_dimensions; ++n){
-           real_result[n][x+size_x*y] = result[n][x+size_x/2+N_X*(y+size_y/2)];
-	 //  real_result[n][x+size_x*y] = green_function[n][x+size_x*y];
-	}
-      }
+   for(y=0; y < N_Y; ++y){              // rows
+	   for(xk=0; xk < size_x; ++xk){     // kernel rows
+       for(yk=0; yk < size_y; ++yk){     // kernel rows
+	       mm = x-xk;
+	       nn = y-yk;
+  		   //periodic extention
+	   	   if(mm<0) { mm = size_x + mm; continue;}
+	   	   if(nn<0) { nn = size_y + nn; continue;}
+	   	   if(mm>=size_x) { mm = mm - size_x; continue;}
+	   	   if(nn>=size_x) { nn = nn - size_y; continue;}
+
+           for(n=0; n<displacement_dimensions; ++n){
+	           result[n][x+N_X*y] += green_function[n][xk+size_x*yk] * load[mm+size_x*nn];
+	       }
+	   }
+	   }
+   }
+   }
+
+   for(x=green_edge_x/2; x < size_x-green_edge_x/2; ++x){
+   for(y=green_edge_y/2; y < size_y-green_edge_y/2; ++y){
+       for(n=0; n<displacement_dimensions; ++n){
+           real_result[n][x-green_edge_x/2+(size_x-green_edge_x)*(y-green_edge_y/2)] = result[n][x+(size_x/2-green_edge_x/2)+N_X*(y+size_y/2-green_edge_y/2)];
+	   }
+   }
    }
 */
-
-
-crusde_set_result(real_result);
-//crusde_set_result(green_function);
+    //set result and done!
+    crusde_set_result(real_result);
 }

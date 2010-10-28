@@ -52,9 +52,9 @@ extern void clear(){};
 /*!registers one ADD_FIELD type output field*/
 extern void register_output_fields() 
 { 
-	crusde_info("xy2r registers output field...");	
+	crusde_info("(%s) registers output field...", get_name());	
 	crusde_register_output_field(&my_position, ADD_FIELD);	
-	crusde_info("\t... got %d", my_position);	
+	crusde_info("(%s)\t... got %d", get_name(), my_position);	
 }
 
 /*! initializes local vars*/
@@ -74,7 +74,7 @@ extern void run()
    int i = -1;
    
    if( x < 0 || y < 0){
-   	crusde_warning("Uhm, seems like X or Y have not been modeled ... don't know what to do.");
+   	crusde_warning("(%s) Uhm, seems like X or Y have not been modeled ... don't know what to do.", get_name());
    }
    else
    {   
@@ -83,6 +83,6 @@ extern void run()
 		result[my_position][i] = sqrt( result[x][i]*result[x][i] + result[y][i]*result[y][i] );
 	}
 	
-	crusde_info("wrote xy2r conversion to position: %d", my_position);
+	crusde_info("(%s) wrote xy2r conversion to position: %d", get_name(), my_position);
    }
 }

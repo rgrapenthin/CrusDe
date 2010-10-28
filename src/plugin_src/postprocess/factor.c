@@ -73,7 +73,7 @@ extern void run()
    int d = -1;
 
    if( dimensions < 1){
-   	crusde_warning("%s: Uhm, seems like there is no output ... don't know what to do except for nothing. \
+   	crusde_warning("(%s) Uhm, seems like there is no output ... don't know what to do except for nothing. \
 		          Sorry! No factor applied.", get_name());
    }
    else
@@ -85,7 +85,8 @@ extern void run()
 		{
 			result[d][i] *=  factor;
 		}
-crusde_debug("%s: multiplied dimension %d with %f\n", get_name(), d, factor);
+
+		crusde_debug("(%s) multiplied dimension %d with %f\n", get_name(), d, factor);
 	}
    }
 }
