@@ -84,8 +84,8 @@ void InputHandler::init()
           // break at param that has no dash and following arguments contains ".xml" which means a xml-file is to be processed
           if (argv[n][0] != '-' && !plugin_manager)
           {
-			if(fileExists(string(argv[n]))){
-               gotFile = true;
+		if(fileExists(string(argv[n]))){
+		gotFile = true;
                break;
 			}
 			else{
@@ -112,7 +112,6 @@ void InputHandler::init()
           {
                plugin_manager = true;
           }
-
 
           ++n;
      }
@@ -184,9 +183,9 @@ void InputHandler::readCommandline()
 
                case 'p': //start plugin manager
                case 'P': //start plugin manager
-				    if(argc == 2){ //run GUI Manager if no further arguments given
-	                    SimulationCore::instance()->runPluginManager();
-                    }else{         //otherwise check what's requested
+		     if(argc == 2){ //run GUI Manager if no further arguments given
+	                SimulationCore::instance()->runPluginManager();
+                     }else{         //otherwise check what's requested
                         //INSTALL
                         if(!install.compare( argv[i+1] )) {
                             //if we want to install something, we need another argument
@@ -197,16 +196,16 @@ void InputHandler::readCommandline()
                                  crusde_error("Plugin file missing! Call: crusde -p install <plugin.so>");
                             }
                         }
-				    }
-                    break;
+		      }
+                     break;
 
                case 'v': //show version
                case 'V': //show Version
-                    version();
-                    break;
+                     version();
+                     break;
 
                default:
-                    abort();
+                     abort();
           }
      }
 }
@@ -591,16 +590,16 @@ string InputHandler::getResultFileName()
 	
 }
 
-int InputHandler::getRegion(string direction)
+string InputHandler::getRegion(string direction)
 {
 	StrXML d(direction);
-	return atoi(getAttributeValueByName(TAG_region.xmlStr(), ATTR_value.xmlStr(), d.xmlStr()).c_str());
+	return getAttributeValueByName(TAG_region.xmlStr(), ATTR_value.xmlStr(), d.xmlStr());
 }
 
-int InputHandler::getGridSize()
+string InputHandler::getGridSize()
 {
 	StrXML g("gridsize");
-	return atoi(getAttributeValueByName(TAG_parameter.xmlStr(), ATTR_value.xmlStr(), g.xmlStr()).c_str());
+	return getAttributeValueByName(TAG_parameter.xmlStr(), ATTR_value.xmlStr(), g.xmlStr());
 }
 
 unsigned long int InputHandler::getTimeSteps()

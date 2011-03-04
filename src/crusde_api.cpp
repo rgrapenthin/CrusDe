@@ -67,6 +67,7 @@ extern "C" void crusde_error(const char* format, ...){
 	fprintf( stderr, "[ CrusDe ERROR ] : " );
 	vfprintf( stderr, format, args );
 	fprintf( stderr, "\n" );
+	fprintf( stderr, "Aborting.\n" );
 	va_end( args );
 	fflush( stderr );
 

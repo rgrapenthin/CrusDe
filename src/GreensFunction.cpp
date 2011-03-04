@@ -80,7 +80,7 @@ bool GreensFunction::isLastJob()
 
 string GreensFunction::job()
 {
-	return map_iter->first;
+	return map_iter->first.empty() ? map_iter->second->getName().append(" (no job name defined)") : map_iter->first;
 }    
 
 

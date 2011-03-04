@@ -64,6 +64,7 @@ class ExperimentManager;
 class PluginManager;
 class LoadFunction;
 class ParamWrapper;
+class ModelRegion;
 
 //! The parameter registry for plugins.
 /*! 
@@ -97,6 +98,7 @@ class SimulationCore /*: 	public PluginAPI,
 			public PluginSimulationCore,*/ {
 	
 	InputHandler      *com_port;        /**< hard-wired input handler, no plugin*/
+	ModelRegion       *model_region;    /**< hard-wired region of interest handler, no plugin*/
 	ExperimentManager *exp_man;         /**< hard-wired experiment Manager, no plugin*/
 	PluginManager     *plugin_man;      /**< hard-wired plugin Manager, no plugin ;)*/
 
@@ -108,10 +110,6 @@ class SimulationCore /*: 	public PluginAPI,
 	unsigned int load_function_component;
 		
 	/*experiment setup data that needs to be available for all participants*/
-	int x_west;
-	int x_east;
-	int y_south;
-	int y_north;
 	int gridsize;
 	
 	int modelstep;         /**< the model step. an integer that is increased with each timestep */

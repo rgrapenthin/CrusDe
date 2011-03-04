@@ -34,8 +34,8 @@ export QT_DIR           := /usr/local/Trolltech/Qt
 export QT_INCLUDES      := -I$(QT_DIR)/include -I$(QT_DIR)/include/Qt -I$(QT_DIR)/include/QtAssistant -I$(QT_DIR)/include/QtCore -I$(QT_DIR)/include/QtGui -I$(QT_DIR)/include/QtXml
 
 #--- directory information
-export INCLUDE_DIRS    := -I/usr/include -I. -I$(shell pwd) -I/usr/local/xerces-c/include #-I$(shell pwd)/../libs/netcdf/include
-export LIB_DIRS        := -L/usr/local/libs/xerces-c/lib -L/usr/X11R6/lib -L$(QT_DIR)/lib #-L$(shell pwd)/../libs/netcdf/lib
+export INCLUDE_DIRS    := -I/usr/include -I. -I$(shell pwd) -I/usr/local/xerces-c/include -I$(shell pwd)/../libs/geographiclib/include
+export LIB_DIRS        := -L/usr/local/libs/xerces-c/lib -L/usr/X11R6/lib -L$(QT_DIR)/lib -L$(shell pwd)/../libs/geographiclib/src
 export PLUGIN_DIR      := ./plugin_src
 export GREEN_DIR       := $(PLUGIN_DIR)/green
 export LOAD_DIR        := $(PLUGIN_DIR)/load
@@ -46,7 +46,7 @@ export LOADHISTORY_DIR := $(PLUGIN_DIR)/load_history
 export CRUSTALDECAY_DIR := $(PLUGIN_DIR)/crustal_decay
 
 #--- linker options, might be different from plugins', thus local
-LINKER_OPT             := -lm -ldl -lstdc++ -lxerces-c -rdynamic
+LINKER_OPT             := -lm -ldl -lstdc++ -lxerces-c -lGeographic -rdynamic
 #LINKER_QT              := -lQtGui -lQtCore  -lQtXml -lfreetype -lfontconfig -lpthread -lXrender -lpng  -lXcursor -lXi  -lXrandr -lXinerama -lSM -lrt 
 LINKER_QT              := -lQtGui -lQtCore  -lQtXml -lX11 -lrt 
 

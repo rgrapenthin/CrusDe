@@ -173,7 +173,7 @@ extern int get_value_at(double** result, int x, int y)
 	yy = y*crusde_get_gridsize();
 		
 	/* -convert carthesian to cylindrical coordinates: r = srqt(x^2+y^2)*/
-	double r = sqrt(x*x + y*y);
+	double r = sqrt(xx*xx + yy*yy);
 	
 	if(r>0){
 	/*vertical displacement*/
@@ -185,8 +185,8 @@ extern int get_value_at(double** result, int x, int y)
 		
 		/* get the angle of the cyllindrical coordinate */
 		if(xx == 0){	theta=PI/2;		}
-		else{		theta = atan(fabs(yy)/fabs(xx));	}
-
+		else{		theta = atan(fabs(yy)/fabs(xx));}
+		
 		/* get the direction of the direction cosine */
 		if(quadrant==2){	
 			sin_sign = -1;

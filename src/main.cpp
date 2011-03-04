@@ -89,9 +89,9 @@ int main( int argc, char** argv )
 		exit(-1);
 	}
 */		
-	catch ( ... )
+	catch ( const std::exception& e)
 	{
-		crusde_error("Unexpected exception during CrusDe run.\nAborting.");
+		crusde_error("Unexpected exception during CrusDe run:\n\t%s", e.what());
 	}
 	
 	time(&finish);

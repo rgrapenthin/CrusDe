@@ -37,6 +37,7 @@
 #include	"PluginManager.h"
 #include	"LoadFunction.h"
 #include	"ParamWrapper.h"
+#include	"ModelRegion.h"
 
 #include 	<iostream>
 
@@ -50,11 +51,10 @@ s_parameters SimulationCore::s_params = {};
 SimulationCore* SimulationCore::pSimulationCore=0;
 
 SimulationCore::SimulationCore(int argc, char** argv) throw (SeriousException) :
-	com_port(NULL), exp_man(NULL), plugin_man(NULL), 
+	com_port(NULL), model_region(NULL), exp_man(NULL), plugin_man(NULL), 
 	pl_kernel(NULL), pl_out(NULL), greens_function(NULL), 
         load_function(NULL), load_function_component(0),
-	x_west(0), x_east(0), y_south(0), y_north(0), 
-	gridsize(0), modelstep(0), modeltime(0), num_timesteps(1), num_timeincrement(1),
+	modelstep(0), modeltime(0), num_timesteps(1), num_timeincrement(1),
 	stepsize(1), quadrant(1), dimensions(0),
 	x_index(-1), y_index(-1), z_index(-1),
 	model_data(NULL),
@@ -79,7 +79,9 @@ SimulationCore::SimulationCore(int argc, char** argv) throw (SeriousException) :
 	plugin_man= new PluginManager(
 				string(root_dir).append(DIR_SEP).append(PLUGIN_DIR).append(DIR_SEP).append(PLUGIN_DB).c_str()
 			);
-	
+
+	model_region    = new ModelRegion("model region");
+
 	/*create plugins*/
 	greens_function = new GreensFunction("greens function");
 	load_function   = new LoadFunction("load function"); //holds load, load history, crustal decay
@@ -111,16 +113,14 @@ void SimulationCore::init() //throw INIT_EXCEPTION
     // set setup variables ... important to set these BEFORE plugins get initialized!
     // ------------------
 
-//	crusde_debug("%s, line: %d, got north=%f, south=%f, east=%f, west=%f", __FILE__, __LINE__, com_port->getRegion("north"), com_port->getRegion("south"), com_port->getRegion("east"), com_port->getRegion("west"));
+	//crusde_debug("%s, line: %d, got north=%f, south=%f, east=%f, west=%f", __FILE__, __LINE__, com_port->getRegion("north"), com_port->getRegion("south"), com_port->getRegion("east"), com_port->getRegion("west"));
 
 	//the region of interest
-	x_west  =  com_port->getRegion("west");
-	x_east  =  com_port->getRegion("east");
-	y_south =  com_port->getRegion("south");
-	y_north =  com_port->getRegion("north");
+	model_region->setROI( com_port->getRegion("north"), com_port->getRegion("south"),
+			      com_port->getRegion("east"),  com_port->getRegion("west") );
 	
 	//gridsize and time parameters
-	gridsize          = com_port->getGridSize();
+	model_region->setGridSize(com_port->getGridSize());
 	num_timesteps     = com_port->getTimeSteps();	
 	num_timeincrement = com_port->getTimeIncrement();	
 
@@ -134,7 +134,7 @@ void SimulationCore::init() //throw INIT_EXCEPTION
 		greens_function->load( com_port->getGreenJobMap() );
 	    // load everything that belongs to the load function (load [, load history, crustal decay function])
 		load_function->load(com_port->getLoadFunctionList());
-		// the rest ...
+	    // the rest ... (minus postprocessors)
 		pl_kernel->load( com_port->getKernelPlugin() );
 		pl_out->load( com_port->getOutputPlugin() );
 	}
@@ -210,23 +210,23 @@ void SimulationCore::init() //throw INIT_EXCEPTION
 
 	//until length does not change, have requested Plug-ins request all their plug-ins
 	unsigned int requested_size(0);
-crusde_info(">>>>>>>>>>> ITERATING THROUGH requested_plugin_list .... ");
+        crusde_info("Iterating through requested_plugin_list .... ");
+	
 	do{
-		requested_size = requested_plugin_list.size();
-
-		pl_iter = requested_plugin_list.begin();
-		while(pl_iter != requested_plugin_list.end()){
-crusde_info(">>>>>>>>>>> %s", (*pl_iter)->getName().c_str());
-
-			(*pl_iter)->requestPlugins();
-			++pl_iter;
-		}
-
-crusde_info(">>>>>>>>>>> requested_size=%d, requested_plugin_list.size()=%d", requested_size, requested_plugin_list.size() );
+	    requested_size = requested_plugin_list.size();
+   	    pl_iter = requested_plugin_list.begin();
+	    
+	    while(pl_iter != requested_plugin_list.end()){
+	        crusde_info("\tfound: %s", (*pl_iter)->getName().c_str());
+	        (*pl_iter)->requestPlugins();
+	        ++pl_iter;
+	    }
+        
+	    crusde_info("Number of requested plug-ins: %d", requested_size);
 
 	}while(requested_size < requested_plugin_list.size());
 
-	//call all the startup functions of the requested plug-ins
+	//call all the bootstrap functions of the requested plug-ins
 	pl_iter = requested_plugin_list.begin();
 	while(pl_iter != requested_plugin_list.end()){
 		(*pl_iter)->registerParameter();
@@ -238,14 +238,13 @@ crusde_info(">>>>>>>>>>> requested_size=%d, requested_plugin_list.size()=%d", re
     // ------------------
     // init Parameters that are now known to the registry
     // ------------------
-	
 	com_port->initParamsFromDOM();
 
     // ------------------
     // now the registered values are set and we can truly initialize the plugins 
     // ------------------
 	
-	//CRUCIAL: init of kernel before green's functions is a guarantee!!! 
+    //CRUCIAL: init of kernel before green's functions is a guarantee!!! 
     //since the kernel sets the DFT matrix size during init! DON'T CHANGE!
 	pl_kernel->init();
 
@@ -268,12 +267,13 @@ crusde_info(">>>>>>>>>>> requested_size=%d, requested_plugin_list.size()=%d", re
 		++pl_iter;
 	}
 
-    if( !operatorSpaceIsSet() )
+        if( !operatorSpaceIsSet() )
 	{
 		crusde_warning("%s, %d: WARNING OPERATOR SPACE NOT SET BY KERNEL\n", __FILE__, __LINE__);
-    }
+        }
 
-
+        crusde_info("Initialization complete.");
+        crusde_info("--------------------------------------------------------------------------------\n");
 }
 
 void SimulationCore::terminate() //throw KILL_EXCEPTION
@@ -324,6 +324,7 @@ void SimulationCore::terminate() //throw KILL_EXCEPTION
 	{
 		abort(e.what());
 	}
+	
     // ------------------
     // destroy singleton object
     // ------------------
@@ -335,8 +336,6 @@ void SimulationCore::terminate() //throw KILL_EXCEPTION
  */
 void SimulationCore::exec() //throw EXEC_EXCEPTION
 {
-
-     crusde_info("-------------------------: ");
 
 /* PSEUDOCODE ...
    list *jobs = com_port->getJobs();
@@ -359,8 +358,8 @@ void SimulationCore::exec() //throw EXEC_EXCEPTION
 
           while(modelstep < num_timesteps)
           {
-               crusde_info("STEP: %d, TIME: %d", modelstep, modeltime);
-               crusde_info("operator starts ... ");
+               crusde_info("Model step: %d (Model time: %d)", modelstep, modeltime);
+               crusde_info("convolution operator starts ... ");
                //convolve load with response function 
                pl_kernel->run();
 
@@ -378,7 +377,6 @@ void SimulationCore::exec() //throw EXEC_EXCEPTION
                     crusde_info("result handler starts ... ");
                     //run the output function
                     pl_out->run();
-
                }
 
                crusde_info("-------------------------");
@@ -446,8 +444,7 @@ list<string> SimulationCore::getRegisteredParameters(PluginCategory category)
  * @param cat plugin category
  */
 void SimulationCore::deleteRegistrees()
-{
-	
+{	
 	SimulationCore::s_params.load.clear();
 	SimulationCore::s_params.kernel.clear();
 	SimulationCore::s_params.green.clear();
@@ -486,7 +483,7 @@ void SimulationCore::deleteRequests()
 
 /*
  * a green plugin was requested for usage by another green plugin.
- * thus, it needs to be created, loaded, has it's parameters registerd.
+ * thus, it needs to be created, loaded, have its parameters registerd.
  * it is added to the general plugin storage and this way kept in memory
  * and accessible to call init, unload, and other plugin functions at it.
  * it returns a pointer to the green's functions execution function.
@@ -525,7 +522,7 @@ green_exec_function SimulationCore::addGreenPlugin(string plugin) throw (FileNot
 
 /*
  * a load plugin was requested for usage by another green plugin.
- * thus, it needs to be created, loaded, have it's parameters registerd.
+ * thus, it needs to be created, loaded, have its parameters registerd.
  * it is added to the general plugin storage and this way kept in memory
  * and accessible to call init, unload, and other plugin functions at it.
  * it returns a pointer to the load functions execution function.
@@ -560,7 +557,7 @@ load_exec_function SimulationCore::addLoadPlugin(string plugin) throw (FileNotFo
 
 /*
  * a kernel plugin was requested for usage by another green plugin.
- * thus, it needs to be created, loaded, has it's parameters registerd.
+ * thus, it needs to be created, loaded, have its parameters registerd.
  * it is added to the general plugin storage and this way kept in memory
  * and accessible to call init, unload, and other plugin functions at it.
  * it returns a pointer to the load functions execution function.
@@ -780,84 +777,27 @@ const char* SimulationCore::outFile()
 		return name.c_str();
 }
 
-int SimulationCore::sizeX()
-{
-	return static_cast<int>( ceil( static_cast<double>((x_east - x_west) / gridsize ) ) ) + 1 ;
-}
+int SimulationCore::sizeX(){		return model_region->getSizeX();	}
+int SimulationCore::sizeY(){		return model_region->getSizeY(); 	}
+int SimulationCore::sizeT(){		return num_timesteps;			}
+int SimulationCore::minX() {		return model_region->getMinX();		}
+int SimulationCore::minY() {		return model_region->getMinY();		}
+int SimulationCore::gridSize(){		return model_region->getGridSize();	}
+int SimulationCore::stepSize(){		return stepsize;			}
+int SimulationCore::modelTime(){	return modeltime;			}
+int SimulationCore::modelStep(){	return modelstep;			}
+int SimulationCore::xIndex(){		return x_index;				}
+int SimulationCore::yIndex(){		return y_index;				}
+int SimulationCore::zIndex(){ 		return z_index;				}
+int SimulationCore::getQuadrant(){	return quadrant;			}
+void SimulationCore::setQuadrant(int q){quadrant = q;				}
+int SimulationCore::getDimensions(){	return dimensions;			}
+int SimulationCore::getOperatorSpaceX(){return operator_space_x;		}
+int SimulationCore::getOperatorSpaceY(){return operator_space_y;		}
+bool SimulationCore::operatorSpaceIsSet(){return operator_space_set;		}
+PluginManager* SimulationCore::pluginManager(){	return plugin_man;		}
 
-int SimulationCore::sizeY()
-{
-	return static_cast<int>( ceil( static_cast<double>((y_north - y_south) / gridsize ) ) ) + 1 ;
-}
-
-int SimulationCore::sizeT()
-{
-	return num_timesteps;
-}
-
-int SimulationCore::minX()
-{
-	return x_west;
-}
-
-int SimulationCore::minY()
-{
-	return y_south;
-}
-
-int SimulationCore::gridSize()
-{
-	return gridsize;
-}
-
-int SimulationCore::stepSize()
-{
-	return stepsize;
-}
-
-int SimulationCore::modelTime()
-{
-	return modeltime;
-}
-
-int SimulationCore::modelStep()
-{
-	return modelstep;
-}
-
-int SimulationCore::xIndex()
-{
-	return x_index;
-}
-
-int SimulationCore::yIndex()
-{
-	return y_index;
-}
-
-int SimulationCore::zIndex()
-{
- 	return z_index;
-}
-
-int SimulationCore::getQuadrant()
-{
-	return quadrant;
-}
-
-void SimulationCore::setQuadrant(int q)
-{
-	quadrant = q;
-}
-
-int SimulationCore::getDimensions()
-{
-
-	return dimensions;
-}
-
-int SimulationCore::displacementDimensions()
-{
+int SimulationCore::displacementDimensions(){
 	int displacements = 0;
 	
 	if(x_index >= 0)
@@ -871,16 +811,6 @@ int SimulationCore::displacementDimensions()
 }
 
 
-int SimulationCore::getOperatorSpaceX()
-{
-	return operator_space_x;
-}
-
-int SimulationCore::getOperatorSpaceY()
-{
-	return operator_space_y;
-}
-
 void SimulationCore::setOperatorSpace(int nx, int ny)
 {
 	operator_space_x = ny;
@@ -889,10 +819,6 @@ void SimulationCore::setOperatorSpace(int nx, int ny)
 	operator_space_set = true;
 }
 
-bool SimulationCore::operatorSpaceIsSet()
-{
-	return operator_space_set;
-}
 
 string SimulationCore::getPluginFilename(string category, string name) throw(DatabaseError)
 {
@@ -910,11 +836,6 @@ string SimulationCore::getPluginFilename(string category, string name) throw(Dat
         return backpack;
 }
 
-
-PluginManager* SimulationCore::pluginManager()
-{
-	return plugin_man;
-}
 
 
 void SimulationCore::runExperimentManager()

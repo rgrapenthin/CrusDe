@@ -146,7 +146,7 @@ extern void init(){
    conv_out = (double*) fftw_malloc(sizeof(double) * N);
 
    model_buffer = (double**) fftw_malloc(sizeof(double*) * dimensions);
-   result       = (double**) fftw_malloc(sizeof(double) * dimensions);
+   result       = (double**) fftw_malloc(sizeof(double*) * dimensions);
    green_back   = (double*) fftw_malloc(sizeof(double) * displacement_dimensions);
 
    n=-1;
