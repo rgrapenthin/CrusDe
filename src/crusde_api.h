@@ -62,12 +62,13 @@ typedef enum{
 }FieldName;
 
 typedef enum{
-	ERROR_MSG = -1,			//!< error message printed, aborting program
+	ERROR_MSG = 1,			//!< error message printed, aborting program
 	NOERROR	= 0				//!< no error occured
 }ExitCode;
 
 //error and debugging functions
 void		crusde_error(const char* format, ...);		/* prints msg to stderr and aborts*/
+void		crusde_bad_alloc();				/* prints msg to stderr and aborts*/
 void		crusde_debug(const char* format, ...);		/* prints msg to stdout if DEBUG is set*/
 void		crusde_warning(const char* format, ...);	/* prints msg to stderr*/
 void		crusde_info(const char* format, ...);		/* prints msg to stderr*/

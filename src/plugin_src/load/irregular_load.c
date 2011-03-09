@@ -60,6 +60,8 @@ static load_list_elem * add_elem(load_list * list, int x, int y, double height)
 	/*create new load list element*/
 	load_list_elem * p = ( load_list_elem* ) malloc ( sizeof(load_list_elem) );
 
+	if( p == NULL ){ crusde_bad_alloc(); }	
+	
 	/* set its values*/
 	p->next = NIL;
 	p->x = x;
@@ -105,18 +107,17 @@ static double value_at(load_list * list, int x, int y)
 	return 0.0;
 }
 
-/* destroy list */
-static void destroy(load_list * list)
-{
-	load_list_elem *e = list->first;
 
-	while(e != NIL)
-	{  
-		list->first = e->next;
-		free(e);
-		e=list->first;
+static void destroy_elems(load_list_elem * i)
+{
+	//must not try to alloc new memory
+	if(i != NIL){
+		destroy_elems(i->next);
+		free(i);
 	}
 }
+
+
 
 /*load command line parameters*/
 /*disk command line parameters*/
@@ -166,7 +167,7 @@ extern void run(){}
 /*!frees load array that was read from file*/
 extern void clear()
 {
-	destroy(loads[crusde_get_current_load_component()]);
+	destroy_elems(loads[crusde_get_current_load_component()]->first);
 	free(loads[crusde_get_current_load_component()]);
 }
 
@@ -194,6 +195,11 @@ extern void init()
 
 
 	loads[my_id] = (load_list*) malloc (sizeof(load_list));
+	
+	if (loads[my_id] == NULL ) {
+		crusde_error("Could not allocate enough memory for load. Reduce region of interest or increase grid cell size. You could try killing unneccesary processes, or getting more memory. Sorry, gotta stop here.");
+	}	
+
 	loads[my_id]->first = NIL;
 	loads[my_id]->last = NIL;
 	loads[my_id]->current = NIL;

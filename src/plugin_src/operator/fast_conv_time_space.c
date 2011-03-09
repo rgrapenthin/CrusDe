@@ -136,9 +136,15 @@ extern void init(){
 
    result       = (double**) fftw_malloc(sizeof(double) * dimensions);
 
+   if (decay_in == NULL || decay_out == NULL || history_in == NULL || history_out == NULL || conv_in == NULL || conv_out == NULL || result == NULL) {
+	crusde_bad_alloc();
+   }
+   
    n=-1;
    while(++n < dimensions){
-		result[n] = (double*) fftw_malloc(sizeof(double) * size_X * size_Y * size_T);
+		if ((result[n] = (double*) fftw_malloc(sizeof(double) * size_X * size_Y * size_T)) == NULL){
+			crusde_bad_alloc();
+		}
 		x=-1;
 		while(++x < size_X * size_Y * size_T){
 			result[n][x] = 0.0;

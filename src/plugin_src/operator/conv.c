@@ -99,11 +99,20 @@ extern void init(){
    result         = (double**) malloc(sizeof(double)  * dimensions);
    real_result    = (double**) malloc(sizeof(double)  * dimensions);
 
+   if (load == NULL  || green_back == NULL  || result == NULL || real_result == NULL) {
+       crusde_bad_alloc();
+   }
+
    n=-1;
    while(++n < dimensions){
 	green_function[n] = (double*) malloc(sizeof(double) * size_x*size_y);
    	result[n] 	  = (double*) malloc(sizeof(double) * N);/* size_x * size_y);*/
    	real_result[n] 	  = (double*) malloc(sizeof(double) * (size_x-green_edge_x)*(size_y-green_edge_y));
+
+	if (green_function[n] == NULL  || result[n] == NULL  || real_result[n] == NULL) {
+	      crusde_bad_alloc();
+	}
+
 	//init
 	x = -1;
 	while(++x < size_x*size_y){

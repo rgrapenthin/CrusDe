@@ -59,11 +59,12 @@ int main( int argc, char** argv )
 
 	SimulationCore *core = SimulationCore::instance(argc, argv);
 
-	crusde_info("Welcome! I'm starting your experiment.");
+	crusde_info("Welcome! ");
 
 	try
 	{	
 		core->init();	
+		crusde_info("Let me start your experiment.");
 		core->exec();	
 		core->terminate();	
 	}
@@ -89,6 +90,10 @@ int main( int argc, char** argv )
 		exit(-1);
 	}
 */		
+        catch( const std::bad_alloc& e )
+        {
+                std::cout << e.what() << std::endl;
+        }
 	catch ( const std::exception& e)
 	{
 		crusde_error("Unexpected exception during CrusDe run:\n\t%s", e.what());

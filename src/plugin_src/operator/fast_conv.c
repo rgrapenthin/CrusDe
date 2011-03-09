@@ -149,10 +149,23 @@ extern void init(){
    result       = (double**) fftw_malloc(sizeof(double*) * dimensions);
    green_back   = (double*) fftw_malloc(sizeof(double) * displacement_dimensions);
 
+   if (load_in == NULL  || load_out == NULL  || 
+       green_in == NULL || green_out == NULL || 
+       conv_in == NULL || conv_out == NULL || 
+       model_buffer == NULL || result == NULL || green_back == NULL) {
+
+       crusde_bad_alloc();
+   }
+
+
    n=-1;
    while(++n < dimensions){
 	model_buffer[n] = (double*) fftw_malloc(sizeof(double) * N);
    	result[n] 	= (double*) fftw_malloc(sizeof(double) /* N);*/ * size_x * size_y);
+	   
+	if (model_buffer[n] == NULL  || result[n] == NULL){
+		crusde_bad_alloc();
+	}
 	//init
 	x = -1;
 	while(++x < N){

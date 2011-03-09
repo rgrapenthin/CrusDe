@@ -145,14 +145,19 @@ extern void init()
         love_number_h = (float**) malloc (sizeof(float*) * times);
         love_number_k = (float**) malloc (sizeof(float*) * times);
         love_number_l = (float**) malloc (sizeof(float*) * times);
-       
+
+	if(love_number_h == NULL || love_number_k == NULL || love_number_l == NULL) {crusde_bad_alloc();}
+		
+
         int t=-1;
         while(++t < times){
             love_number_h[t] = (float*) malloc (sizeof(float) * degrees);
             love_number_k[t] = (float*) malloc (sizeof(float) * degrees);
             love_number_l[t] = (float*) malloc (sizeof(float) * degrees);
 
-            //init
+  	    if(love_number_h[t] == NULL || love_number_k[t] == NULL || love_number_l[t] == NULL) {crusde_bad_alloc();}
+            
+	    //init
             int n = -1;
             while(++n < degrees){
                 love_number_h[t][n] = 0.0;
@@ -202,6 +207,8 @@ void read_alma_output(const char* file, float **love_array)
 
     //allocate memory for lines that are of length that depends on number of degrees
     char * line = (char *) malloc (len * sizeof(char) );
+	
+    if (line == NULL){ crusde_bad_alloc(); }
 
     crusde_debug("Reading ALMA file <%s>, times = %d ", file, times);
 

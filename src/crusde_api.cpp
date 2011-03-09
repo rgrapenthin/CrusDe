@@ -64,9 +64,11 @@ using namespace std;
 extern "C" void crusde_error(const char* format, ...){
 	va_list args;
 	va_start( args, format );
+	fprintf( stderr, "[ CrusDe ERROR ] : hui, something went wrong. Here's what I got: \n" );
 	fprintf( stderr, "[ CrusDe ERROR ] : " );
 	vfprintf( stderr, format, args );
 	fprintf( stderr, "\n" );
+	fprintf( stderr, "[ CrusDe ERROR ] : Does that help? You could try contacting the maintainer of this code. He might be able to fix the issues. \n" );
 	fprintf( stderr, "Aborting.\n" );
 	va_end( args );
 	fflush( stderr );
@@ -74,6 +76,19 @@ extern "C" void crusde_error(const char* format, ...){
 	//abort program
 	crusde_exit(ERROR_MSG);
 }
+
+extern "C" void crusde_bad_alloc(){
+	fprintf( stderr, "[ CrusDe OUT OF MEMORY ] : BAD! I couldn't allocate enough memory. You should try reducing the region of interest or work on a coarser grid.\n");
+	fprintf( stderr, "[ CrusDe OUT OF MEMORY ] : Other options would be to kill some of these unneccesary processes (watching movies in parallel here?), or getting more memory.\n"); 
+	fprintf( stderr, "[ CrusDe OUT OF MEMORY ] : You should report this problem to the maintainer of this code. He might look into the issues and get motivated to make things a little more efficient.\n");
+	fprintf( stderr, "[ CrusDe OUT OF MEMORY ] : In the meantime I will stop right here. Sorry, pal!\n");
+	fprintf( stderr, "Aborting.\n" );
+	fflush( stderr );
+
+	//abort program, don't call terminate, might cause segfault.
+	exit(ERROR_MSG);
+}
+
 
 //! Prints warning message to stderr.
 /*!

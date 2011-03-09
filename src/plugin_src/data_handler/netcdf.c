@@ -197,6 +197,9 @@ extern void init()
    data_out = NULL;
    const char* tmp =  crusde_get_out_file();
    filename = (char*) malloc (sizeof(char*) * (strlen(tmp)+1));
+   
+   if (filename == NULL) { crusde_bad_alloc();}
+   
    strncpy(filename, tmp, strlen(tmp));
    filename[strlen(tmp)] = '\0';
 	
@@ -206,8 +209,10 @@ extern void init()
    /* Create the file. The NC_CLOBBER parameter tells netCDF to
     * overwrite this file, if it already exists.*/
    status = nc_create(filename, NC_CLOBBER, &nc_id);
-   if (status != NC_NOERR) ERR(status);
-   
+   /*error checking. Alert user to problem with system memory separately*/
+   if (status == NC_ENOMEM) { crusde_bad_alloc(); }
+   if (status != NC_NOERR) { ERR(status); }
+	   
    /* DO ALL THE DEFINITIONS */
    
    /* GLOBAL ATTRIBUTES */

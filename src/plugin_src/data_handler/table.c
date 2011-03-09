@@ -54,27 +54,33 @@ extern void run()
 {
 
    k=-1;
-   
+   int written = 0;
    while(++k<nlon){
 	l = -1;
    	while(++l<nlat){
-		fprintf(out_file, "%d %d %d ", crusde_model_time(), k*ds+xmin, l*ds+ymin);
+		written = 0;
+
+		written += fprintf(out_file, "%d %d %d ", crusde_model_time(), k*ds+xmin, l*ds+ymin);
 
 		if(x_pos >= 0)
-			fprintf(out_file, "%f ", data_out[x_pos][k+nlon*l]);
+			written += fprintf(out_file, "%f ", data_out[x_pos][k+nlon*l]);
 		if(y_pos >= 0)
-			fprintf(out_file, "%f ", data_out[y_pos][k+nlon*l]);
+			written += fprintf(out_file, "%f ", data_out[y_pos][k+nlon*l]);
 		if(z_pos >= 0)
-			fprintf(out_file, "%f ", data_out[z_pos][k+nlon*l]);
+			written += fprintf(out_file, "%f ", data_out[z_pos][k+nlon*l]);
    
 		d = (x_pos > y_pos) ? x_pos : y_pos;
 		d = (d > z_pos) ? d : z_pos;
 
    		while(++d < dim){
-			fprintf(out_file, "%f ", data_out[d][k+nlon*l]);
+			written += fprintf(out_file, "%f ", data_out[d][k+nlon*l]);
    		}
 		
-		fprintf(out_file, "\n");
+		written += fprintf(out_file, "\n");
+		
+		if(written<0){
+			crusde_error("Problems writing to file %s. Disk full?", out_file);
+		}
 	}
    }
    
@@ -121,6 +127,9 @@ extern void init()
 
    const char* tmp = crusde_get_out_file();
    filename = (char*) malloc (sizeof(char*) * (strlen(tmp) + 1 ));
+	
+   if (filename == NULL) { crusde_bad_alloc();}
+	
    strncpy(filename, tmp, strlen(tmp));
    filename[strlen(tmp)] = '\0';
 
