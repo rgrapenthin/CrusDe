@@ -139,7 +139,7 @@ load_list * loads[N_LOAD_COMPS];
 int my_id = 0;
 
 extern const char* get_name() 	     { return "irregular load"; }
-extern const char* get_version()     { return "0.2"; }
+extern const char* get_version()     { return "0.3"; }
 extern const char* get_authors()     { return "ronni grapenthin"; }
 extern const char* get_description() { 
 	return "Read load from a file that must be in the following format:<br/><br/> \
@@ -187,9 +187,11 @@ extern void init()
 	float xg,yg,zg;       		/* buffers to store values gotten from 
 							   the input file.			*/
 
+	int gridsize = crusde_get_gridsize();
 	int x_min = crusde_get_min_x();
 	int y_min = crusde_get_min_y();
-	int gridsize = crusde_get_gridsize();
+	int x_max = x_min + crusde_get_size_x() * gridsize;
+	int y_max = y_min + crusde_get_size_y() * gridsize;
 
 	my_id = crusde_get_current_load_component();
 
@@ -273,6 +275,7 @@ extern void init()
         int result       = 0;
 	int line_no      = 0;
 	int comment_line = 0;
+	int out_of_bounds = 0;
 	char *comment = "#";
 
 	/*read values, copy to local array*/
@@ -283,7 +286,10 @@ extern void init()
 	    fgets( st, sizeof(st), fi );
 	    if( feof(fi) )
             {
-                crusde_info("(%s): read %d data sets, %d comments, %d lines total.", get_name(), line_no-comment_line, comment_line, line_no);
+                crusde_info("(%s): read %d data sets, %d in model region, %d comments, %d lines total.", get_name(), line_no-comment_line, line_no-comment_line-out_of_bounds, comment_line, line_no);
+		if ( out_of_bounds > 0){
+			crusde_warning("%d (%.2f\%) load elements are outside your region of interest and NOT modeled. The results at the edges are not trustworthy. You should increase your model region!", out_of_bounds, ((double) out_of_bounds/ (double)line_no-comment_line) * 100);
+		}
                 break;
             }
 
@@ -299,11 +305,17 @@ extern void init()
             result = sscanf(st, "%f%f%f", &xg,&yg,&zg );
             if(result == 3)             //three matches, as expected
             {		           //go ahead and add the element
-               add_elem( loads[my_id], 
+
+		if(xg >= x_min && xg <= x_max && yg >= y_min && yg <= y_max ){
+			add_elem( loads[my_id], 
                          (int) ( ( xg - x_min) / gridsize ), 
                          (int) ( ( yg - y_min) / gridsize ),
                          zg
-                       );
+			);
+		}
+		else{
+			++out_of_bounds;
+		}
             }
             else
             {

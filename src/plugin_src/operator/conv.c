@@ -72,6 +72,7 @@ extern void request_plugins(){}
 /*!empty*/
 extern void register_output_fields(){}
 /*!empty*/
+
 extern void init(){
 
    green_edge_x = 10; //crusde_get_size_x()/2;

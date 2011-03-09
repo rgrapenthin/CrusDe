@@ -172,6 +172,7 @@ extern "C" void crusde_debug(const char* format, ...){
     \return double*		Pointer to the memory slot allocated for the parameter (keep track if you got multiple plug-ins of the same type!)
     \sa PluginCatergory, crusde_register_optional_param_double()
  */
+
 extern "C" double* crusde_register_param_double(const char* name, PluginCategory category)
 {
 	crusde_debug("crusde_register_param_double called for: %s", name);
