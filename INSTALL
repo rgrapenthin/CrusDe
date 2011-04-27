@@ -37,7 +37,9 @@ described below. I appreciate your patience!
 	export CRUSDE_HOME=/usr/local/CrusDe
 
 3) go to ./libs/geographiclib and install it by following their INSTALL 
-   instructions. This library is for future releases.
+   instructions. This library is for future releases. This should work:
+    $> cd $CRUSDE_HOME/libs/geographiclib
+    $> make
     
 4) edit Makefile
     $> cd $CRUSDE_HOME/src
