@@ -20,6 +20,7 @@ CONTENTS OF PACKAGE
 /doc           - folder where the doxygen generated documentation will go.
 /experiment-db - the directory for the experiment history, read when called: 
                                    > crusde -m
+/libs          - libraries necessary for CrusDe that come with this release.
 /plugins       - the plugin database, all shared libs are copied here on 
                  installation:     > crusde -p
 /src           - the sources, call 'make all' in there

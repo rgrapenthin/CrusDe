@@ -31,12 +31,15 @@ described below. I appreciate your patience!
     $> tar xfz crusde-VERSION.tar.gz
 
     If you don't want to install to /usr/local you can move the directory to any
-    other place. Whereever it ends up, set this path in your profile file (bash):
+    other place. Whereever it ends up, set this path in your profile file 
+    (bash):
 
 	export CRUSDE_HOME=/usr/local/CrusDe
 
+3) go to ./libs/geographiclib and install it by following their INSTALL 
+   instructions. This library is for future releases.
     
-3) edit Makefile
+4) edit Makefile
     $> cd $CRUSDE_HOME/src
     $> vi Makefile
 
@@ -54,11 +57,11 @@ described below. I appreciate your patience!
            point to /usr/local/xerces-c. Modify this path, if xerces lives in 
            a different directory.
          
-4) compile source
+5) compile source
      $> cd $CRUSDE_HOME/src
      $> make all
 
-5) install the plug-ins
+6) install the plug-ins
      Try running:
 
      $> cd $CRUSDE_HOME/src
@@ -103,7 +106,7 @@ described below. I appreciate your patience!
      
      You should be ready to run the testcases in $CRUSDE_HOME/testcases after that. 
 
-6) I recommend to copy the testcases directory somewhere into your user space 
+7) I recommend to copy the testcases directory somewhere into your user space 
    so that other users have access to clean testcases. You can then go ahead
    and play with them:
 

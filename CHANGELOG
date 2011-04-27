@@ -1,2 +1,72 @@
-changes from version 0.2.0
--------------------------- 
+changes from version 0.2.0 to version 0.3.0
+---------------------------------------------
+
+* fixed an annoying bug in the 'netcdf writer' module which led to trouble on x86_64 architectures. I was basically writing data of one type to variables of another which didn't affect 32-bit architectures due to the nature of the types. 
+
+* mainly a bug fix in pinel_hs_elastic.c - the grid size was not being taken into account when calculating radial distances (ouch). That bug crawled in at some point during development after v.0.2.0.
+
+* added geographiclib to ./libs for future relases, library to be used for LAT LON reading and geodesic calculations
+
+* implemented and tested conv.c (2d convolution in spatial domain) for single disk case. Did some formatting changes in other files. 
+
+* Fixed line in pinel green's functions which had developed into bugs when I started working on the spatial convolution - needed to take absolute values of x and y indices.
+
+* added fourier_timeseries load history plugin which implements semiannual and annual load history superposition
+* increased number of acceptable load functions to 1000 and added error message when this number is exceeded (fixed segmentation fault), adjusted respective places in code 
+* added testcase for fourier plugin in disk load directory
+
+* fixed TYPO in crusde_info call
+
+* rearranged directory structure
+
+* got a fully commented crusde_api.cpp now. rebuilt documentation.
+	
+* changed Makefile help to give output for all targets.
+
+	Changed Makefile: added target 'debug' which now sets the 'DEBUG' flag 
+			  and creates a chatty version with all the output 
+			  crusde_debug gives; target 'all' should be the 
+			  release target.
+
+* now gives reasonable error message when command line parameter is a non-existing file (changes in InputHandler); prior it would only crash
+
+* fixed ability to use -p install in input handler, was broken when i added check whether xml file existed
+
+* 'crusde -p install <plugin.so>' which is used in install_plugins.sh
+  This is the new way to fill $CRUSDE_HOME/plugins/plugins.xml with the plugins that come 
+  with the standard distribution. 
+                
+  install_plugins.sh is a tcsh script which contains lists of the standard plugins in the 
+  order necessary to meet all dependencies. For each plugin
+        
+  crusde -p install <plugin.so>
+
+  is called which uses the the same functionality the existing GUI based PluginManager uses to test 
+  the plugins and add them to the database, only that the GUI is not started. 
+
+* added possibility to allow for optional parameters:
+	- crusde-API expanded by crusde_register_optional_param* functions which ask for a default value for this parameter
+    - ParamWrapper carries flag 'optional' which is set by the registration functions
+    - InputHandler checks for this flag when going through the list of non-initialized (in XML file) params.
+
+* added info.h
+  	- contains the existing usage() function, called in InputHandler.
+    - contains new version() function, that gives ... tadaaa ... version information. (add retrieval of SVN revision number!)
+
+* added output functions to API for plugins that are also used internally, all work like printf:
+  - crusde_info(message, ...): writes message to stdout
+  - crusde_warning(message, ...): writes warning message to stderr
+  - crusde_error(message, ...): writes error message to stderr and terminates CrusDe
+  - crusde_debug(message, ...): writes debug message to stderr if compiled with -DDEBUG
+
+* added 'quiet' commandline option: -q/-Q
+	- shuts info messages off, errors and warnings are still displayed, as well as debugging messages.
+	- at least tells you that things have started and are finished.
+
+* cleanup. removed files that do not belong in repository and renamed others so they are a little more intuitive.
+
+* irregular load is now able to ignore comments and  blank lines. it will abort with an error message if the format '%f%f%f' could not be read.
+
+* changed 'degrees_lat/lon' to 'meters_lat/lon' as this is the actual unit right now. 
+
+

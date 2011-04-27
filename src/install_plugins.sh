@@ -5,7 +5,7 @@ set crustal_decay = ('crustal_decay/exponential' 'crustal_decay/exponential_rate
 
 set data_handler = ('data_handler/netcdf' 'data_handler/table');
 
-set green = ('green/pinel_hs_instantaneous' 'green/pinel_hs_thickplate' 'green/pinel_hs_final_relaxed' 'green/pinel_inverse_thickplate' 'green/pinel_hs_elastic_minus_thickplate' 'green/alma');
+set green = ('green/pinel_hs_instantaneous' 'green/pinel_hs_thickplate' 'green/pinel_hs_final_relaxed' 'green/pinel_inverse_thickplate' 'green/pinel_hs_elastic_minus_thickplate');
 
 set load = ('load/disk_load'  'load/irregular_load');
 

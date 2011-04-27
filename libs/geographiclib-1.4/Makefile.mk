@@ -3,7 +3,7 @@
 MAKEFILE := $(lastword $(MAKEFILE_LIST))
 MAKE := $(MAKE) -f $(MAKEFILE)
 SUBDIRS = src tools doc
-ALLDIRS = include $(SUBDIRS) maxima windows
+ALLDIRS = include $(SUBDIRS) maxima 
 
 all: src tools
 
