@@ -25,13 +25,14 @@ double* p_start[N_LOAD_COMPS];/*!< pointer to start interval values	*/
 
 int my_id = 0;
 
-extern const char* get_name() 	     		{ return "heaviside"; }
+extern const char* get_name() 	     		{ return "heaviside ramp"; }
 extern const char* get_version()     		{ return "0.1"; }
 extern const char* get_authors()     		{ return "ronni grapenthin"; }
 extern PluginCategory get_category() 		{ return LOADHISTORY_PLUGIN; }
 extern const char* get_description() 		{ 
 	return "Heaviside step function with: \
 \
+f(t) = 0 on t < t0 \
 f(t) = 0 on t < t0 \
      = 1 otherwise"; 
 }

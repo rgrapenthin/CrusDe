@@ -39,6 +39,12 @@
 #define NOT_TIME_DEPENDENT false
 #define TIME_DEPENDENT     true
 
+//#ifdef REGION_EN
+//#include region_en.h
+//#else
+//#include region.h
+//#endif
+
 // 
 #ifdef __cplusplus
 extern "C" {

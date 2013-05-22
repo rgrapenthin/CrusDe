@@ -48,8 +48,8 @@ short const UZ = 2;				//< z-direction
 //int const NOERROR 	=  0;			//< no error occured (0)
 //int const ERROR_MSG = -1;			//< error message printed (-1)
 
-char* const VERSION="0.2.0";
-char* const SVN_REVISION="r3";
+char* const VERSION="0.3.0";
+char* const SVN_REVISION="r36";
 
 int main( int argc, char** argv )
 {
