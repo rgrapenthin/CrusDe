@@ -50,7 +50,7 @@ extern const char* get_description() 		{
 	h(t) =  h<sub>m</sub> / 2 [ 1 + cos( 2*&pi; / p * (t-d<sub>m</sub>) ) ]\
 	<br/><br/>\
 	with <i>h<sub>m</sub></i> being the maximum load height.\
-	"; }
+	";
 }
 
 /*! empty*/
