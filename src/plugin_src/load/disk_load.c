@@ -58,12 +58,9 @@ extern PluginCategory get_category() { return LOAD_PLUGIN; }
 //! empty
 extern void run(){}
 //! empty
-extern void clear()
-{}
-
+extern void clear(){}
 //! empty
 extern void request_plugins(){}
-
 //! empty
 extern void register_output_fields(){}
 

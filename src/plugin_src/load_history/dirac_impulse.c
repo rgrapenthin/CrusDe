@@ -12,6 +12,19 @@
 
 /*@{*/
 /** \file dirac_impulse.c
+ *
+ * Derivative of Heaviside function or simply the Delta function:
+ *
+ * \f[
+ *  f'(t) = \delta(t-t_0)
+ * \f]
+ *
+ * with 
+ *
+ * \f[
+ *  f(t) = 0 on t < t0 \
+ *       = 1 otherwise
+ * \f]
  */
 /*@}*/
 
@@ -46,13 +59,9 @@ extern void register_output_fields(){}
 /*! empty*/
 extern void run(){}
 /*! freeing mallocs*/
-extern void clear()
-{}
-
+extern void clear(){}
 /*! empty*/
 extern void init(){}
-
-
 
 /*! Register parameters this load function claims from the input.*/
 extern void register_parameter()

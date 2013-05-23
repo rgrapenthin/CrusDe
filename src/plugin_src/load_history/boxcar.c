@@ -12,7 +12,13 @@
 
 /*@{*/
 /** \file boxcar.c
- */
+  * "Boxcar or rectangular or interval function with: \
+  * 
+  * \f[
+  *	f(t) = 1 on t0 <= t <= t1 \
+         = 0 otherwise
+  * \f]
+  */
 /*@}*/
 
 #include <stdio.h>
@@ -44,13 +50,9 @@ extern void register_output_fields(){}
 /*! empty*/
 extern void run(){}
 /*! freeing mallocs*/
-extern void clear()
-{}
-
+extern void clear(){}
 /*! empty*/
 extern void init(){}
-
-
 
 /*! Register parameters this load function claims from the input.*/
 extern void register_parameter()

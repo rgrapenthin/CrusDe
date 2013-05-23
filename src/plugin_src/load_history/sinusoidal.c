@@ -19,11 +19,8 @@
  * \f[
  *	h(t) = \frac{h_m}{2} \left[ 1 + cos( \frac{2\,\pi}{p} (t - d_m) ) \right]
  * \f]
+ *
  * with <i>h<sub>m</sub></i> being the maximum load height.
- 
-	h(t) = p[0] + p[1]*x + p[2]*cos(2.0*pi*x) + p[3]*sin(2.0*pi*x) + \
-                      p[4]*cos(4.0*pi*x) + p[5]*sin(4.0*pi*x) 
- 
  */
 /*@}*/
 
@@ -54,6 +51,7 @@ extern const char* get_description() 		{
 	<br/><br/>\
 	with <i>h<sub>m</sub></i> being the maximum load height.\
 	"; }
+}
 
 /*! empty*/
 extern void request_plugins(){}
@@ -62,13 +60,9 @@ extern void register_output_fields(){}
 /*! empty*/
 extern void run(){}
 /*! freeing mallocs*/
-extern void clear()
-{}
-
+extern void clear(){}
 /*! empty*/
 extern void init(){}
-
-
 
 /*! Register parameters this load function claims from the input.*/
 extern void register_parameter()

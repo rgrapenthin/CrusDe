@@ -20,6 +20,8 @@
  * with Lon and Lat being integers in Lambert coordinates and Height determining the load height 
  * at the point (Lon,Lat).\
  *
+ * Comment lines have to start with '#'.
+ *
  */
 /*@}*/
 
@@ -117,18 +119,15 @@ static void destroy_elems(load_list_elem * i)
 	}
 }
 
-
-
-/*load command line parameters*/
-/*disk command line parameters*/
+/*load user parameters*/
 double *p_rho[N_LOAD_COMPS];		/**< Density of the load	[kg/m^3]	*/
 char*  *p_file[N_LOAD_COMPS];		/**< load definition	*/
 
-double rho;		/*!< Density of the load	[kg/m^3]	*/
+double rho;		                    /*!< Density of the load	[kg/m^3]	*/
 
 /* internals */
-int dS;			/*!< Area around point P(x,y)	[m^2]		*/
-double rho_dS_const;	/*!< rho_dS_const = rho * dS	[kg/m] 		 */
+int dS;                 			/*!< Area around point P(x,y)	[m^2]		*/
+double rho_dS_const;	            /*!< rho_dS_const = rho * dS	[kg/m] 		 */
 int nx=-1, ny=-1;
 
 loadhistory_exec_function history_function[N_LOAD_COMPS];
@@ -272,7 +271,7 @@ extern void init()
 	/*reset filepointer*/
 	rewind(fi);
 	//get the line
-        int result       = 0;
+    int result       = 0;
 	int line_no      = 0;
 	int comment_line = 0;
 	int out_of_bounds = 0;

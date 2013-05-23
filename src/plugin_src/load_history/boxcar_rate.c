@@ -12,6 +12,19 @@
 
 /*@{*/
 /** \file boxcar_rate.c
+ *
+ * Derivative of boxcar function:
+ *
+ * \f[ 
+ *  f'(t) = \delta(t-t_0) - \delta(t-t_1)
+ * \f]
+ *
+ * with 
+ *
+ * \f[
+ * f(t) = 1 on t_0 <= t <= t_1
+ *      = 0 otherwise
+ * \f]
  */
 /*@}*/
 

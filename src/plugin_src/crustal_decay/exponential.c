@@ -12,14 +12,13 @@
 
 /*@{*/
 /** \file exponential.c
- * Sinusoidal load history that calculates a load height depending on the
- * current time step (t), a period length (p) and the timestep when the load is supposed to
- * be at maximum (<i>d<sub>m</sub></i>):
- *
+ * Gives the exponential decay <i>d</i> at time <i>t</i>
+ * 
  * \f[
- *	h(t) = \frac{h_m}{2} \left[ 1 + cos( \frac{2\,\pi}{p} (t - d_m) ) \right]
+ *	d(t) = exp(-t/t_r)
  * \f]
- * with <i>h<sub>m</sub></i> being the maximum load height.
+ *
+ * with <i>t<sub>r</sub></i> being the effective relaxation time.
  */
 /*@}*/
 
@@ -40,7 +39,9 @@ extern const char* get_version()     		{ return "0.1"; }
 extern const char* get_authors()     		{ return "ronni grapenthin"; }
 extern PluginCategory get_category() 	    { return CRUSTALDECAY_PLUGIN; }
 extern const char* get_description() 		{ 
-	return " TODO "; }
+	return " Gives exponential decay <i>d</i> at time <i>t</i>:<br />\
+	d(t)=exp(-t/t<sup>r</sup>)<br />\
+	where t<sup>r</sup> is the effective relaxation time."; }
 
 /*! empty*/
 extern void request_plugins(){}
@@ -49,8 +50,7 @@ extern void register_output_fields(){}
 /*! empty*/
 extern void run(){}
 /*! freeing mallocs*/
-extern void clear()
-{}
+extern void clear(){}
 
 /*! empty*/
 extern void init(){}

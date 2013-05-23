@@ -1,7 +1,7 @@
 /***************************************************************************
- * File:        ./plugins/load_history/.c
+ * File:        ./plugins/load_history/fourier_series_rate.c
  * Author:      Ronni Grapenthin, UAF-GI
- * Created:     29.04.2007
+ * Created:     29.04.2009
  * Licence:     GPL
  ****************************************************************************/
 
@@ -11,19 +11,16 @@
  **/
 
 /*@{*/
-/** \file sinusoidal.c
- * Sinusoidal load history that calculates a load height depending on the
- * current time step (t), a period length (p) and the timestep when the load is supposed to
- * be at maximum (<i>d<sub>m</sub></i>):
- *
+/** \file fourier_series_rate.c
+ * Derivative of fourier_series.c" 
+ * Provides a Fourier Series Rate history function for linear trend, b_1, (annual) 
+ * sine and cosine, s_1, c_1, semi(annual) sine and cosine, s_2, c_2, as well as the number of days (365) in a 
+ * cycle, l, can be specified:
  * \f[
- *	h(t) = \frac{h_m}{2} \left[ 1 + cos( \frac{2\,\pi}{p} (t - d_m) ) \right]
+	h'(t) = b_1 - c_1*sin(2*p) + s_1*cos(2*p) - c_2*sin(4*p) + s_2*cos(4*p)
  * \f]
- * with <i>h<sub>m</sub></i> being the maximum load height.
- 
-	h(t) = p[0] + p[1]*x + p[2]*cos(2.0*pi*x) + p[3]*sin(2.0*pi*x) + \
-                      p[4]*cos(4.0*pi*x) + p[5]*sin(4.0*pi*x) 
- 
+ *  
+ * where p = \pi* t/l ; with l is period length.
  */
 /*@}*/
 
@@ -57,13 +54,15 @@ extern const char* get_version()     		{ return "0.1"; }
 extern const char* get_authors()     		{ return "anthony arendt, ronni grapenthin"; }
 extern PluginCategory get_category() 		{ return LOADHISTORY_PLUGIN; }
 extern const char* get_description() 		{ 
-	return "Sinusoidal load history that calculates a load height depending on the\
-	current time step (<i>t</i>), a period length (<i>p</i>) and the timestep when the load is supposed to \
-	be at maximum (<i>d<sub>m</sub></i>):<br/><br/>\
-	h(t) =  h<sub>m</sub> / 2 [ 1 + cos( 2*&pi; / p * (t-d<sub>m</sub>) ) ]\
-	<br/><br/>\
-	with <i>h<sub>m</sub></i> being the maximum load height.\
-	"; }
+	return "Derivative of fourier_series:\
+    Provides a Fourier Series Rate Load history function for whic linear trend, b_1, (annual)\
+	sine and cosine, s_1, c_1, semi(annual) sine and cosine, s_2, c_2, as well as the number of days (365) in a\
+	cycle, l, can be specified:\
+	\
+	h'(t) = b_1 - c_1*sin(2*p) + s_1*cos(2*p) - c_2*sin(4*p) + s_2*cos(4*p)\
+	\
+    where p = \pi* t/l ; with l is period length.\
+    "; }
 
 /*! empty*/
 extern void request_plugins(){}
@@ -72,9 +71,7 @@ extern void register_output_fields(){}
 /*! empty*/
 extern void run(){}
 /*! freeing mallocs*/
-extern void clear()
-{}
-
+extern void clear(){}
 /*! empty*/
 extern void init(){}
 

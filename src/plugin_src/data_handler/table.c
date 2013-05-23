@@ -13,8 +13,8 @@
 /*@{*/
 /** \file table.c
  * 
- * TODO: add description
- * 
+ * This data handler writes CrusDe results to an ASCII table
+ * file. A header indicates the semantics of the colomns. Data are separated by a whitespace.
  */
 /*@}*/
 

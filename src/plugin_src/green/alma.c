@@ -53,7 +53,7 @@ extern const char* get_version() { return "0.1"; }
 extern const char* get_authors() { return "ronni grapenthin"; }
 extern PluginCategory get_category() { return GREEN_PLUGIN; }
 extern const char* get_description() { 
-	return "This plugin implements an interface to ALMA\
+	return "This plugin implements an interface to ALMA ... still in progress...\
 "; }
 
 //! Register parameters this Green's function claims from the input.

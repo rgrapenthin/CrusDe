@@ -12,7 +12,7 @@
  /*@{*/
 /** \file fast_conv_time_space.c
  * 
- * Implements a fast convolution using the Fast Fourier Transform (DFT). This Plugin
+ * Implements a fast 3d convolution using the Fast Fourier Transform (DFT). This Plugin
  * depends on the FFTW3 library, http://www.fftw3.org , which is used to allow
  * convolution in the spectral domain (see convolution theorem).
  */

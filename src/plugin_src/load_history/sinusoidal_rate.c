@@ -1,5 +1,5 @@
 /***************************************************************************
- * File:        ./plugins/load_history/sinusoidal.c
+ * File:        ./plugins/load_history/sinusoidal_rate.c
  * Author:      Ronni Grapenthin, NORVULK & HU-BERLIN
  * Created:     29.04.2007
  * Licence:     GPL
@@ -11,15 +11,15 @@
  **/
 
 /*@{*/
-/** \file sinusoidal.c
- * Sinusoidal load history that calculates a load height depending on the
+/** \file sinusoidal_rate.c
+ * Derivative of sinusoidal.c:
+ * Sinusoidal rate load history that calculates a load height depending on the
  * current time step (t), a period length (p) and the timestep when the load is supposed to
  * be at maximum (<i>d<sub>m</sub></i>):
  *
  * \f[
- *	h(t) = \frac{h_m}{2} \left[ 1 + cos( \frac{2\,\pi}{p} (t - d_m) ) \right]
+ *	h'(t) = \frac{-\pi}{p} * sin\left[ \frac{2\,\pi}{p} (t - d_m) \right]
  * \f]
- * with <i>h<sub>m</sub></i> being the maximum load height.
  */
 /*@}*/
 
@@ -43,8 +43,12 @@ extern const char* get_version()     		{ return "0.1"; }
 extern const char* get_authors()     		{ return "ronni grapenthin"; }
 extern PluginCategory get_category() 	{ return LOADHISTORY_PLUGIN; }
 extern const char* get_description() 		{ 
-	return "Sinusoidal load history rate \
-	"; }
+	return "Derivative of sinusoidal.c:\
+Sinusoidal rate load history that calculates a load height depending on the\
+current time step (t), a period length (p) and the timestep when the load is supposed to\
+be at maximum (<i>d<sub>m</sub></i>):\
+    h'(t) = \frac{-\pi}{p} * sin\left[ \frac{2\,\pi}{p} (t - d_m) \right]\
+"; }
 
 /*! empty*/
 extern void request_plugins(){}
@@ -89,7 +93,7 @@ extern double get_value_at(unsigned int t)
 	d_max = *p_d_max[my_id];
 	period_length = *p_period_length[my_id];
 
-	return ( PI*2 / period_length * -0.5 * sin (PI*2 / period_length * (t-d_max) ) );
+	return ( -1 * PI / period_length * sin (2*PI / period_length * (t-d_max) ) );
 
 }
 
