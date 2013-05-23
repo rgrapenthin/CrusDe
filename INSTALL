@@ -73,7 +73,7 @@ described below. I appreciate your patience!
      follow the long procedure that was in place before this script:
      
      This step might be a little painful, but also helps to familiarize with
-     the plug-in manager; there's always a good side to everything, right?!
+     the plug-in manager; there's a good side to everything :)
 
      $> crusde -p
      
@@ -102,7 +102,7 @@ described below. I appreciate your patience!
 
      A known problem is that plug-ins that depend on other plug-ins will cause 
      the plugin manager to crash after the tests are performed. 
-                     That is NOT a problem!
+                     That is NOT a problem! (weird, I know)
      Just restart the plugin manager and you'll see the plug-in was installed. 
      This is an issue that will be tackled soon.
      
@@ -136,8 +136,8 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 ------------------------
 Ronni Grapenthin
-Geophysical Institute
-University of Alaska Fairbanks
-903 Koyukuk Drive, P.O. Box 757320
-Fairbanks, Alaska 99775-7320
-ronni@gi.alaska.edu
+University of California
+Berkeley Seimological Laboratory 
+307 McCone Hall
+Berkeley, CA 94720-4760
+ronni@seismo.berkeley.edu
