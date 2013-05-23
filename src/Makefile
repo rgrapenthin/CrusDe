@@ -140,7 +140,7 @@ dist:				# this is a reminder to me
 	svn copy http://svn.example.com/repos/calc/trunk http://svn.example.com/repos/calc/tags/release-1.0 -m "Tagging the 1.0 release of the 'calc' project."
 
 clean:				# cleans directories, removes whatever make created
-	-rm *.o crusde defs.h moc_*
+	-rm *.o ../crusde defs.h moc_*
 	@make $(M_FLAGS) -C $(GREEN_DIR) clean
 	@make $(M_FLAGS) -C $(LOAD_DIR) clean 
 	@make $(M_FLAGS) -C $(KERNEL_DIR) clean

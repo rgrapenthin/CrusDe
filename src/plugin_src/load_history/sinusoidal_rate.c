@@ -47,7 +47,7 @@ extern const char* get_description() 		{
 Sinusoidal rate load history that calculates a load height depending on the\
 current time step (t), a period length (p) and the timestep when the load is supposed to\
 be at maximum (<i>d<sub>m</sub></i>):\
-    h'(t) = \frac{-\pi}{p} * sin\left[ \frac{2\,\pi}{p} (t - d_m) \right]\
+    h'(t) = &Pi;/p * sin(2&Pi;/p * (t - d<sup>m<sup>)\
 "; }
 
 /*! empty*/

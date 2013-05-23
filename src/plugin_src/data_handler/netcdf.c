@@ -76,29 +76,39 @@ extern void request_plugins(){}
 extern void register_output_fields(){}
 
 extern const char* get_description() { 
-	return ("This data handler writes CrusDe results to a 4-D netcdf file following the \
-	COARDS conventions ( ftp://ftp.unidata.ucar.edu/pub/netcdf/Conventions/COARDS/coards_conventions ). \
-	The four dimensions, and so the dimension names, are:<br /><br />\
-	\
-	latitude, longitude, time, direction.<br /><br />\
-	\
-	The sematics of the direction indices depend highly on the order in which the Green's function \
-	plug-in allocates the output fields and in which order the output generating postprocessors \
-	are defined. It is tried information to write as much information as possible about this \
-	to the 'history' field.<br /><br />\
-	This plugin creates a netCDF file with either the filename given in the experiment definition \
-	or the default name for output (experiment.nc) on initialization. At each time step the \
-	the model results are saved to this file for all directions (x,y,z, other). The file gets deleted \
-	during unloading if no data was written.<br /><br />\
-	Tools such as 'ncview' help to directly examine the result data. The 'NCO' (netCDF Operators), e.g. \
-	'ncks' help to extract fields from the result array. The following script snippet for example \
-	extracts values for all latitudes and longitudes at time=0 and for direction=2 (usually vertical \
-	displacement, refer to respective file history) from the file disk.nc using NOS's 'kitchen sink'. \
-	awk then strips the variable names from the values so that an ascii table of the format \
-	'x y z' emerges:<br /><br /> \
-	\
-	ncks -a -P -v crusde_result -d time,0 -d direction,2 disk.nc| <br />\
-	awk '{<br />\
+	return ("\
+This data handler writes CrusDe results to<br/>\
+a 4-D netcdf file following the COARDS conventions:<br/><br />\
+\
+(ftp://ftp.unidata.ucar.edu/pub/netcdf/Conventions/COARDS/coards_conventions).<br/><br/>\
+\
+The four dimensions, and so the dimension names, are:<br /><br />\
+\
+latitude, longitude, time, direction.<br /><br />\
+\
+The sematics of the direction indices depend highly on the<br/>\
+order in which the Green's function plug-in allocates the<br/>\
+output fields and in which order the output generating post-<br/>\
+processors are defined. It is tried information to write as<br/>\
+much information as possible about this to the 'history' field.<br /><br />\
+This plugin creates a netCDF file with either the filename given<br/>\
+in the experiment definition or the default name for output<br/>\
+(experiment.nc) on initialization. At each time step the the<br/>\
+model results are saved to this file for all directions<br/>\
+(x,y,z, other). The file gets deleted during unloading if<br/>\
+no data was written.<br /><br />\
+Tools such as 'ncview' help to directly examine the result<br/>\
+data. The 'NCO' (netCDF Operators), e.g. 'ncks' help to extract<br/>\
+fields from the result array. The following script snippet for<br/>\
+example extracts values for all latitudes and longitudes at<br/>\
+time=0 and for direction=2 (usually vertical displacement,<br/>\
+refer to respective file history) from the file disk.nc<br/>\
+using NOS's 'kitchen sink'. awk then strips the variable<br/>\
+names from the values so that an ascii table of the format <br/>\
+'x y z' emerges:<br /><br /> \
+\
+ncks -a -P -v crusde_result -d time,0 -d direction,2 disk.nc| <br />\
+awk '{<br />\
 		split($3, y, \"=\") <br />\
 		split($4, x, \"=\") <br />\
 		split($5, z, \"=\"); <br />\
@@ -106,7 +116,7 @@ extern const char* get_description() {
 		if(x[2] != 0 && z[2] != 0)<br />\
 			print x[2],y[2],z[2]<br />\
 	}' > $INPUT<br />\
-	"); 
+"); 
 }
 
 /*! does the writing to the file
