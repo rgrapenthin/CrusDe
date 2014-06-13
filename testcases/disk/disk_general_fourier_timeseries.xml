@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ############################################################################################# -->
+<!-- This is the representation of equation 3 from Pinel (2007) Geophys. J. Int. 169, pp. 325-338  -->
+<!-- ############################################################################################# -->
+<!-- The instantanous response of the ground due to a disk is calculated. The two horizonal        -->
+<!-- responses are found in 'channel 0' and 'channel 1', vertical response is written to 'channel 2', -->
+<!-- the radial response is given in channel 3, and the horizontal to vertical ratio is given in   -->
+<!-- 'channel 4' of the netCDF file to which the results are written.                              -->
+<!-- ############################################################################################# -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+<experiment name="disk">
+
+  <file name="result" value="./disk_general_fourier_ts.nc" />
+
+  <region name="west" value="-10000" />
+  <region name="east" value="10000" />
+  <region name="south" value="-10000" />
+  <region name="north" value="10000" />
+
+  <parameter name="gridsize" value="250" />
+
+<!-- MODEL TIME CONFIG -->  
+  <parameter name="timestep_size"  value="1"/> 		<!-- each step is a day -->
+  <parameter name="timesteps"      value="365"/> 	<!-- 365 steps == 1 year -->
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 3d convolution" />
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81" />		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25" />	<!-- poisson's ratio -->
+    <parameter 	name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load" />
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="4000" />
+       <parameter name="center_x" value="0" />
+       <parameter name="center_y" value="0" />
+       <parameter name="rho" value="1000" />
+   </load>
+   
+  <!-- load history: use low order terms of fourier series -->
+    <load_history>
+     <plugin    name="fourier_series_general" />
+
+     <parameter name="bias"         value="0" />	<!-- offset [optional]-->
+     <parameter name="trend"        value="0" />	<!-- offset [optional]-->
+
+     <!-- all *_1 parameters are required. all  *_2-5 parameters are optional -->
+     <parameter name="amp_sin_1"    value="1.12"/>	<!-- sine amplitude -->
+     <parameter name="amp_cos_1"    value="1.0"/>	<!-- cosine amplitude -->
+     <parameter name="period_sin_1" value="180"/>	<!-- sine period:   annual -->
+     <parameter name="period_cos_1" value="180"/>	<!-- cosine period: annual -->
+     <parameter name="phase_sin_1"  value="0.1"/>	<!-- sine phase shift -->
+     <parameter name="phase_cos_1"  value="0.25"/>	<!-- cosine phase shift -->
+
+     <!-- Optional ... can go up to *_5 -->
+     <parameter name="amp_sin_5"    value="1.12"/>	<!-- sine amplitude -->
+     <parameter name="amp_cos_5"    value="1.0"/>	<!-- cosine amplitude -->
+     <parameter name="period_sin_5" value="180"/>	<!-- sine period:   annual -->
+     <parameter name="period_cos_5" value="180"/>	<!-- cosine period: annual -->
+     <parameter name="phase_sin_5"  value="0.1"/>	<!-- sine phase shift -->
+     <parameter name="phase_cos_5"  value="0.25"/>	<!-- cosine phase shift -->
+
+</load_history>
+
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r" />
+    <plugin name="hori2vert-ratio" />
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment>
