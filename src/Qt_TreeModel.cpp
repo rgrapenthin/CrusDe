@@ -28,7 +28,7 @@
         models.
 */
 
-#include <QtGui>
+#include <QtWidgets>
 #include <map>
 
 #include "Qt_TreeItem.h"
@@ -184,7 +184,7 @@ QModelIndex TreeModel::indexOfLatestItem(int id, const QModelIndex &parent)
 
 void TreeModel::setupModelData(multimap<string, map<int, string> > data)
 {
-	reset();
+	beginResetModel();
 
 	int i(0);
 	
@@ -223,5 +223,7 @@ void TreeModel::setupModelData(multimap<string, map<int, string> > data)
 		while(key_iter!=key_range.first);
 	
 		iter = key_range.second;
-	}	        
+	}
+
+	endResetModel();
 }

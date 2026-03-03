@@ -260,17 +260,20 @@ void XMLHandler::writeXML(bool pretty)
        	throw( std::runtime_error( "DOMImplementation is null!" ) );
     }
 
-    DOMWriter* writer = impl->createDOMWriter();
+    DOMLSSerializer* writer = ((DOMImplementationLS*)impl)->createLSSerializer();
+    DOMLSOutput*     output = ((DOMImplementationLS*)impl)->createLSOutput();
+    output->setByteStream(outfile);
 
     // add spacing and such for human-readable output
-    if( pretty && writer->canSetFeature( XMLUni::fgDOMWRTFormatPrettyPrint, true ) )
+    if( pretty && writer->getDomConfig()->canSetParameter( XMLUni::fgDOMWRTFormatPrettyPrint, true ) )
     {
-       	writer->setFeature(XMLUni::fgDOMWRTFormatPrettyPrint , true );
+       	writer->getDomConfig()->setParameter( XMLUni::fgDOMWRTFormatPrettyPrint, true );
     }
-    writer->writeNode( outfile , *doc );
+    writer->write( doc, output );
 
     delete(outfile);
-    delete(writer);
+    output->release();
+    writer->release();
     
     crusde_debug("%s, line: %d, XMLHandler::writeXML %s ... done", __FILE__, __LINE__, xmlFile.c_str());
 }

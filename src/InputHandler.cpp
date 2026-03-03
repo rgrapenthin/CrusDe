@@ -154,19 +154,14 @@ void InputHandler::readCommandline()
      crusde_debug("%s, line: %d, read command line", __FILE__, __LINE__);
 
      char c;
-     char delims[]=":";      /* delimiter in command line strings	*/
-     char *result=NULL;      /* dummy used in string processing	*/
      int i(0);
 
      string install("install");
 
-     /* process command line option and set variables*/     
+     /* process command line option and set variables*/
      while ((c = getopt (argc, argv, "pPmMvVqQ")) != -1)
      {
 	++i;
-
-          /* get first parameter, used in all cases */
-          result = strtok( optarg, delims );
 
           /* figure out where we at in the parameter space */
           switch (c)

@@ -138,6 +138,7 @@ class SimulationCore /*: 	public PluginAPI,
 	list<Plugin*> pl_list_postprocess;   /**< buffer for all the postprocessor plugins that might be loaded*/
 
 	string	root_dir;
+	string	out_file;
 
 	int operator_space_x;
 	int operator_space_y;

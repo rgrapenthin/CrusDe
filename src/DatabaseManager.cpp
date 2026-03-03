@@ -70,7 +70,8 @@ int DatabaseManager::getLastAddedID()
 void DatabaseManager::runDialogWindow(string title, bool addButton)
 {
 	//init qt Application
-	QApplication app(0,0);
+	static int argc = 0;
+	QApplication app(argc, nullptr);
 	//create and run dialog window 
 	Dialog d(this, title, addButton);
 	guiMode = true;

@@ -1,3 +1,1625 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<experiments id="0">
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><experiments id="31"><experiment date="Tue 03 Mar 2026" gmtime="19:37:02" id="30" localtime="X" name="disk" user="roon"><file name="result" value="./disk_elastic_high.nc"/>
+
+  <file name="result" value="./disk_elastic_high.nc"/>
+
+  <region name="west" value="0"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="100"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="alma"/>
+    <!-- Harmonic degree range for Love number computation -->
+    <parameter name="deg_min" value="2"/>
+    <parameter name="deg_step" value="1"/>
+    <parameter name="deg_max" value="100"/>
+    <!-- ALMA3 rheological model file (absolute path, or relative to $ALMA) -->
+    <parameter name="file" value="MODELS/simple-Earth.dat"/>
+    <!-- Order of Gaver/Salzer sequence (8 is standard) -->
+    <parameter name="ng" value="8"/>
+    <!-- Number of layers in the model file -->
+    <parameter name="nla" value="3"/>
+    <!-- Number of time subdivisions (p+1 time points will be computed) -->
+    <parameter name="p" value="0"/>
+    <!-- Number of significant digits for multi-precision arithmetic -->
+    <parameter name="sd" value="64"/>
+    <!-- Time range in kyrs (linear scale); with p=0 a single time point at time_min -->
+    <parameter name="time_min" value="0"/>
+    <parameter name="time_max" value="0"/>
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="2000"/>
+       <parameter name="center_x" value="5010"/>
+       <parameter name="center_y" value="5010"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Tue 03 Mar 2026" gmtime="19:31:28" id="29" localtime="X" name="disk" user="roon"><file name="result" value="./disk_elastic_high.nc"/>
+
+  <file name="result" value="./disk_elastic_high.nc"/>
+
+  <region name="west" value="0"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="100"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="alma"/>
+    <!-- Harmonic degree range for Love number computation -->
+    <parameter name="deg_min" value="2"/>
+    <parameter name="deg_step" value="1"/>
+    <parameter name="deg_max" value="100"/>
+    <!-- ALMA3 rheological model file (absolute path, or relative to $ALMA) -->
+    <parameter name="file" value="MODELS/simple-Earth.dat"/>
+    <!-- Order of Gaver/Salzer sequence (8 is standard) -->
+    <parameter name="ng" value="8"/>
+    <!-- Number of layers in the model file -->
+    <parameter name="nla" value="3"/>
+    <!-- Number of time subdivisions (p+1 time points will be computed) -->
+    <parameter name="p" value="0"/>
+    <!-- Number of significant digits for multi-precision arithmetic -->
+    <parameter name="sd" value="64"/>
+    <!-- Time range in kyrs (linear scale); with p=0 a single time point at time_min -->
+    <parameter name="time_min" value="0"/>
+    <parameter name="time_max" value="0"/>
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="2000"/>
+       <parameter name="center_x" value="5010"/>
+       <parameter name="center_y" value="5010"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Tue 03 Mar 2026" gmtime="18:59:01" id="28" localtime="X" name="disk" user="roon"><file name="result" value="./disk_elastic_high.nc"/>
+
+  <file name="result" value="./disk_elastic_high.nc"/>
+
+  <region name="west" value="0"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="100"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="alma"/>
+    <!-- Harmonic degree range for Love number computation -->
+    <parameter name="deg_min" value="2"/>
+    <parameter name="deg_step" value="1"/>
+    <parameter name="deg_max" value="100"/>
+    <!-- ALMA3 rheological model file (absolute path, or relative to $ALMA) -->
+    <parameter name="file" value="MODELS/simple-Earth.dat"/>
+    <!-- Order of Gaver/Salzer sequence (8 is standard) -->
+    <parameter name="ng" value="8"/>
+    <!-- Number of layers in the model file -->
+    <parameter name="nla" value="3"/>
+    <!-- Number of time subdivisions (p+1 time points will be computed) -->
+    <parameter name="p" value="0"/>
+    <!-- Number of significant digits for multi-precision arithmetic -->
+    <parameter name="sd" value="64"/>
+    <!-- Time range in kyrs (linear scale); with p=0 a single time point at time_min -->
+    <parameter name="time_min" value="0"/>
+    <parameter name="time_max" value="0"/>
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="2000"/>
+       <parameter name="center_x" value="5010"/>
+       <parameter name="center_y" value="5010"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Tue 03 Mar 2026" gmtime="18:19:20" id="27" localtime="X" name="disk" user="roon"><file name="result" value="./disk_elastic_high.nc"/>
+
+  <file name="result" value="./disk_elastic_high.nc"/>
+
+  <region name="west" value="0"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="100"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="alma"/>
+    <!-- Harmonic degree range for Love number computation -->
+    <parameter name="deg_min" value="2"/>
+    <parameter name="deg_step" value="1"/>
+    <parameter name="deg_max" value="100"/>
+    <!-- ALMA3 rheological model file (absolute path, or relative to $ALMA) -->
+    <parameter name="file" value="MODELS/simple-Earth.dat"/>
+    <!-- Order of Gaver/Salzer sequence (8 is standard) -->
+    <parameter name="ng" value="8"/>
+    <!-- Number of layers in the model file -->
+    <parameter name="nla" value="3"/>
+    <!-- Number of time subdivisions (p+1 time points will be computed) -->
+    <parameter name="p" value="0"/>
+    <!-- Number of significant digits for multi-precision arithmetic -->
+    <parameter name="sd" value="64"/>
+    <!-- Time range in kyrs (linear scale); with p=0 a single time point at time_min -->
+    <parameter name="time_min" value="0"/>
+    <parameter name="time_max" value="0"/>
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="2000"/>
+       <parameter name="center_x" value="5010"/>
+       <parameter name="center_y" value="5010"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Tue 03 Mar 2026" gmtime="17:48:48" id="26" localtime="X" name="icelandic rhythmics thickplate" user="roon"><file name="result" value="experiment.nc"/>
+
+<!-- MODEL SPACE CONFIG (Lambert coordinates) -->  
+  <region name="west" value="146427"/>
+  <region name="east" value="804368"/>
+  <region name="south" value="296989"/>
+  <region name="north" value="739536"/>
+  <parameter name="gridsize" value="1000"/>	<!-- side length of grid cells [m] -->
+
+<!-- KERNEL DEFINITION - simple 2d convolution is sufficient -->
+  <kernel> 
+  	<plugin name="fast 2d convolution"/> 
+  </kernel>
+ 
+<!-- EARTH MODEL (equations 8 and 9 in Pinel et al., 2007, GJI)-->
+  <greens_function>
+    <plugin name="final relaxed (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acc. to gravity [m/s^2               -->
+    <parameter name="nu" value="0.25"/>	<!-- Poisson's ratio                      -->
+    <parameter name="rho_f" value="3100"/>     <!-- density of ductile material [kg/m^3] -->
+    <parameter name="H" value="10000"/>        <!-- effective elastic thickness [m]      -->
+    <parameter name="E" value="40"/>          <!-- Youngs modulus [GPa]                 -->
+ </greens_function>
+
+<!-- LOAD MODEL - all the loads are defined in one file -->
+  <load_function>
+    <load>
+      <plugin name="irregular load"/>
+      <parameter name="rho" value="1000"/>		<!-- the density of water, since we use water equivalent load-->
+      <parameter name="file" value="./load/load_all_glaciers.dat"/>
+    </load>
+  </load_function>
+
+ <!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+<!-- RESULT HANDLER - write data in netCDF format -->
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="04:11:46" id="25" localtime="X" name="icelandic rhythmics thickplate" user="roon"><file name="result" value="experiment.nc"/>
+
+<!-- MODEL SPACE CONFIG (Lambert coordinates) -->  
+  <region name="west" value="146427"/>
+  <region name="east" value="804368"/>
+  <region name="south" value="296989"/>
+  <region name="north" value="739536"/>
+  <parameter name="gridsize" value="1000"/>	<!-- side length of grid cells [m] -->
+
+<!-- KERNEL DEFINITION - simple 2d convolution is sufficient -->
+  <kernel> 
+  	<plugin name="fast 2d convolution"/> 
+  </kernel>
+ 
+<!-- EARTH MODEL (equations 8 and 9 in Pinel et al., 2007, GJI)-->
+  <greens_function>
+    <plugin name="final relaxed (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acc. to gravity [m/s^2               -->
+    <parameter name="nu" value="0.25"/>	<!-- Poisson's ratio                      -->
+    <parameter name="rho_f" value="3100"/>     <!-- density of ductile material [kg/m^3] -->
+    <parameter name="H" value="10000"/>        <!-- effective elastic thickness [m]      -->
+    <parameter name="E" value="40"/>          <!-- Youngs modulus [GPa]                 -->
+ </greens_function>
+
+<!-- LOAD MODEL - all the loads are defined in one file -->
+  <load_function>
+    <load>
+      <plugin name="irregular load"/>
+      <parameter name="rho" value="1000"/>		<!-- the density of water, since we use water equivalent load-->
+      <parameter name="file" value="./load/load_all_glaciers.dat"/>
+    </load>
+  </load_function>
+
+ <!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+<!-- RESULT HANDLER - write data in netCDF format -->
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:18:53" id="24" localtime="X" name="icelandic rhythmics" user="roon"><file name="result" value="./elastic_timeseries.nc"/>
+ <file name="result" value="./elastic_timeseries.nc"/> 
+                                       <!--result file-->
+<!-- MODEL SPACE CONFIG -->  
+  <region name="west" value="146427"/>
+  <region name="east" value="804368"/>
+  <region name="south" value="296989"/>
+  <region name="north" value="739536"/>
+  <parameter name="gridsize" value="5000"/> 		<!-- grid cell border length [m] -->
+ 
+ 
+<!-- MODEL TIME CONFIG -->  
+  <parameter name="timestep_size" value="1"/> 		<!-- each step is a day -->
+  <parameter name="timesteps" value="365"/> 	<!-- 365 steps == 1 year -->
+
+<!-- KERNEL DEFINITION - we want to do something with time, hence 3d convolution! -->
+  <kernel> 
+  	<plugin name="fast 3d convolution"/> 
+  </kernel>
+  
+<!-- EARTH MODEL (equations 1 and 2 in Pinel et al., 2007, GJI)-->
+ <greens_function>
+  <plugin name="elastic halfspace (pinel)"/>
+  <parameter name="g" value="9.81"/>  <!--acc. due to gravity-->
+  <parameter name="nu" value="0.25"/> <!--Poisson ratio-->
+  <parameter name="E" value="40"/>    <!--Young modulus-->
+ </greens_function>
+
+<!-- LOAD MODEL - each value of the load history will be multiplied with the convolution -->
+<!-- result of the Green's function and the load function.                               -->
+ <load_function>
+  <!-- load is of arbitrary shape and defined in a file in x y z format in Lambert coords-->
+  <load>
+   <plugin name="irregular load"/>            
+   <parameter name="rho" value="1000"/>
+   <parameter name="file" value="./load/load_all_glaciers.dat"/>
+  </load>
+  
+  <!-- load history: use a simple cosine, define its period and set the point of the maximum amplitude -->
+  <load_history>
+   <plugin name="sinusoidal"/>
+   <parameter name="period_length" value="365"/>	<!-- 365 days -->
+   <parameter name="peak" value="140"/>		<!-- max. mid-may -->
+  </load_history>
+ </load_function>
+
+<!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+  <postprocessor> 
+   <!-- we want the horizontal displacement for cylindrical coordinates -->
+   <plugin name="xy2r"/> 
+  </postprocessor>
+
+<!-- RESULT HANDLER - write data in netCDF format -->
+  <output> <plugin name="netcdf writer"/> </output>
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:18:09" id="23" localtime="X" name="icelandic rhythmics " user="roon"><file name="result" value="./elastic.nc"/>
+ <file name="result" value="./elastic.nc"/> <!--result file-->
+
+<!-- MODEL SPACE CONFIG -->  
+  <region name="west" value="146427"/>
+  <region name="east" value="804368"/>
+  <region name="south" value="296989"/>
+  <region name="north" value="739536"/>
+  <parameter name="gridsize" value="1000"/>         <!--side length of cells {m} -->
+
+<!-- KERNEL DEFINITION - a simple 2 dimensional convolution will do here -->
+  <kernel> 
+  	<plugin name="fast 2d convolution"/> 
+  </kernel>
+
+<!-- EARTH MODEL (equations 1 and 2 in Pinel et al., 2007, GJI)-->
+ <greens_function>
+  <plugin name="elastic halfspace (pinel)"/>
+  <parameter name="g" value="9.81"/>  <!--acc. due to gravity-->
+  <parameter name="nu" value="0.25"/> <!--Poisson ratio-->
+  <parameter name="E" value="40"/>    <!--Young modulus-->
+ </greens_function>
+
+<!-- LOAD MODEL - all the loads are defined in one file -->
+ <load_function>
+  <load>
+   <plugin name="irregular load"/>            
+   <parameter name="rho" value="1000"/>
+   <parameter name="file" value="./load/load_all_glaciers.dat"/>
+  </load>
+ </load_function>
+
+ <!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+  <postprocessor> 
+   <!-- we want the horizontal displacement for cylindrical coordinates ... -->
+   <plugin name="xy2r"/> 
+   <!-- ... and the ratio of horizontal to vertical displacements (therefore-->
+   <!-- xy2r must be calculated first! -->   
+   <plugin name="hori2vert-ratio"/> 
+  </postprocessor>
+
+<!-- RESULT HANDLER - write in netCDF format -->
+  <output> <plugin name="netcdf writer"/> </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:17:48" id="22" localtime="X" name="disk" user="roon"><file name="result" value="./disk_fourier_ts.nc"/>
+
+  <file name="result" value="./disk_fourier_ts.nc"/>
+
+  <region name="west" value="-10000"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="-10000"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="250"/>
+
+<!-- MODEL TIME CONFIG -->  
+  <parameter name="timestep_size" value="1"/> 		<!-- each step is a day -->
+  <parameter name="timesteps" value="365"/> 	<!-- 365 steps == 1 year -->
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 3d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="4000"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+   
+  <!-- load history: use low order terms of fourier series -->
+    <load_history>
+     <plugin name="fourier_series"/>
+     <parameter name="period_length" value="365"/>	<!-- 365 days -->
+     <parameter name="bias" value="0"/>	<!-- vertical offset -->
+     <parameter name="trend" value="0"/>	<!-- linear trend -->
+     <parameter name="annual_sin" value="0.3"/>	<!-- linear trend -->
+     <parameter name="annual_cos" value="0.3"/>	<!-- linear trend -->
+     <parameter name="semiannual_sin" value="0.3"/>	<!-- linear trend -->
+     <parameter name="semiannual_cos" value="0.3"/>	<!-- linear trend -->
+</load_history>
+
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:17:18" id="21" localtime="X" name="disk" user="roon"><file name="result" value="./disk_displacement_rate.nc"/>
+
+  <file name="result" value="./disk_displacement_rate.nc"/>
+
+<!-- MODEL SPACE CONFIG -->
+  <region name="west" value="0"/>
+  <region name="east" value="400000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="400000"/>
+
+  <parameter name="gridsize" value="5000"/>
+
+<!-- MODEL TIME CONFIG -->
+  <parameter name="timestep_size" value="1"/>  <!-- each step is a year [yr] -->
+  <parameter name="timesteps" value="300"/>    <!-- X steps, size step_size -->
+
+<!-- KERNEL DEFINITION -->
+  <kernel>
+    <plugin name="fast 3d convolution"/>
+ </kernel>
+
+<!-- PLUGIN CONFIG --> 
+
+  <greens_function>
+	<job name="thickplate">
+     <plugin name="inverse thick plate (pinel)"/>   <!-- Green's function A-->
+    </job>
+
+	<job name="instantaneous">
+      <plugin name="elastic halfspace (pinel)"/>   <!-- GF B result is A+B -->
+    </job> 
+
+    <!-- list ALL requested parameters -->
+    <parameter name="g" value="9.81"/>		   <!-- acc. 	gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	   <!-- poisson's ratio -->
+    <parameter name="E" value="40"/>		   <!-- young's modulus [GPa] -->
+    <parameter name="H" value="5000"/>		   <!-- plate thickness [m] -->
+    <parameter name="rho_f" value="3100"/>	   <!-- liquid density [kg m^-3] -->
+  </greens_function>
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="20"/>
+       <parameter name="radius" value="50000"/>
+       <parameter name="center_x" value="200000"/>
+       <parameter name="center_y" value="200000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+
+    <load_history>
+     <plugin name="sinusoidal_rate"/>
+     <parameter name="period_length" value="75"/>
+     <parameter name="peak" value="10"/>
+    </load_history>
+
+    <crustal_decay job="thickplate">
+     <plugin name="exponential_rate"/>
+     <parameter name="tR" value="300"/>
+    </crustal_decay>
+
+  </load_function>
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="60"/>
+       <parameter name="radius" value="25000"/>
+       <parameter name="center_x" value="100000"/>
+       <parameter name="center_y" value="100000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+
+    <crustal_decay job="thickplate">
+     <plugin name="exponential_rate"/>
+     <parameter name="tR" value="300"/>
+    </crustal_decay>
+
+  </load_function>
+
+<!-- OTHER STUFF -->
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:15:07" id="20" localtime="X" name="disk" user="roon"><file name="result" value="./disk_displacement_rate.nc"/>
+
+<!-- ############################################################################################# -->
+<!-- This is the representation of equation 17 from Pinel (2007) Geophys. J. Int. 169, pp. 325-338 -->
+<!-- ############################################################################################# -->
+<!-- The displacement of the ground due to two disks is calculated. One disk has a large           -->
+<!-- radius, but is not high; the other has a smaller radius but is three times higher than the    -->
+<!-- first disk.                                                                                   -->
+<!-- ############################################################################################# -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+  <file name="result" value="./disk_displacement_rate.nc"/>
+
+<!-- MODEL SPACE CONFIG -->
+  <region name="west" value="0"/>
+  <region name="east" value="400000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="400000"/>
+
+  <parameter name="gridsize" value="10000"/>
+
+<!-- MODEL TIME CONFIG -->
+  <parameter name="timestep_size" value="1"/>  <!-- each step is a year [yr] -->
+  <parameter name="timesteps" value="300"/>    <!-- X steps, size step_size -->
+
+<!-- KERNEL DEFINITION -->
+  <kernel>
+    <plugin name="fast 3d convolution"/>
+ </kernel>
+
+<!-- PLUGIN CONFIG --> 
+
+  <greens_function>
+	<job name="thickplate">
+     <plugin name="inverse thick plate (pinel)"/> <!-- Green's function A-->
+    </job>
+
+	<job name="final relaxed">
+      <plugin name="final relaxed (pinel)"/>   <!-- GF B result is A+B -->
+    </job> 
+
+    <!-- list ALL requested parameters -->
+    <parameter name="g" value="9.81"/>		   <!-- acc. 	gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	   <!-- poisson's ratio -->
+    <parameter name="E" value="40"/>		   <!-- young's modulus [GPa] -->
+    <parameter name="H" value="5000"/>		   <!-- plate thickness [m] -->
+    <parameter name="rho_f" value="3100"/>	   <!-- liquid density [kg m^-3] -->
+  </greens_function>
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="20"/>
+       <parameter name="radius" value="50000"/>
+       <parameter name="center_x" value="200000"/>
+       <parameter name="center_y" value="200000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+
+    <crustal_decay job="thickplate">
+     <plugin name="exponential"/>
+     <parameter name="tR" value="300"/>
+    </crustal_decay>
+
+  </load_function>
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="60"/>
+       <parameter name="radius" value="25000"/>
+       <parameter name="center_x" value="100000"/>
+       <parameter name="center_y" value="100000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+
+    <crustal_decay job="thickplate">
+     <plugin name="exponential"/>
+     <parameter name="tR" value="300"/>
+    </crustal_decay>
+
+  </load_function>
+
+<!-- OTHER STUFF -->
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:14:06" id="19" localtime="X" name="disk" user="roon"><file name="result" value="./disk_final_relaxed.nc"/>
+
+  <file name="result" value="./disk_final_relaxed.nc"/>
+
+  <region name="west" value="0"/>
+  <region name="east" value="400000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="400000"/>
+
+  <parameter name="gridsize" value="10000"/>
+
+<!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file! -->
+
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+ 
+  <greens_function>
+    <plugin name="final relaxed (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="40"/>		<!-- young's modulus [GPa] -->
+    <parameter name="H" value="5000"/>		<!-- plate thickness [m] -->
+    <parameter name="rho_f" value="3100"/>	<!-- liquid density [kg m^-3] -->
+ </greens_function>
+
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="20"/>
+       <parameter name="radius" value="50000"/>
+       <parameter name="center_x" value="200000"/>
+       <parameter name="center_y" value="200000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+  </load_function>
+
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:13:52" id="18" localtime="X" name="disk" user="roon"><file name="result" value="./point_elastic.dat"/>
+
+  <file name="result" value="./point_elastic.dat"/>
+
+  <region name="west" value="-10000"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="-10000"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="100"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="1"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="table writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:13:51" id="17" localtime="X" name="disk" user="roon"><file name="result" value="./disk_elastic_high.nc"/>
+
+  <file name="result" value="./disk_elastic_high.nc"/>
+
+  <region name="west" value="-20000"/>
+  <region name="east" value="20000"/>
+  <region name="south" value="-20000"/>
+  <region name="north" value="20000"/>
+
+  <parameter name="gridsize" value="1000"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="4000"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:13:41" id="16" localtime="X" name="icelandic rhythmics " user="roon"><file name="result" value="./elastic.nc"/>
+ <file name="result" value="./elastic.nc"/> <!--result file-->
+
+<!-- MODEL SPACE CONFIG -->  
+  <region name="west" value="146427"/>
+  <region name="east" value="804368"/>
+  <region name="south" value="296989"/>
+  <region name="north" value="739536"/>
+  <parameter name="gridsize" value="1000"/>         <!--side length of cells {m} -->
+
+<!-- KERNEL DEFINITION - a simple 2 dimensional convolution will do here -->
+  <kernel> 
+  	<plugin name="fast 2d convolution"/> 
+  </kernel>
+
+<!-- EARTH MODEL (equations 1 and 2 in Pinel et al., 2007, GJI)-->
+ <greens_function>
+  <plugin name="elastic halfspace (pinel)"/>
+  <parameter name="g" value="9.81"/>  <!--acc. due to gravity-->
+  <parameter name="nu" value="0.25"/> <!--Poisson ratio-->
+  <parameter name="E" value="40"/>    <!--Young modulus-->
+ </greens_function>
+
+<!-- LOAD MODEL - all the loads are defined in one file -->
+ <load_function>
+  <load>
+   <plugin name="irregular load"/>            
+   <parameter name="rho" value="1000"/>
+   <parameter name="file" value="./load/load_all_glaciers.dat"/>
+  </load>
+ </load_function>
+
+ <!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+  <postprocessor> 
+   <!-- we want the horizontal displacement for cylindrical coordinates ... -->
+   <plugin name="xy2r"/> 
+   <!-- ... and the ratio of horizontal to vertical displacements (therefore-->
+   <!-- xy2r must be calculated first! -->   
+   <plugin name="hori2vert-ratio"/> 
+  </postprocessor>
+
+<!-- RESULT HANDLER - write in netCDF format -->
+  <output> <plugin name="netcdf writer"/> </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:11:26" id="15" localtime="X" name="disk" user="roon"><file name="result" value="./disk_fourier_ts.nc"/>
+
+  <file name="result" value="./disk_fourier_ts.nc"/>
+
+  <region name="west" value="-10000"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="-10000"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="250"/>
+
+<!-- MODEL TIME CONFIG -->  
+  <parameter name="timestep_size" value="1"/> 		<!-- each step is a day -->
+  <parameter name="timesteps" value="365"/> 	<!-- 365 steps == 1 year -->
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 3d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="4000"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+   
+  <!-- load history: use low order terms of fourier series -->
+    <load_history>
+     <plugin name="fourier_series"/>
+     <parameter name="period_length" value="365"/>	<!-- 365 days -->
+     <parameter name="bias" value="0"/>	<!-- vertical offset -->
+     <parameter name="trend" value="0"/>	<!-- linear trend -->
+     <parameter name="annual_sin" value="0.3"/>	<!-- linear trend -->
+     <parameter name="annual_cos" value="0.3"/>	<!-- linear trend -->
+     <parameter name="semiannual_sin" value="0.3"/>	<!-- linear trend -->
+     <parameter name="semiannual_cos" value="0.3"/>	<!-- linear trend -->
+</load_history>
+
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:10:57" id="14" localtime="X" name="disk" user="roon"><file name="result" value="./disk_displacement_rate.nc"/>
+
+  <file name="result" value="./disk_displacement_rate.nc"/>
+
+<!-- MODEL SPACE CONFIG -->
+  <region name="west" value="0"/>
+  <region name="east" value="400000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="400000"/>
+
+  <parameter name="gridsize" value="5000"/>
+
+<!-- MODEL TIME CONFIG -->
+  <parameter name="timestep_size" value="1"/>  <!-- each step is a year [yr] -->
+  <parameter name="timesteps" value="300"/>    <!-- X steps, size step_size -->
+
+<!-- KERNEL DEFINITION -->
+  <kernel>
+    <plugin name="fast 3d convolution"/>
+ </kernel>
+
+<!-- PLUGIN CONFIG --> 
+
+  <greens_function>
+	<job name="thickplate">
+     <plugin name="inverse thick plate (pinel)"/>   <!-- Green's function A-->
+    </job>
+
+	<job name="instantaneous">
+      <plugin name="elastic halfspace (pinel)"/>   <!-- GF B result is A+B -->
+    </job> 
+
+    <!-- list ALL requested parameters -->
+    <parameter name="g" value="9.81"/>		   <!-- acc. 	gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	   <!-- poisson's ratio -->
+    <parameter name="E" value="40"/>		   <!-- young's modulus [GPa] -->
+    <parameter name="H" value="5000"/>		   <!-- plate thickness [m] -->
+    <parameter name="rho_f" value="3100"/>	   <!-- liquid density [kg m^-3] -->
+  </greens_function>
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="20"/>
+       <parameter name="radius" value="50000"/>
+       <parameter name="center_x" value="200000"/>
+       <parameter name="center_y" value="200000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+
+    <load_history>
+     <plugin name="sinusoidal_rate"/>
+     <parameter name="period_length" value="75"/>
+     <parameter name="peak" value="10"/>
+    </load_history>
+
+    <crustal_decay job="thickplate">
+     <plugin name="exponential_rate"/>
+     <parameter name="tR" value="300"/>
+    </crustal_decay>
+
+  </load_function>
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="60"/>
+       <parameter name="radius" value="25000"/>
+       <parameter name="center_x" value="100000"/>
+       <parameter name="center_y" value="100000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+
+    <crustal_decay job="thickplate">
+     <plugin name="exponential_rate"/>
+     <parameter name="tR" value="300"/>
+    </crustal_decay>
+
+  </load_function>
+
+<!-- OTHER STUFF -->
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:08:43" id="13" localtime="X" name="disk" user="roon"><file name="result" value="./disk_displacement_rate.nc"/>
+
+<!-- ############################################################################################# -->
+<!-- This is the representation of equation 17 from Pinel (2007) Geophys. J. Int. 169, pp. 325-338 -->
+<!-- ############################################################################################# -->
+<!-- The displacement of the ground due to two disks is calculated. One disk has a large           -->
+<!-- radius, but is not high; the other has a smaller radius but is three times higher than the    -->
+<!-- first disk.                                                                                   -->
+<!-- ############################################################################################# -->
+
+<!-- author: Ronni Grapenthin, UAF-GI, 2008 ronni@gi.alaska.edu -->
+
+  <file name="result" value="./disk_displacement_rate.nc"/>
+
+<!-- MODEL SPACE CONFIG -->
+  <region name="west" value="0"/>
+  <region name="east" value="400000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="400000"/>
+
+  <parameter name="gridsize" value="10000"/>
+
+<!-- MODEL TIME CONFIG -->
+  <parameter name="timestep_size" value="1"/>  <!-- each step is a year [yr] -->
+  <parameter name="timesteps" value="300"/>    <!-- X steps, size step_size -->
+
+<!-- KERNEL DEFINITION -->
+  <kernel>
+    <plugin name="fast 3d convolution"/>
+ </kernel>
+
+<!-- PLUGIN CONFIG --> 
+
+  <greens_function>
+	<job name="thickplate">
+     <plugin name="inverse thick plate (pinel)"/> <!-- Green's function A-->
+    </job>
+
+	<job name="final relaxed">
+      <plugin name="final relaxed (pinel)"/>   <!-- GF B result is A+B -->
+    </job> 
+
+    <!-- list ALL requested parameters -->
+    <parameter name="g" value="9.81"/>		   <!-- acc. 	gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	   <!-- poisson's ratio -->
+    <parameter name="E" value="40"/>		   <!-- young's modulus [GPa] -->
+    <parameter name="H" value="5000"/>		   <!-- plate thickness [m] -->
+    <parameter name="rho_f" value="3100"/>	   <!-- liquid density [kg m^-3] -->
+  </greens_function>
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="20"/>
+       <parameter name="radius" value="50000"/>
+       <parameter name="center_x" value="200000"/>
+       <parameter name="center_y" value="200000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+
+    <crustal_decay job="thickplate">
+     <plugin name="exponential"/>
+     <parameter name="tR" value="300"/>
+    </crustal_decay>
+
+  </load_function>
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="60"/>
+       <parameter name="radius" value="25000"/>
+       <parameter name="center_x" value="100000"/>
+       <parameter name="center_y" value="100000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+
+    <crustal_decay job="thickplate">
+     <plugin name="exponential"/>
+     <parameter name="tR" value="300"/>
+    </crustal_decay>
+
+  </load_function>
+
+<!-- OTHER STUFF -->
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:07:42" id="12" localtime="X" name="disk" user="roon"><file name="result" value="./disk_final_relaxed.nc"/>
+
+  <file name="result" value="./disk_final_relaxed.nc"/>
+
+  <region name="west" value="0"/>
+  <region name="east" value="400000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="400000"/>
+
+  <parameter name="gridsize" value="10000"/>
+
+<!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file! -->
+
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+ 
+  <greens_function>
+    <plugin name="final relaxed (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="40"/>		<!-- young's modulus [GPa] -->
+    <parameter name="H" value="5000"/>		<!-- plate thickness [m] -->
+    <parameter name="rho_f" value="3100"/>	<!-- liquid density [kg m^-3] -->
+ </greens_function>
+
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="20"/>
+       <parameter name="radius" value="50000"/>
+       <parameter name="center_x" value="200000"/>
+       <parameter name="center_y" value="200000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+  </load_function>
+
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:07:28" id="11" localtime="X" name="disk" user="roon"><file name="result" value="./point_elastic.dat"/>
+
+  <file name="result" value="./point_elastic.dat"/>
+
+  <region name="west" value="-10000"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="-10000"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="100"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="1"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="table writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:07:27" id="10" localtime="X" name="disk" user="roon"><file name="result" value="./disk_elastic_high.nc"/>
+
+  <file name="result" value="./disk_elastic_high.nc"/>
+
+  <region name="west" value="-20000"/>
+  <region name="east" value="20000"/>
+  <region name="south" value="-20000"/>
+  <region name="north" value="20000"/>
+
+  <parameter name="gridsize" value="1000"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="4000"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:07:13" id="9" localtime="X" name="disk" user="roon"><file name="result" value="./disk_elastic_high.nc"/>
+
+  <file name="result" value="./disk_elastic_high.nc"/>
+
+  <region name="west" value="-20000"/>
+  <region name="east" value="20000"/>
+  <region name="south" value="-20000"/>
+  <region name="north" value="20000"/>
+
+  <parameter name="gridsize" value="1000"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="4000"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:02:15" id="8" localtime="X" name="disk" user="roon"><file name="result" value="./disk_fourier_ts.nc"/>
+
+  <file name="result" value="./disk_fourier_ts.nc"/>
+
+  <region name="west" value="-10000"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="-10000"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="250"/>
+
+<!-- MODEL TIME CONFIG -->  
+  <parameter name="timestep_size" value="1"/> 		<!-- each step is a day -->
+  <parameter name="timesteps" value="365"/> 	<!-- 365 steps == 1 year -->
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 3d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="4000"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+   
+  <!-- load history: use low order terms of fourier series -->
+    <load_history>
+     <plugin name="fourier_series"/>
+     <parameter name="period_length" value="365"/>	<!-- 365 days -->
+     <parameter name="bias" value="0"/>	<!-- vertical offset -->
+     <parameter name="trend" value="0"/>	<!-- linear trend -->
+     <parameter name="annual_sin" value="0.3"/>	<!-- linear trend -->
+     <parameter name="annual_cos" value="0.3"/>	<!-- linear trend -->
+     <parameter name="semiannual_sin" value="0.3"/>	<!-- linear trend -->
+     <parameter name="semiannual_cos" value="0.3"/>	<!-- linear trend -->
+</load_history>
+
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="03:00:38" id="7" localtime="X" name="icelandic rhythmics " user="roon"><file name="result" value="./elastic.nc"/>
+ <file name="result" value="./elastic.nc"/> <!--result file-->
+
+<!-- MODEL SPACE CONFIG -->  
+  <region name="west" value="146427"/>
+  <region name="east" value="804368"/>
+  <region name="south" value="296989"/>
+  <region name="north" value="739536"/>
+  <parameter name="gridsize" value="1000"/>         <!--side length of cells {m} -->
+
+<!-- KERNEL DEFINITION - a simple 2 dimensional convolution will do here -->
+  <kernel> 
+  	<plugin name="fast 2d convolution"/> 
+  </kernel>
+
+<!-- EARTH MODEL (equations 1 and 2 in Pinel et al., 2007, GJI)-->
+ <greens_function>
+  <plugin name="elastic halfspace (pinel)"/>
+  <parameter name="g" value="9.81"/>  <!--acc. due to gravity-->
+  <parameter name="nu" value="0.25"/> <!--Poisson ratio-->
+  <parameter name="E" value="40"/>    <!--Young modulus-->
+ </greens_function>
+
+<!-- LOAD MODEL - all the loads are defined in one file -->
+ <load_function>
+  <load>
+   <plugin name="irregular load"/>            
+   <parameter name="rho" value="1000"/>
+   <parameter name="file" value="./load/load_all_glaciers.dat"/>
+  </load>
+ </load_function>
+
+ <!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+  <postprocessor> 
+   <!-- we want the horizontal displacement for cylindrical coordinates ... -->
+   <plugin name="xy2r"/> 
+   <!-- ... and the ratio of horizontal to vertical displacements (therefore-->
+   <!-- xy2r must be calculated first! -->   
+   <plugin name="hori2vert-ratio"/> 
+  </postprocessor>
+
+<!-- RESULT HANDLER - write in netCDF format -->
+  <output> <plugin name="netcdf writer"/> </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="02:58:44" id="6" localtime="X" name="disk" user="roon"><file name="result" value="./disk_fourier_ts.nc"/>
+
+  <file name="result" value="./disk_fourier_ts.nc"/>
+
+  <region name="west" value="-10000"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="-10000"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="250"/>
+
+<!-- MODEL TIME CONFIG -->  
+  <parameter name="timestep_size" value="1"/> 		<!-- each step is a day -->
+  <parameter name="timesteps" value="365"/> 	<!-- 365 steps == 1 year -->
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 3d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="4000"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+   
+  <!-- load history: use low order terms of fourier series -->
+    <load_history>
+     <plugin name="fourier_series"/>
+     <parameter name="period_length" value="365"/>	<!-- 365 days -->
+     <parameter name="bias" value="0"/>	<!-- vertical offset -->
+     <parameter name="trend" value="0"/>	<!-- linear trend -->
+     <parameter name="annual_sin" value="0.3"/>	<!-- linear trend -->
+     <parameter name="annual_cos" value="0.3"/>	<!-- linear trend -->
+     <parameter name="semiannual_sin" value="0.3"/>	<!-- linear trend -->
+     <parameter name="semiannual_cos" value="0.3"/>	<!-- linear trend -->
+</load_history>
+
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="02:27:01" id="5" localtime="X" name="icelandic rhythmics " user="roon"><file name="result" value="./elastic.nc"/>
+ <file name="result" value="./elastic.nc"/> <!--result file-->
+
+<!-- MODEL SPACE CONFIG -->  
+  <region name="west" value="146427"/>
+  <region name="east" value="804368"/>
+  <region name="south" value="296989"/>
+  <region name="north" value="739536"/>
+  <parameter name="gridsize" value="1000"/>         <!--side length of cells {m} -->
+
+<!-- KERNEL DEFINITION - a simple 2 dimensional convolution will do here -->
+  <kernel> 
+  	<plugin name="fast 2d convolution"/> 
+  </kernel>
+
+<!-- EARTH MODEL (equations 1 and 2 in Pinel et al., 2007, GJI)-->
+ <greens_function>
+  <plugin name="elastic halfspace (pinel)"/>
+  <parameter name="g" value="9.81"/>  <!--acc. due to gravity-->
+  <parameter name="nu" value="0.25"/> <!--Poisson ratio-->
+  <parameter name="E" value="40"/>    <!--Young modulus-->
+ </greens_function>
+
+<!-- LOAD MODEL - all the loads are defined in one file -->
+ <load_function>
+  <load>
+   <plugin name="irregular load"/>            
+   <parameter name="rho" value="1000"/>
+   <parameter name="file" value="./load/load_all_glaciers.dat"/>
+  </load>
+ </load_function>
+
+ <!-- POSTPROCESSORS - here come the things that add a little comfort to the results -->
+  <postprocessor> 
+   <!-- we want the horizontal displacement for cylindrical coordinates ... -->
+   <plugin name="xy2r"/> 
+   <!-- ... and the ratio of horizontal to vertical displacements (therefore-->
+   <!-- xy2r must be calculated first! -->   
+   <plugin name="hori2vert-ratio"/> 
+  </postprocessor>
+
+<!-- RESULT HANDLER - write in netCDF format -->
+  <output> <plugin name="netcdf writer"/> </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="02:26:41" id="4" localtime="X" name="disk" user="roon"><file name="result" value="./point_elastic.dat"/>
+
+  <file name="result" value="./point_elastic.dat"/>
+
+  <region name="west" value="-10000"/>
+  <region name="east" value="10000"/>
+  <region name="south" value="-10000"/>
+  <region name="north" value="10000"/>
+
+  <parameter name="gridsize" value="100"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="1"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="table writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="02:26:40" id="3" localtime="X" name="disk" user="roon"><file name="result" value="./disk_final_relaxed.nc"/>
+
+  <file name="result" value="./disk_final_relaxed.nc"/>
+
+  <region name="west" value="0"/>
+  <region name="east" value="400000"/>
+  <region name="south" value="0"/>
+  <region name="north" value="400000"/>
+
+  <parameter name="gridsize" value="10000"/>
+
+<!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file! -->
+
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+ 
+  <greens_function>
+    <plugin name="final relaxed (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="40"/>		<!-- young's modulus [GPa] -->
+    <parameter name="H" value="5000"/>		<!-- plate thickness [m] -->
+    <parameter name="rho_f" value="3100"/>	<!-- liquid density [kg m^-3] -->
+ </greens_function>
+
+
+  <load_function>
+    <load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="20"/>
+       <parameter name="radius" value="50000"/>
+       <parameter name="center_x" value="200000"/>
+       <parameter name="center_y" value="200000"/>
+       <parameter name="rho" value="1000"/>
+    </load>
+  </load_function>
+
+  <postprocessor>
+    <plugin name="xy2r"/>
+    <plugin name="hori2vert-ratio"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="02:25:57" id="2" localtime="X" name="disk" user="roon"><file name="result" value="./disk_elastic_high.nc"/>
+
+  <file name="result" value="./disk_elastic_high.nc"/>
+
+  <region name="west" value="-20000"/>
+  <region name="east" value="20000"/>
+  <region name="south" value="-20000"/>
+  <region name="north" value="20000"/>
+
+  <parameter name="gridsize" value="1000"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="4000"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment><experiment date="Mon 02 Mar 2026" gmtime="02:22:23" id="1" localtime="X" name="disk" user="roon"><file name="result" value="./disk_elastic_high.nc"/>
+
+  <file name="result" value="./disk_elastic_high.nc"/>
+
+  <region name="west" value="-20000"/>
+  <region name="east" value="20000"/>
+  <region name="south" value="-20000"/>
+  <region name="north" value="20000"/>
+
+  <parameter name="gridsize" value="1000"/>
+
+  <!-- ONLY ONE LOAD FUNCTION WHEN USING fast 2d convolution ... stick everything in one file -->
+  <kernel>
+    <plugin name="fast 2d convolution"/>
+ </kernel>
+
+ <greens_function>
+    <plugin name="elastic halfspace (pinel)"/>
+    <parameter name="g" value="9.81"/>		<!-- acceleration due to gravity [m s^-2] -->
+    <parameter name="nu" value="0.25"/>	<!-- poisson's ratio -->
+    <parameter name="E" value="10"/>		<!-- young's modulus [GPa] -->
+ </greens_function>
+
+  <load_function>
+	<load>
+       <plugin name="disk load"/>
+       <parameter name="height" value="150"/>
+       <parameter name="radius" value="4000"/>
+       <parameter name="center_x" value="0"/>
+       <parameter name="center_y" value="0"/>
+       <parameter name="rho" value="1000"/>
+   </load>
+  </load_function>
+  
+  <postprocessor>
+    <plugin name="xy2r"/>
+  </postprocessor>
+
+  <output>
+    <plugin name="netcdf writer"/>
+  </output>
+
+</experiment>
 </experiments>

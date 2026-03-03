@@ -79,7 +79,7 @@ namespace GeographicLib {
     void filepos(int ix, int iy) const {
       // g++ 3.x doesn't know about the cast to std::ios::streamoff.  Just
       // remove the cast in this case.
-      _file.seekg(std::ios::streamoff(_datastart +
+      _file.seekg(std::streamoff(_datastart +
                                       2ULL * (unsigned(iy) * _swidth +
                                               unsigned(ix))));
     }

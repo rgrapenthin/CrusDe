@@ -29,20 +29,23 @@
 
  <greens_function>
     <plugin name="alma"/>
-    <parameter name="deg_min"  value="2" />	<!-- acceleration due to gravity [m s^-2] -->
-    <parameter name="deg_step" value="1" />	<!-- poisson's ratio -->
-    <parameter name="deg_max"  value="4"/>	<!-- young's modulus [GPa] -->
-    <parameter name="file"     value="" />	<!-- acceleration due to gravity [m s^-2] -->
-    <parameter name="kv"       value="3" />	<!-- poisson's ratio -->
-    <parameter name="lth"      value="120000"/>	<!-- young's modulus [GPa] -->
-    <parameter name="mode"     value="1" />	<!-- acceleration due to gravity [m s^-2] -->
-    <parameter name="ng"       value="8" />	<!-- poisson's ratio -->
-    <parameter name="nla"      value="1"/>	<!-- young's modulus [GPa] -->
-    <parameter name="p"        value="2" />	<!-- acceleration due to gravity [m s^-2] -->
-    <parameter name="rheol"    value="8" />	<!-- poisson's ratio -->
-    <parameter name="sd"       value="64"/>	<!-- young's modulus [GPa] -->
-    <parameter name="time_min" value="8" />	<!-- acceleration due to gravity [m s^-2] -->
-    <parameter name="time_max" value="8"/>	<!-- young's modulus [GPa] -->
+    <!-- Harmonic degree range for Love number computation -->
+    <parameter name="deg_min"  value="2" />
+    <parameter name="deg_step" value="1" />
+    <parameter name="deg_max"  value="100"/>
+    <!-- ALMA3 rheological model file (absolute path, or relative to $ALMA) -->
+    <parameter name="file"     value="MODELS/simple-Earth.dat" />
+    <!-- Order of Gaver/Salzer sequence (8 is standard) -->
+    <parameter name="ng"       value="8" />
+    <!-- Number of layers in the model file -->
+    <parameter name="nla"      value="3"/>
+    <!-- Number of time subdivisions (p+1 time points will be computed) -->
+    <parameter name="p"        value="0" />
+    <!-- Number of significant digits for multi-precision arithmetic -->
+    <parameter name="sd"       value="64"/>
+    <!-- Time range in kyrs (linear scale); with p=0 a single time point at time_min -->
+    <parameter name="time_min" value="0" />
+    <parameter name="time_max" value="0"/>
  </greens_function>
 
   <load_function>

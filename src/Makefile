@@ -26,16 +26,25 @@
 #										#
 #################################################################################
 
+.DEFAULT_GOAL := all
+
+# --- CRUSDE_HOME: default to project root if not set in environment
+CRUSDE_HOME ?= $(abspath $(shell pwd)/..)
+export CRUSDE_HOME
+
 # --- Target name
 TARGET                  := ../crusde
 BIN                     := /usr/local/bin
-# --- path to Qt installation
-export QT_DIR           := /usr/local/Trolltech/Qt
-export QT_INCLUDES      := -I$(QT_DIR)/include -I$(QT_DIR)/include/Qt -I$(QT_DIR)/include/QtAssistant -I$(QT_DIR)/include/QtCore -I$(QT_DIR)/include/QtGui -I$(QT_DIR)/include/QtXml
+# --- Qt5 via pkg-config
+export QT_INCLUDES      := $(shell pkg-config --cflags Qt5Widgets Qt5Core)
 
 #--- directory information
-export INCLUDE_DIRS    := -I/usr/include -I. -I$(shell pwd) -I/usr/local/xerces-c/include -I$(shell pwd)/../libs/geographiclib/include
-export LIB_DIRS        := -L/usr/local/libs/xerces-c/lib -L/usr/X11R6/lib -L$(QT_DIR)/lib -L$(shell pwd)/../libs/geographiclib/src
+export INCLUDE_DIRS    := -I/usr/include -I. -I$(shell pwd) \
+    $(shell pkg-config --cflags xerces-c) \
+    -I$(shell pwd)/../libs/geographiclib-1.4/include
+export LIB_DIRS        := $(shell pkg-config --libs-only-L xerces-c) \
+    $(shell pkg-config --libs-only-L Qt5Widgets Qt5Core) \
+    -L$(shell pwd)/../libs/geographiclib-1.4/src
 export PLUGIN_DIR      := ./plugin_src
 export GREEN_DIR       := $(PLUGIN_DIR)/green
 export LOAD_DIR        := $(PLUGIN_DIR)/load
@@ -47,14 +56,13 @@ export CRUSTALDECAY_DIR := $(PLUGIN_DIR)/crustal_decay
 
 #--- linker options, might be different from plugins', thus local
 LINKER_OPT             := -lm -ldl -lstdc++ -lxerces-c -lGeographic -rdynamic
-#LINKER_QT              := -lQtGui -lQtCore  -lQtXml -lfreetype -lfontconfig -lpthread -lXrender -lpng  -lXcursor -lXi  -lXrandr -lXinerama -lSM -lrt 
-LINKER_QT              := -lQtGui -lQtCore  -lQtXml -lX11 -lrt 
+LINKER_QT              := $(shell pkg-config --libs Qt5Widgets Qt5Core)
 
 #--- debug flag, empty by default, set specifically for each target below
 DEBUG                  := 
 
 #--- this directories' sources
-SOURCE                 := $(shell ls *.c *.cpp 2>/dev/null)
+SOURCE                 := $(filter-out moc_%.cpp, $(shell ls *.c *.cpp 2>/dev/null))
 HEADER                 := $(shell ls *.h 2>/dev/null)
 OBJS                   := $(notdir $(SOURCE:%.cpp=%.o))
 OBJS                   := $(notdir $(OBJS:%.c=%.o))
@@ -64,7 +72,7 @@ export M_FLAGS         := --no-print-directory
 
 #--- Meta Object Compiler  - needed by all header files 
 #--- which use the Q_OBJECT macro
-MOC                    := $(QT_DIR)/bin/moc
+MOC                    := $(shell pkg-config --variable=host_bins Qt5Core)/moc
 MOC_MODULES            := $(patsubst %.h, moc_%.o, $(shell grep -l Q_OBJECT *.h))
 
 
@@ -75,9 +83,9 @@ MOC_MODULES            := $(patsubst %.h, moc_%.o, $(shell grep -l Q_OBJECT *.h)
 .c.o:
 	gcc -c -Wall $(INCLUDE_DIRS) $<
 
-#--- compile sources (C++) 
+#--- compile sources (C++)
 .cpp.o:
-	g++ -c -Wall $(DEBUG) $(INCLUDE_DIRS) $(QT_INCLUDES) $<
+	g++ -c -Wall -std=c++14 -fPIC $(DEBUG) $(INCLUDE_DIRS) $(QT_INCLUDES) $<
 
 moc_%.cpp: %.h
 	$(MOC) $< -o $@
@@ -101,7 +109,7 @@ help:		 		# hope this helps
 
 defs.h: $(SOURCE)
 	@echo --------------------------------------
-	gcc -MM $(INCLUDE_DIRS) $(QT_INCLUDES) $? > defs.h
+	g++ -std=c++14 -fPIC -MM $(INCLUDE_DIRS) $(QT_INCLUDES) $? > defs.h
 	@echo --------------------------------------
 
 all: plugins $(TARGET)		# creates release binary

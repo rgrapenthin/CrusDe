@@ -41,7 +41,8 @@
 #include <xercesc/dom/DOMNodeIterator.hpp>
 #include <xercesc/dom/DOMNodeList.hpp>
 #include <xercesc/dom/DOMText.hpp>
-#include <xercesc/dom/DOMWriter.hpp>
+#include <xercesc/dom/DOMLSSerializer.hpp>
+#include <xercesc/dom/DOMLSOutput.hpp>
 #include <xercesc/framework/StdOutFormatTarget.hpp>
 #include <xercesc/framework/LocalFileFormatTarget.hpp>
 #include <xercesc/util/XMLUni.hpp>

@@ -15,7 +15,7 @@ SOURCE	 	:= $(shell ls *.c 2>/dev/null)
 OBJS 		:= $(notdir $(SOURCE:%.c=%.o))
 SO_OBJS 	:= $(notdir $(OBJS:%.o=%.so))
 
-INCLUDE_DIRS	:= -I/usr/local/fftw/api -I/usr/include -I. -I../..
+INCLUDE_DIRS	:= -I/usr/include -I. -I../..
 
 .PHONY: all clean help
 .SUFFIXES: .so

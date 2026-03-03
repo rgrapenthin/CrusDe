@@ -769,12 +769,12 @@ int SimulationCore::getTimesteps()
 
 const char* SimulationCore::outFile()
 {
-	string name(com_port->getResultFileName());
-	
-	if(name.empty())
+	out_file = com_port->getResultFileName();
+
+	if(out_file.empty())
 		return "experiment.nc";
 	else
-		return name.c_str();
+		return out_file.c_str();
 }
 
 int SimulationCore::sizeX(){		return model_region->getSizeX();	}
