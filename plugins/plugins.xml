@@ -328,4 +328,33 @@
     <parameter>time_min</parameter>
   </plugin>
 
+  <plugin id="26">
+    <name>elastic halfspace (farrell)</name>
+    <category>green</category>
+    <version>0.1</version>
+    <authors>ronni grapenthin</authors>
+    <filename>/home/roon/work/CODE/CrusDe/plugins/green/farrell_flat_elastic.so</filename>
+    <description>This Green's function implements the 'elastic halfspace' Earth model case as described by Farrell (1972) for horizontal and vertical displacements at depth z.</description>
+    <added>Mon 03 Mar 2026</added>
+    <parameter>E</parameter>
+    <parameter>nu</parameter>
+    <parameter>z</parameter>
+  </plugin>
+
+  <plugin id="27">
+    <name>fourier_series_general</name>
+    <category>load_history</category>
+    <version>0.1</version>
+    <authors>ronni grapenthin</authors>
+    <filename>/home/roon/work/CODE/CrusDe/plugins/load_history/fourier_series_general.so</filename>
+    <description>Provides a general Fourier Series with bias, b_0, linear trend, b_1, and up to 5 sine/cosine components each with independent amplitude, period, and phase: h(t) = b_0 + b_1*t + sum_i [ c_i*cos(2pi*t/T_cos_i + phi_cos_i) + s_i*sin(2pi*t/T_sin_i + phi_sin_i) ]</description>
+    <added>Mon 03 Mar 2026</added>
+    <parameter>amp_cos_1</parameter>
+    <parameter>amp_sin_1</parameter>
+    <parameter>period_cos_1</parameter>
+    <parameter>period_sin_1</parameter>
+    <parameter>phase_cos_1</parameter>
+    <parameter>phase_sin_1</parameter>
+  </plugin>
+
 </CrusDe_Plugins>

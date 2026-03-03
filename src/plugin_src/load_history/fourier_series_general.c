@@ -87,14 +87,6 @@ double T_cos_1;	        /*!< period for 1st cosine contribution */
 double phi_sin_1;	    /*!< phase for 1st sine contribution */
 double phi_cos_1;	    /*!< phase for 1st cosine contribution */
 
-//first sine/cosine
-double s_1;	            /*!< amplitude for 1st sine contribution */
-double c_1;	            /*!< amplitude for 1st cosine contribution */
-double T_sin_1; 	    /*!< period for 1st sine contribution */
-double T_cos_1;	        /*!< period for 1st cosine contribution */
-double phi_sin_1;	    /*!< phase for 1st sine contribution */
-double phi_cos_1;	    /*!< phase for 1st cosine contribution */
-
 //second sine/cosine
 double s_2;	            /*!< amplitude for 2nd sine contribution */
 double c_2;	            /*!< amplitude for 2nd cosine contribution */
@@ -218,7 +210,7 @@ extern double get_value_at(unsigned int t)
     c_1            = *p_c_1[my_id];
     T_sin_1        = *p_T_sin_1[my_id];
     T_cos_1        = *p_T_cos_1[my_id];
-    phi_sin_1      = *p_phi_cos_1[my_id];
+    phi_sin_1      = *p_phi_sin_1[my_id];
     phi_cos_1      = *p_phi_cos_1[my_id];
 
     //second sine/cosine
@@ -226,7 +218,7 @@ extern double get_value_at(unsigned int t)
     c_2            = *p_c_2[my_id];
     T_sin_2        = *p_T_sin_2[my_id];
     T_cos_2        = *p_T_cos_2[my_id];
-    phi_sin_2      = *p_phi_cos_2[my_id];
+    phi_sin_2      = *p_phi_sin_2[my_id];
     phi_cos_2      = *p_phi_cos_2[my_id];
 
     //third sine/cosine
@@ -234,7 +226,7 @@ extern double get_value_at(unsigned int t)
     c_3            = *p_c_3[my_id];
     T_sin_3        = *p_T_sin_3[my_id];
     T_cos_3        = *p_T_cos_3[my_id];
-    phi_sin_3      = *p_phi_cos_3[my_id];
+    phi_sin_3      = *p_phi_sin_3[my_id];
     phi_cos_3      = *p_phi_cos_3[my_id];
 
     //fourth sine/cosine
@@ -242,7 +234,7 @@ extern double get_value_at(unsigned int t)
     c_4            = *p_c_4[my_id];
     T_sin_4        = *p_T_sin_4[my_id];
     T_cos_4        = *p_T_cos_4[my_id];
-    phi_sin_4      = *p_phi_cos_4[my_id];
+    phi_sin_4      = *p_phi_sin_4[my_id];
     phi_cos_4      = *p_phi_cos_4[my_id];
 
     //fifth sine/cosine
@@ -250,7 +242,7 @@ extern double get_value_at(unsigned int t)
     c_5            = *p_c_5[my_id];
     T_sin_5        = *p_T_sin_5[my_id];
     T_cos_5        = *p_T_cos_5[my_id];
-    phi_sin_5      = *p_phi_cos_5[my_id];
+    phi_sin_5      = *p_phi_sin_5[my_id];
     phi_cos_5      = *p_phi_cos_5[my_id];
 
 	return bias                                  + trend * t                             +  //constants, linear trend
